@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Notas - Profesor</title>
+    <style>
+        body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
+        .container { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
+        h1 { color: #333; text-align: center; }
+        h2 { color: #007bff; margin-top: 1.5em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; }
+        th { background-color: #f2f2f2; }
+        tr:hover { background-color: #f9f9f9; }
+        input[type="number"] { width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
+        .button-group { text-align: right; margin-top: 20px; }
+        .button-group button { padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
+        .button-group button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gestión de Notas y Reportes</h1>
+        <h2>Curso: Programación Avanzada (PROG401)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Estudiante</th>
+                    <th>Evaluación 1 (25%)</th>
+                    <th>Evaluación 2 (25%)</th>
+                    <th>Evaluación Final (50%)</th>
+                    <th>Promedio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Juan Pérez</td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="4.5"></td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="4.0"></td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="4.2"></td>
+                    <td>4.17</td>
+                </tr>
+                <tr>
+                    <td>María López</td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="3.8"></td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="4.1"></td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="3.9"></td>
+                    <td>3.95</td>
+                </tr>
+                <tr>
+                    <td>Carlos Gómez</td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="5.0"></td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="4.8"></td>
+                    <td><input type="number" min="0" max="5" step="0.1" value="5.0"></td>
+                    <td>4.95</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="button-group">
+            <button>Guardar Cambios</button>
+            <button>Generar Reporte Consolidado</button>
+        </div>
+    </div>
+</body>
+</html>

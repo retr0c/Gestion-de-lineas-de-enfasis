@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototipo Sistema de Gestión</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- ================== LOGIN ================== -->
+  <section id="login" class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+      <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Inicio de Sesión</h2>
+      <form onsubmit="return false;">
+        <label class="block mb-2 text-gray-600">Usuario / Código</label>
+        <input type="text" class="w-full mb-4 px-3 py-2 border rounded-lg" placeholder="Ingresa tu usuario">
+        <label class="block mb-2 text-gray-600">Contraseña</label>
+        <input type="password" class="w-full mb-6 px-3 py-2 border rounded-lg" placeholder="********">
+        <div class="grid grid-cols-1 gap-2">
+          <button type="button" onclick="mostrarDashboard('estudiante')" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Entrar como Estudiante</button>
+          <button type="button" onclick="mostrarDashboard('profesor')" class="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700">Entrar como Profesor</button>
+          <button type="button" onclick="mostrarDashboard('coordinador')" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">Entrar como Administrador</button>
+        </div>
+        <p class="text-sm text-center mt-4 text-blue-500 cursor-pointer hover:underline">Recuperar Contraseña</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================== ESTUDIANTE ================== -->
+  <section id="dashboard-estudiante" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-gray-700">Dashboard Estudiante</h1>
+      <button onclick="cerrarSesion()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Cerrar Sesión</button>
+    </header>
+
+    <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Tarjeta: Líneas de Énfasis -->
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="text-lg font-semibold text-gray-700 mb-2">Líneas de Énfasis Disponibles</h2>
+        <p class="text-gray-500">Consulta y selecciona las líneas activas.</p>
+        <button onclick="mostrarSeccion('busqueda')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Líneas</button>
+      </div>
+
+      <!-- Tarjeta: Solicitudes -->
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="text-lg font-semibold text-gray-700 mb-2">Solicitudes</h2>
+        <p class="text-gray-500">Revisa o cancela solicitudes pendientes.</p>
+        <button onclick="mostrarSeccion('solicitudes')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Ver Solicitudes</button>
+      </div>
+
+      <!-- Tarjeta: Notificaciones -->
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="text-lg font-semibold text-gray-700 mb-2">Notificaciones</h2>
+        <ul class="text-gray-600 list-disc list-inside">
+          <li>Aprobación de línea en espera</li>
+          <li>Nuevo cronograma disponible</li>
+        </ul>
+      </div>
+    </main>
+  </section>
+
+  <!-- Búsqueda de Líneas con FILTRO por Carrera -->
+  <section id="busqueda" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-gray-700">Búsqueda de Líneas de Énfasis</h1>
+      <button onclick="mostrarSeccion('dashboard-estudiante')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Volver</button>
+    </header>
+
+    <main class="p-6 space-y-6">
+      <!-- Filtros -->
+      <div class="bg-white p-4 rounded-2xl shadow grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+        <div>
+          <label for="filtro-carrera" class="block text-sm text-gray-600 mb-1">Carrera (Programa)</label>
+          <select id="filtro-carrera" class="w-full border rounded-lg px-3 py-2">
+            <option value="Todas">Todas</option>
+            <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+            <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+            <option value="Matemáticas">Matemáticas</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-sm text-gray-600 mb-1">Área (visual)</label>
+          <select disabled class="w-full border rounded-lg px-3 py-2 bg-gray-50 text-gray-400">
+            <option>Se puede agregar luego</option>
+          </select>
+        </div>
+        <button type="button" onclick="resetFiltroCarrera()" class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600">Limpiar Filtros</button>
+      </div>
+
+      <!-- Resultados -->
+      <div id="lista-lineas" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Card 1 -->
+        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Ingeniería de Sistemas" data-area="IA y Datos">
+          <h2 class="text-lg font-semibold text-gray-700">IA y Ciencia de Datos</h2>
+          <p class="text-gray-500">Cupos: 20/30</p>
+          <p class="text-gray-500">Prerrequisitos: Programación Avanzada</p>
+          <span class="inline-block text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2">Ing. de Sistemas</span>
+          <div class="mt-4">
+            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Ingeniería de Sistemas" data-area="Seguridad">
+          <h2 class="text-lg font-semibold text-gray-700">Seguridad Informática</h2>
+          <p class="text-gray-500">Cupos: 15/25</p>
+          <p class="text-gray-500">Prerrequisitos: Redes de Computadores</p>
+          <span class="inline-block text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2">Ing. de Sistemas</span>
+          <div class="mt-4">
+            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Ingeniería Industrial" data-area="Gestión">
+          <h2 class="text-lg font-semibold text-gray-700">Gestión de Proyectos</h2>
+          <p class="text-gray-500">Cupos: 10/20</p>
+          <p class="text-gray-500">Prerrequisitos: Fundamentos de Gestión</p>
+          <span class="inline-block text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded mt-2">Ing. Industrial</span>
+          <div class="mt-4">
+            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Matemáticas" data-area="IA y Datos">
+          <h2 class="text-lg font-semibold text-gray-700">Métodos Numéricos Avanzados</h2>
+          <p class="text-gray-500">Cupos: 12/18</p>
+          <p class="text-gray-500">Prerrequisitos: Cálculo Multivariable</p>
+          <span class="inline-block text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded mt-2">Matemáticas</span>
+          <div class="mt-4">
+            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- Detalle de Línea -->
+  <section id="detalle" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-gray-700">Detalle de Línea de Énfasis</h1>
+      <button onclick="mostrarSeccion('busqueda')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Volver</button>
+    </header>
+
+    <main class="p-6 space-y-4">
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="text-lg font-semibold text-gray-700">Seguridad Informática</h2>
+        <p class="text-gray-600">Incluye cursos de Criptografía, Auditoría de Sistemas y Forense Digital.</p>
+        <p class="text-gray-600">Profesores: Dra. Andrea López, Dr. Carlos Pérez</p>
+        <p class="text-gray-600">Horario: Lunes y Miércoles 6-8 pm</p>
+        <div class="mt-4 space-x-2">
+          <button class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Solicitar Inscripción</button>
+          <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300">Ver Cronograma</button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- Solicitudes del Estudiante (con Cancelar) -->
+  <section id="solicitudes" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-gray-700">Solicitudes de Inscripción</h1>
+      <button onclick="mostrarSeccion('dashboard-estudiante')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Volver</button>
+    </header>
+
+    <main class="p-6">
+      <table class="w-full bg-white rounded-2xl shadow overflow-hidden">
+        <thead class="bg-gray-200 text-gray-700">
+          <tr>
+            <th class="p-3 text-left">Línea</th>
+            <th class="p-3 text-left">Cursos</th>
+            <th class="p-3 text-left">Fecha</th>
+            <th class="p-3 text-left">Estado</th>
+            <th class="p-3 text-left">Acción</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700">
+          <tr class="border-t">
+            <td class="p-3">Seguridad Informática</td>
+            <td class="p-3">Criptografía, Forense Digital</td>
+            <td class="p-3">27/08/2025</td>
+            <td class="p-3 estado">Pendiente</td>
+            <td class="p-3">
+              <button onclick="cancelarSolicitud(this)" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Cancelar</button>
+            </td>
+          </tr>
+          <tr class="border-t">
+            <td class="p-3">IA y Ciencia de Datos</td>
+            <td class="p-3">ML I</td>
+            <td class="p-3">20/08/2025</td>
+            <td class="p-3 estado">Aprobada</td>
+            <td class="p-3">
+              <button disabled class="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-not-allowed">No disponible</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </section>
+
+  <!-- ================== PROFESOR ================== -->
+  <section id="dashboard-profesor" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Dashboard Profesor</h1>
+      <button onclick="cerrarSesion()" class="bg-red-500 text-white px-4 py-2 rounded-lg">Cerrar Sesión</button>
+    </header>
+    <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Cursos Asignados</h2>
+        <button onclick="mostrarSeccion('cursos-profesor')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Ver Cursos</button>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Reportes</h2>
+        <button onclick="mostrarSeccion('reportes-profesor')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Ver Reportes</button>
+      </div>
+    </main>
+  </section>
+
+  <section id="cursos-profesor" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Cursos Asignados</h1>
+      <button onclick="mostrarSeccion('dashboard-profesor')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    </header>
+    <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Criptografía</h2>
+        <p>Estudiantes inscritos: 25</p>
+        <button onclick="mostrarSeccion('gestion-curso')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Forense Digital</h2>
+        <p>Estudiantes inscritos: 18</p>
+        <button onclick="mostrarSeccion('gestion-curso')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
+      </div>
+    </main>
+  </section>
+
+  <section id="gestion-curso" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Gestión del Curso</h1>
+      <button onclick="mostrarSeccion('cursos-profesor')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    </header>
+    <main class="p-6 space-y-4">
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Lista de Estudiantes</h2>
+        <ul class="list-disc list-inside text-gray-700">
+          <li>Juan Pérez — Estado: Activo</li>
+          <li>Ana Gómez — Estado: Activo</li>
+          <li>Carlos Díaz — Estado: Activo</li>
+        </ul>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Gestión de Notas</h2>
+        <p class="text-gray-600">(Prototipo) Campos para ingreso de notas y cálculo de promedios.</p>
+      </div>
+    </main>
+  </section>
+
+  <section id="reportes-profesor" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Reportes del Profesor</h1>
+      <button onclick="mostrarSeccion('dashboard-profesor')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    </header>
+    <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Reporte de Notas</h2>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Reporte de Asistencia</h2>
+      </div>
+    </main>
+  </section>
+
+  <!-- ================== ADMIN / COORDINADOR ================== -->
+  <section id="dashboard-coordinador" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Dashboard Administrador</h1>
+      <button onclick="cerrarSesion()" class="bg-red-500 text-white px-4 py-2 rounded-lg">Cerrar Sesión</button>
+    </header>
+    <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Solicitudes Pendientes</h2>
+        <button onclick="mostrarSeccion('solicitudes-coordinador')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Revisar</button>
+      </div>
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Gestión de Líneas</h2>
+        <button onclick="mostrarSeccion('lineas-coordinador')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
+      </div>
+    </main>
+  </section>
+
+  <section id="solicitudes-coordinador" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Revisión de Solicitudes</h1>
+      <button onclick="mostrarSeccion('dashboard-coordinador')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    </header>
+    <main class="p-6">
+      <table class="w-full bg-white rounded-2xl shadow">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="p-3">Estudiante</th>
+            <th class="p-3">Línea</th>
+            <th class="p-3">Estado</th>
+            <th class="p-3">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="border-t">
+            <td class="p-3">Juan Pérez</td>
+            <td class="p-3">Seguridad Informática</td>
+            <td class="p-3">Pendiente</td>
+            <td class="p-3 space-x-2">
+              <button class="bg-green-600 text-white px-3 py-1 rounded">Aprobar</button>
+              <button class="bg-red-600 text-white px-3 py-1 rounded">Rechazar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </section>
+
+  <section id="lineas-coordinador" class="hidden min-h-screen bg-gray-50">
+    <header class="bg-white shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold">Gestión de Líneas</h1>
+      <button onclick="mostrarSeccion('dashboard-coordinador')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    </header>
+    <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-white p-6 rounded-2xl shadow">
+        <h2 class="font-semibold">Seguridad Informática</h2>
+        <p>Estado: Activa</p>
+        <div class="mt-4 space-x-2">
+          <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg">Editar</button>
+          <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">Ver Detalles</button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- ================== JS ================== -->
+  <script>
+    // Navegación base
+    function mostrarDashboard(rol) {
+      ocultarSecciones();
+      document.getElementById(`dashboard-${rol}`).classList.remove('hidden');
+      // Al entrar a búsqueda, asegurar filtro aplicado si luego navega
+      if (rol === 'estudiante') {
+        setTimeout(filtrarCarrera, 0);
+      }
+    }
+    function mostrarSeccion(id) {
+      ocultarSecciones();
+      document.getElementById(id).classList.remove('hidden');
+      if (id === 'busqueda') filtrarCarrera();
+    }
+    function cerrarSesion() {
+      ocultarSecciones();
+      document.getElementById('login').classList.remove('hidden');
+    }
+    function ocultarSecciones() {
+      document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+    }
+
+    // Filtro por Carrera (Programa)
+    const selectCarrera = document.getElementById('filtro-carrera');
+    if (selectCarrera) {
+      selectCarrera.addEventListener('change', filtrarCarrera);
+    }
+    function filtrarCarrera() {
+      const value = (selectCarrera && selectCarrera.value) || 'Todas';
+      document.querySelectorAll('#lista-lineas .linea-card').forEach(card => {
+        const coincide = value === 'Todas' || card.dataset.carrera === value;
+        card.classList.toggle('hidden', !coincide);
+      });
+    }
+    function resetFiltroCarrera() {
+      if (!selectCarrera) return;
+      selectCarrera.value = 'Todas';
+      filtrarCarrera();
+    }
+
+    // Cancelar solicitud (prototipo visual)
+    function cancelarSolicitud(btn) {
+      const row = btn.closest('tr');
+      const estadoCell = row.querySelector('.estado');
+      estadoCell.textContent = 'Cancelada';
+      estadoCell.classList.add('text-red-600');
+      btn.disabled = true;
+      btn.classList.add('opacity-50', 'cursor-not-allowed');
+      btn.textContent = 'Cancelada';
+    }
+  </script>
+
+</body>
+</html>
+
+
+
+
+
+
