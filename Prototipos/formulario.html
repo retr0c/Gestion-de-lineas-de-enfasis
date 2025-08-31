@@ -18,10 +18,14 @@
         .register-form button:hover { background-color: #0056b3; }
     </style>
 </head>
+
+</html>
+
+<!-- ...existing code... -->
 <body>
-    <div class="register-container">
-        <h2>Registro de Nuevo Estudiante</h2>
-        <form class="register-form" enctype="multipart/form-data">
+    <div class="register-container" id="form-container">
+        <h2>Registro de Nuevo Estudiante</h2> <button onclick="volver()" style="margin-top:1em; background-color:#007bff; color:white; border:none; border-radius:4px; padding:12px; font-size:16px; cursor:pointer;">Volver</button>
+        <form class="register-form" id="registroForm" enctype="multipart/form-data">
             <label for="cedula">Cédula:</label>
             <input type="text" id="cedula" name="cedula" required>
 
@@ -45,5 +49,31 @@
             <button type="submit">Enviar Solicitud de Registro</button>
         </form>
     </div>
+    <div class="register-container" id="mensaje-container" style="display:none; text-align:center;">
+        <h2>¡Registro completado!</h2>
+        <p>La información se guardó correctamente.</p>
+        <button onclick="volver()" style="margin-top:1em; background-color:#007bff; color:white; border:none; border-radius:4px; padding:12px; font-size:16px; cursor:pointer;">Volver</button>
+    </div>
+    <script>
+        document.getElementById('registroForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            document.getElementById('form-container').style.display = 'none';
+            document.getElementById('mensaje-container').style.display = 'block';
+        });
+
+        function volver() {
+            // Lee el parámetro 'origen' de la URL actual
+        const urlParams = new URLSearchParams(window.location.search);
+        const origen = urlParams.get('origen');
+
+        // Si la página se abrió desde la sección de detalles, vuelve a ella
+        if (origen === 'detalle') {
+            window.location.href = "index.html#detalle";
+        } else {
+            // Si la página se abrió de otra forma, regresa a la página anterior
+            window.history.back();
+         }
+       }
+    </script>
 </body>
-</html>
+<!-- ...existing code... -->
