@@ -1,40 +1,54 @@
-<!-- ================== LOGIN ================== -->
-<section id="login" class="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700">
-  <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md">
-    <!-- Logo o ícono -->
-    <div class="flex justify-center mb-6">
-      <div class="bg-blue-600 text-white rounded-full p-4 shadow-lg">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-3.314 2.686-6 6-6s6 2.686 6 6-2.686 6-6 6-6-2.686-6-6zM6 21v-2a4 4 0 014-4h4" />
-        </svg>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prototipo Sistema de Gestión</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 font-sans">
+
+  <!-- ================== LOGIN ================== -->
+  <section id="login" class="flex items-center justify-center min-h-screen">
+    <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md">
+      <!-- Icono de login -->
+      <div class="flex justify-center mb-6">
+        <div class="bg-blue-600 text-white rounded-full p-4 shadow-lg">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-3.314 2.686-6 6-6s6 2.686 6 6-2.686 6-6 6-6-2.686-6-6zM6 21v-2a4 4 0 014-4h4" />
+          </svg>
+        </div>
       </div>
+
+      <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Inicio de Sesión</h2>
+
+      <form onsubmit="return false;" class="space-y-5">
+        <!-- Número de Documento -->
+        <div>
+          <label class="block text-gray-600 mb-1">Número de Documento</label>
+          <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ingresa tu documento">
+        </div>
+
+        <!-- Contraseña -->
+        <div>
+          <label class="block text-gray-600 mb-1">Contraseña</label>
+          <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="********">
+        </div>
+
+        <!-- Botones de ingreso -->
+        <div class="grid grid-cols-1 gap-3">
+          <button type="button" onclick="mostrarDashboard('estudiante')" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 shadow-md transition">Entrar como Estudiante</button>
+          <button type="button" onclick="mostrarDashboard('profesor')" class="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 shadow-md transition">Entrar como Profesor</button>
+          <button type="button" onclick="mostrarDashboard('coordinador')" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 shadow-md transition">Entrar como Administrador</button>
+        </div>
+
+        <!-- Recuperar contraseña -->
+        <p class="text-sm text-center mt-4 text-blue-600 cursor-pointer hover:underline">¿Olvidaste tu contraseña?</p>
+      </form>
     </div>
+  </section>
 
-    <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Inicio de Sesión</h2>
+</body>
+</html>
 
-    <form onsubmit="return false;" class="space-y-5">
-      <!-- Número de Documento -->
-      <div>
-        <label class="block text-gray-600 mb-1">Número de Documento</label>
-        <input type="number" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Ingresa tu documento">
-      </div>
-
-      <!-- Contraseña -->
-      <div>
-        <label class="block text-gray-600 mb-1">Contraseña</label>
-        <input type="password" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="********">
-      </div>
-
-      <!-- Botones de ingreso -->
-      <div class="grid grid-cols-1 gap-3">
-        <button type="button" onclick="mostrarDashboard('estudiante')" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 shadow-md transition">Entrar como Estudiante</button>
-        <button type="button" onclick="mostrarDashboard('profesor')" class="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 shadow-md transition">Entrar como Profesor</button>
-        <button type="button" onclick="mostrarDashboard('coordinador')" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 shadow-md transition">Entrar como Administrador</button>
-      </div>
-
-      <!-- Recuperar contraseña -->
-      <p class="text-sm text-center mt-4 text-blue-600 cursor-pointer hover:underline">¿Olvidaste tu contraseña?</p>
-    </form>
-  </div>
-</section>
 
