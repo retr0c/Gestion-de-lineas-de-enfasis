@@ -33,80 +33,142 @@
       <h2 class="text-lg font-semibold text-gray-700 mb-4">Búsqueda y Filtros</h2>
       
       <label class="block text-sm text-gray-600 mb-1">Palabra clave</label>
-      <input type="text" placeholder="Ej: IA, Gestión, Salud..." class="w-full border rounded-lg px-3 py-2 mb-4">
+      <input type="text" id="keyword" placeholder="Ej: IA, Gestión, Salud..." class="w-full border rounded-lg px-3 py-2 mb-4">
       
       <label class="block text-sm text-gray-600 mb-1">Área de Conocimiento</label>
-      <select class="w-full border rounded-lg px-3 py-2 mb-4">
-        <option>Seleccionar área</option>
-        <option>Ingeniería</option>
-        <option>Salud</option>
-        <option>Ciencias</option>
+      <select id="area" class="w-full border rounded-lg px-3 py-2 mb-4">
+        <option value="">Seleccionar área</option>
+        <option value="Ingeniería">Ingeniería</option>
+        <option value="Salud">Salud</option>
+        <option value="Ciencias">Ciencias</option>
       </select>
 
       <label class="block text-sm text-gray-600 mb-1">Programa de Posgrado</label>
-      <select class="w-full border rounded-lg px-3 py-2 mb-4">
-        <option>Seleccionar programa</option>
-        <option>Maestría en Analítica</option>
-        <option>Maestría en Energías</option>
+      <select id="programa" class="w-full border rounded-lg px-3 py-2 mb-4">
+        <option value="">Seleccionar programa</option>
+        <option value="Analítica">Maestría en Analítica</option>
+        <option value="Energías">Maestría en Energías</option>
       </select>
 
       <label class="block text-sm text-gray-600 mb-1">Facultad</label>
-      <select class="w-full border rounded-lg px-3 py-2 mb-4">
-        <option>Seleccionar facultad</option>
-        <option>Ingeniería</option>
-        <option>Medicina</option>
+      <select id="facultad" class="w-full border rounded-lg px-3 py-2 mb-4">
+        <option value="">Seleccionar facultad</option>
+        <option value="Ingeniería">Ingeniería</option>
+        <option value="Medicina">Medicina</option>
+        <option value="Ciencias">Ciencias</option>
       </select>
 
       <label class="block text-sm text-gray-600 mb-1">Estado</label>
-      <select class="w-full border rounded-lg px-3 py-2 mb-4">
-        <option>Todos</option>
-        <option>Activos</option>
-        <option>Cerrados</option>
+      <select id="estado" class="w-full border rounded-lg px-3 py-2 mb-4">
+        <option value="">Todos</option>
+        <option value="Activo">Activos</option>
+        <option value="Cerrado">Cerrados</option>
       </select>
 
       <div class="flex space-x-2 mt-3">
-        <button class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Buscar</button>
-        <button class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">Limpiar</button>
+        <button onclick="buscar()" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Buscar</button>
+        <button onclick="limpiar()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">Limpiar</button>
       </div>
     </aside>
     
     <!-- Resultados -->
     <section class="flex-1">
       <div class="bg-white rounded-xl shadow p-4 mb-4 flex space-x-6 border-b">
-        <button class="text-blue-600 font-medium">Resultados</button>
-        <button class="text-gray-500 hover:text-blue-600">Detalles de Línea</button>
-        <button class="text-gray-500 hover:text-blue-600">Mis Solicitudes</button>
-        <button class="text-gray-500 hover:text-blue-600">Gestión de Aprobaciones</button>
+        <button onclick="mostrarSeccion('resultados')" class="text-blue-600 font-medium">Resultados</button>
+        <button onclick="mostrarSeccion('detalles')" class="text-gray-500 hover:text-blue-600">Detalles de Línea</button>
+        <button onclick="mostrarSeccion('solicitudes')" class="text-gray-500 hover:text-blue-600">Mis Solicitudes</button>
+        <button onclick="mostrarSeccion('aprobaciones')" class="text-gray-500 hover:text-blue-600">Gestión de Aprobaciones</button>
       </div>
 
-      <!-- Tarjeta resultado -->
-      <div class="bg-white rounded-xl shadow p-5 mb-4">
-        <h3 class="text-lg font-semibold text-gray-700">Línea de Énfasis en Ciencia de Datos</h3>
-        <p class="text-gray-500 text-sm">Maestría en Analítica | Facultad de Ingeniería</p>
-        <p class="text-gray-600 mt-2">Modelado estadístico, machine learning y visualización aplicada a problemas reales.</p>
-        <div class="text-right mt-3">
-          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+      <!-- Secciones -->
+      <div id="resultados" class="seccion">
+        <!-- Tarjeta resultado -->
+        <div class="bg-white rounded-xl shadow p-5 mb-4 card" data-keywords="ciencia datos machine learning" data-area="Ingeniería" data-programa="Analítica" data-facultad="Ingeniería" data-estado="Activo">
+          <h3 class="text-lg font-semibold text-gray-700">Línea de Énfasis en Ciencia de Datos</h3>
+          <p class="text-gray-500 text-sm">Maestría en Analítica | Facultad de Ingeniería</p>
+          <p class="text-gray-600 mt-2">Modelado estadístico, machine learning y visualización aplicada a problemas reales.</p>
+          <div class="text-right mt-3">
+            <button onclick="verDetalles('Ciencia de Datos')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow p-5 mb-4 card" data-keywords="salud digital telemedicina" data-area="Salud" data-programa="Salud Pública" data-facultad="Medicina" data-estado="Activo">
+          <h3 class="text-lg font-semibold text-gray-700">Énfasis en Salud Digital</h3>
+          <p class="text-gray-500 text-sm">Maestría en Salud Pública | Facultad de Medicina</p>
+          <p class="text-gray-600 mt-2">Interoperabilidad, telemedicina y análisis de datos clínicos.</p>
+          <div class="text-right mt-3">
+            <button onclick="verDetalles('Salud Digital')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+          </div>
+        </div>
+
+        <div class="bg-white rounded-xl shadow p-5 mb-4 card" data-keywords="energía sostenible renovable" data-area="Ciencias" data-programa="Energías" data-facultad="Ciencias" data-estado="Cerrado">
+          <h3 class="text-lg font-semibold text-gray-700">Desarrollo Sostenible y Energías Renovables</h3>
+          <p class="text-gray-500 text-sm">Maestría en Energías | Facultad de Ciencias</p>
+          <p class="text-gray-600 mt-2">Transición energética, políticas públicas y proyectos sostenibles.</p>
+          <div class="text-right mt-3">
+            <button onclick="verDetalles('Energías Renovables')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+          </div>
         </div>
       </div>
 
-      <div class="bg-white rounded-xl shadow p-5 mb-4">
-        <h3 class="text-lg font-semibold text-gray-700">Énfasis en Salud Digital</h3>
-        <p class="text-gray-500 text-sm">Maestría en Salud Pública | Facultad de Medicina</p>
-        <p class="text-gray-600 mt-2">Interoperabilidad, telemedicina y análisis de datos clínicos.</p>
-        <div class="text-right mt-3">
-          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
-        </div>
+      <div id="detalles" class="seccion hidden">
+        <h2 class="text-xl font-bold text-gray-700 mb-4">Detalles de Línea</h2>
+        <p id="detalleTexto" class="text-gray-600">Seleccione una línea desde los resultados para ver más información.</p>
       </div>
 
-      <div class="bg-white rounded-xl shadow p-5 mb-4">
-        <h3 class="text-lg font-semibold text-gray-700">Desarrollo Sostenible y Energías Renovables</h3>
-        <p class="text-gray-500 text-sm">Maestría en Energías | Facultad de Ciencias</p>
-        <p class="text-gray-600 mt-2">Transición energética, políticas públicas y proyectos sostenibles.</p>
-        <div class="text-right mt-3">
-          <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
-        </div>
+      <div id="solicitudes" class="seccion hidden">
+        <h2 class="text-xl font-bold text-gray-700 mb-4">Mis Solicitudes</h2>
+        <p class="text-gray-600">Aquí se mostrarán las solicitudes enviadas por el estudiante.</p>
+      </div>
+
+      <div id="aprobaciones" class="seccion hidden">
+        <h2 class="text-xl font-bold text-gray-700 mb-4">Gestión de Aprobaciones</h2>
+        <p class="text-gray-600">Aquí se mostrarán los estados de aprobación de las solicitudes.</p>
       </div>
     </section>
   </main>
+
+  <script>
+    function mostrarSeccion(id) {
+      document.querySelectorAll('.seccion').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(id).classList.remove('hidden');
+    }
+
+    function verDetalles(linea) {
+      mostrarSeccion('detalles');
+      document.getElementById('detalleTexto').innerText = "Mostrando información detallada de la línea: " + linea;
+    }
+
+    function buscar() {
+      const keyword = document.getElementById('keyword').value.toLowerCase();
+      const area = document.getElementById('area').value;
+      const programa = document.getElementById('programa').value;
+      const facultad = document.getElementById('facultad').value;
+      const estado = document.getElementById('estado').value;
+
+      document.querySelectorAll('.card').forEach(card => {
+        const matchesKeyword = card.dataset.keywords.toLowerCase().includes(keyword);
+        const matchesArea = !area || card.dataset.area === area;
+        const matchesPrograma = !programa || card.dataset.programa.includes(programa);
+        const matchesFacultad = !facultad || card.dataset.facultad === facultad;
+        const matchesEstado = !estado || card.dataset.estado === estado;
+
+        if (matchesKeyword && matchesArea && matchesPrograma && matchesFacultad && matchesEstado) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    }
+
+    function limpiar() {
+      document.getElementById('keyword').value = "";
+      document.getElementById('area').value = "";
+      document.getElementById('programa').value = "";
+      document.getElementById('facultad').value = "";
+      document.getElementById('estado').value = "";
+      document.querySelectorAll('.card').forEach(card => card.classList.remove('hidden'));
+    }
+  </script>
 </body>
 </html>
