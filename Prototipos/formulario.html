@@ -1,79 +1,156 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro de Estudiante - Sistema de Gestión</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
-        .register-container { background-color: white; padding: 2em; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); width: 100%; max-width: 600px; }
-        .register-container h2 { text-align: center; color: #333; margin-bottom: 1.5em; }
-        .register-form label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; }
-        .register-form input[type="text"],
-        .register-form input[type="email"],
-        .register-form input[type="password"],
-        .register-form input[type="file"],
-        .register-form select { width: 100%; padding: 10px; margin-bottom: 1.5em; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
-        .register-form button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
-        .register-form button:hover { background-color: #0056b3; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro de Estudiante - Sistema de Gestión</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #4f46e5, #3b82f6);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+    }
+    .register-container {
+      background: #fff;
+      padding: 2.5em;
+      border-radius: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+      width: 100%;
+      max-width: 600px;
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    .register-container h2 {
+      text-align: center;
+      color: #1f2937;
+      margin-bottom: 1.5em;
+      font-size: 1.8em;
+    }
+    .register-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 600;
+      color: #374151;
+    }
+    .register-form input[type="text"],
+    .register-form input[type="email"],
+    .register-form input[type="password"],
+    .register-form input[type="file"],
+    .register-form select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 1.2em;
+      border: 1px solid #d1d5db;
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    .register-form input:focus,
+    .register-form select:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+      outline: none;
+    }
+    .register-form button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, #2563eb, #4f46e5);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.3s ease;
+    }
+    .register-form button:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(to right, #1e40af, #4338ca);
+    }
+    .btn-volver {
+      display: block;
+      margin: 1em auto 0;
+      background: #6b7280;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 12px 20px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .btn-volver:hover {
+      background: #4b5563;
+    }
+    #mensaje-container {
+      text-align: center;
+    }
+    #mensaje-container h2 {
+      color: #16a34a;
+      font-size: 1.6em;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
 </head>
-
-</html>
-
-<!-- ...existing code... -->
 <body>
-    <div class="register-container" id="form-container">
-        <h2>Registro de Nuevo Estudiante</h2> <button onclick="volver()" style="margin-top:1em; background-color:#007bff; color:white; border:none; border-radius:4px; padding:12px; font-size:16px; cursor:pointer;">Volver</button>
-        <form class="register-form" id="registroForm" enctype="multipart/form-data">
-            <label for="cedula">Cédula:</label>
-            <input type="text" id="cedula" name="cedula" required>
+  <div class="register-container" id="form-container">
+    <h2>Registro de Nuevo Estudiante</h2>
+    <form class="register-form" id="registroForm" enctype="multipart/form-data">
+      <label for="cedula">Cédula:</label>
+      <input type="text" id="cedula" name="cedula" required>
 
-            <label for="nombre">Nombre Completo:</label>
-            <input type="text" id="nombre" name="nombre" required>
+      <label for="nombre">Nombre Completo:</label>
+      <input type="text" id="nombre" name="nombre" required>
 
-            <label for="email">Correo Electrónico:</label>
-            <input type="email" id="email" name="email" required>
+      <label for="email">Correo Electrónico:</label>
+      <input type="email" id="email" name="email" required>
 
-            <label for="programa">Programa de Pregrado:</label>
-            <select id="programa" name="programa" required>
-                <option value="">Seleccione un programa</option>
-                <option value="ingenieria">Ingeniería de Sistemas</option>
-                <option value="diseno">Diseño Gráfico</option>
-                <option value="ciencias">Ciencias de la Computación</option>
-            </select>
+      <label for="programa">Programa de Pregrado:</label>
+      <select id="programa" name="programa" required>
+        <option value="">Seleccione un programa</option>
+        <option value="ingenieria">Ingeniería de Sistemas</option>
+        <option value="diseno">Diseño Gráfico</option>
+        <option value="ciencias">Ciencias de la Computación</option>
+      </select>
 
-            <label for="documentos">Documentos Pertinentes (PDF, JPG, PNG):</label>
-            <input type="file" id="documentos" name="documentos" multiple required>
+      <label for="documentos">Documentos Pertinentes (PDF, JPG, PNG):</label>
+      <input type="file" id="documentos" name="documentos" multiple required>
 
-            <button type="submit">Enviar Solicitud de Registro</button>
-        </form>
-    </div>
-    <div class="register-container" id="mensaje-container" style="display:none; text-align:center;">
-        <h2>¡Registro completado!</h2>
-        <p>La información se guardó correctamente.</p>
-        <button onclick="volver()" style="margin-top:1em; background-color:#007bff; color:white; border:none; border-radius:4px; padding:12px; font-size:16px; cursor:pointer;">Volver</button>
-    </div>
-    <script>
-        document.getElementById('registroForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            document.getElementById('form-container').style.display = 'none';
-            document.getElementById('mensaje-container').style.display = 'block';
-        });
+      <button type="submit">Enviar Solicitud de Registro</button>
+    </form>
+    <button class="btn-volver" onclick="volver()">Volver</button>
+  </div>
 
-        function volver() {
-            // Lee el parámetro 'origen' de la URL actual
-        const urlParams = new URLSearchParams(window.location.search);
-        const origen = urlParams.get('origen');
+  <div class="register-container" id="mensaje-container" style="display:none;">
+    <h2>¡Registro completado!</h2>
+    <p>La información se guardó correctamente.</p>
+    <button class="btn-volver" onclick="volver()">Volver</button>
+  </div>
 
-        // Si la página se abrió desde la sección de detalles, vuelve a ella
-        if (origen === 'detalle') {
-            window.location.href = "index.html#detalle";
-        } else {
-            // Si la página se abrió de otra forma, regresa a la página anterior
-            window.history.back();
-         }
-       }
-    </script>
+  <script>
+    document.getElementById('registroForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('form-container').style.display = 'none';
+      document.getElementById('mensaje-container').style.display = 'block';
+    });
+
+    function volver() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const origen = urlParams.get('origen');
+      if (origen === 'detalle') {
+        window.location.href = "index.html#detalle";
+      } else {
+        window.history.back();
+      }
+    }
+  </script>
 </body>
-<!-- ...existing code... -->
+</html>
