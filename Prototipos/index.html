@@ -1,52 +1,89 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" >
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Prototipo Sistema de Gestión</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+:root {
+  /* Colores principales Universidad de Medellín */
+  --udem-rojo: #B71C1C;           /* Rojo principal UDEM */
+  --udem-rojo-hover: #D32F2F;     /* Rojo hover más claro */
+  --udem-rojo-claro: #FFEBEE;     /* Fondo rojo muy suave */
+  --udem-blanco: #FFFFFF;         /* Blanco oficial */
+  --udem-gris-claro: #F5F5F5;     /* Gris muy claro */
+  --udem-gris-medio: #757575;     /* Gris para textos secundarios */
+  --udem-gris-oscuro: #424242;    /* Gris para textos principales */
+  --udem-azul-secundario: #1976D2; /* Azul como color de apoyo */
+  --udem-azul-hover: #1565C0;     /* Azul hover */
+  --udem-verde-exito: #388E3C;    /* Verde para éxito */
+  --udem-amarillo: #FFA000;       /* Amarillo/naranja para advertencias */
+}
+
+/* Clases Tailwind personalizadas para UDEM */
+.bg-udem-rojo { background-color: var(--udem-rojo) !important; }
+.bg-udem-rojo-hover:hover { background-color: var(--udem-rojo-hover) !important; }
+.bg-udem-azul { background-color: var(--udem-azul-secundario) !important; }
+.bg-udem-azul-hover:hover { background-color: var(--udem-azul-hover) !important; }
+.text-udem-rojo { color: var(--udem-rojo) !important; }
+.text-udem-azul { color: var(--udem-azul-secundario) !important; }
+.bg-udem-verde { background-color: var(--udem-verde-exito) !important; }
+.bg-udem-verde-hover:hover { background-color: #2E7D32 !important; }
+.border-udem-rojo { border-color: var(--udem-rojo) !important; }
+</style>
 </head>
 <body class="bg-gray-100 font-sans">
+  
 
   <!-- ================== LOGIN ================== -->
-  <section id="login" class="flex items-center justify-center min-h-screen bg-gradient-to-r from-blue-500 to-indigo-600">
+  <section id="login" class="flex items-center justify-center min-h-screen bg-gradient-to-r from-red-700 to-red-900">
     <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center mb-6 text-gray-700">Inicio de Sesión</h2>
+      <h2 class="text-2xl font-bold text-center mb-6 text-udem-rojo">Inicio de Sesión</h2>
       <form onsubmit="return false;">
-        <label class="block mb-2 text-gray-600">Usuario / Código</label>
-        <input type="text" class="w-full mb-4 px-3 py-2 border rounded-lg" placeholder="Ingresa tu usuario">
+      <label class="block mb-2 text-udem-gris-oscuro">Usuario / Código</label>
+        <input type="text" id="nombreUsuario" class="w-full mb-4 px-3 py-2 border rounded-lg" placeholder="Ingresa tu usuario">
         <label class="block mb-2 text-gray-600">Contraseña</label>
-        <input type="password" class="w-full mb-6 px-3 py-2 border rounded-lg" placeholder="********">
+        <div class="flex items-center border rounded-lg px-3 mb-4">
+          <input type="password" id="password" class="flex-1 py-2 focus:outline-none" placeholder="********">
+          <button type="button" onclick="togglePassword()" class="text-gray-500 ml-2">👁️</button>
+        </div>
+
+        <label class="mt-3 flex items-center space-x-2 mb-6">
+          <input type="checkbox" required>
+          <span class="text-sm text-gray-600">No soy un robot</span>
+        </label>
         <div class="grid grid-cols-1 gap-2">
-          <button type="button" onclick="mostrarDashboard('estudiante')" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Entrar como Estudiante</button>
-          <button type="button" onclick="mostrarDashboard('profesor')" class="w-full bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700">Entrar como Profesor</button>
-          <button type="button" onclick="mostrarDashboard('coordinador')" class="w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700">Entrar como Administrador</button>
+          <button type="button" onclick="mostrarDashboard('estudiante')" class="w-full bg-udem-azul text-white py-2 rounded-lg bg-udem-azul-hover">Entrar como Estudiante</button>
+          <button type="button" onclick="mostrarDashboard('profesor')" class="w-full bg-udem-verde text-white py-2 rounded-lg bg-udem-verde-hover">Entrar como Profesor</button>
+          <button type="button" onclick="mostrarDashboard('coordinador')" class="w-full bg-udem-rojo text-white py-2 rounded-lg bg-udem-rojo-hover">Entrar como Administrador</button>
         </div>
         <p class="text-sm text-center mt-4 text-blue-500 cursor-pointer hover:underline">Recuperar Contraseña</p>
       </form>
     </div>
   </section>
+  
 
   <!-- ================== ESTUDIANTE ================== -->
   <section id="dashboard-estudiante" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-gray-700">Dashboard Estudiante</h1>
-      <button onclick="cerrarSesion()" class="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">Cerrar Sesión</button>
-    </header>
+   <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Menu Principal</h1>
+      <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Cerrar Sesión</button>
+   </header>
 
     <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       <!-- Tarjeta: Líneas de Énfasis -->
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="text-lg font-semibold text-gray-700 mb-2">Líneas de Énfasis Disponibles</h2>
         <p class="text-gray-500">Consulta y selecciona las líneas activas.</p>
-        <button onclick="mostrarSeccion('busqueda')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Líneas</button>
+        <button onclick="mostrarSeccion('busqueda')" class="mt-4 bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Ver Líneas</button>
       </div>
 
       <!-- Tarjeta: Solicitudes -->
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="text-lg font-semibold text-gray-700 mb-2">Solicitudes</h2>
         <p class="text-gray-500">Revisa o cancela solicitudes pendientes.</p>
-        <button onclick="mostrarSeccion('solicitudes')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">Ver Solicitudes</button>
+        <button onclick="mostrarSeccion('solicitudes')" class="mt-4 bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Ver Solicitudes</button>
       </div>
 
       <!-- Tarjeta: Notificaciones -->
@@ -58,14 +95,18 @@
         </ul>
       </div>
     </main>
+    <div class="mt-6 text-center">
+      <img id="avatar-display-estudiante" class="w-16 h-16 rounded-full mx-auto mb-2" src="" alt="Avatar">
+      <div id="nombre-display-estudiante" class="text-gray-600 text-lg"></div>
+    </div>
   </section>
 
   <!-- Búsqueda de Líneas con FILTRO por Carrera -->
   <section id="busqueda" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-gray-700">Búsqueda de Líneas de Énfasis</h1>
-      <button onclick="mostrarSeccion('dashboard-estudiante')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Volver</button>
-    </header>
+  <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-white">Búsqueda de Líneas de Énfasis</h1>
+    <button onclick="mostrarSeccion('dashboard-estudiante')" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
+  </header>
 
     <main class="p-6 space-y-6">
       <!-- Filtros -->
@@ -80,54 +121,52 @@
           </select>
         </div>
         <div>
-          <label class="block text-sm text-gray-600 mb-1">Área (visual)</label>
-          <select disabled class="w-full border rounded-lg px-3 py-2 bg-gray-50 text-gray-400">
-            <option>Se puede agregar luego</option>
+            
           </select>
         </div>
-        <button type="button" onclick="resetFiltroCarrera()" class="bg-amber-500 text-white px-4 py-2 rounded-lg hover:bg-amber-600">Limpiar Filtros</button>
+        <button type="button" onclick="resetFiltroCarrera()" class="text-white px-4 py-2 rounded-lg" style="background-color: var(--udem-amarillo);" onmouseover="this.style.backgroundColor='#FF8F00'" onmouseout="this.style.backgroundColor='var(--udem-amarillo)'">Limpiar Filtros</button>
       </div>
 
       <!-- Resultados -->
       <div id="lista-lineas" class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <!-- Card 1 -->
-        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Ingeniería de Sistemas" data-area="IA y Datos">
+        <div class="linea-card p-6 rounded-2xl shadow" style="background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);" data-carrera="Ingeniería de Sistemas" data-area="IA y Datos">
           <h2 class="text-lg font-semibold text-gray-700">IA y Ciencia de Datos</h2>
           <p class="text-gray-500">Cupos: 20/30</p>
           <p class="text-gray-500">Prerrequisitos: Programación Avanzada</p>
           <span class="inline-block text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2">Ing. de Sistemas</span>
           <div class="mt-4">
-            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+            <button onclick="mostrarSeccion('detalle')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Ver Detalles</button>
           </div>
         </div>
         <!-- Card 2 -->
-        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Ingeniería de Sistemas" data-area="Seguridad">
+        <div class="linea-card p-6 rounded-2xl shadow" style="background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);" data-carrera="Ingeniería de Sistemas" data-area="Seguridad">
           <h2 class="text-lg font-semibold text-gray-700">Seguridad Informática</h2>
           <p class="text-gray-500">Cupos: 15/25</p>
           <p class="text-gray-500">Prerrequisitos: Redes de Computadores</p>
           <span class="inline-block text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2">Ing. de Sistemas</span>
           <div class="mt-4">
-            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+            <button onclick="mostrarSeccion('detalle')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Ver Detalles</button>
           </div>
         </div>
         <!-- Card 3 -->
-        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Ingeniería Industrial" data-area="Gestión">
+        <div class="linea-card p-6 rounded-2xl shadow" style="background: linear-gradient(135deg, #ffffff 0%, #fff3e0 100%);" data-carrera="Ingeniería Industrial" data-area="Gestión">
           <h2 class="text-lg font-semibold text-gray-700">Gestión de Proyectos</h2>
           <p class="text-gray-500">Cupos: 10/20</p>
           <p class="text-gray-500">Prerrequisitos: Fundamentos de Gestión</p>
           <span class="inline-block text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded mt-2">Ing. Industrial</span>
           <div class="mt-4">
-            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+            <button onclick="mostrarSeccion('detalle')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Ver Detalles</button>
           </div>
         </div>
         <!-- Card 4 -->
-        <div class="linea-card bg-white p-6 rounded-2xl shadow" data-carrera="Matemáticas" data-area="IA y Datos">
+        <div class="linea-card p-6 rounded-2xl shadow" style="background: linear-gradient(135deg, #ffffff 0%, #e8f5e8 100%);" data-carrera="Matemáticas" data-area="IA y Datos">
           <h2 class="text-lg font-semibold text-gray-700">Métodos Numéricos Avanzados</h2>
           <p class="text-gray-500">Cupos: 12/18</p>
           <p class="text-gray-500">Prerrequisitos: Cálculo Multivariable</p>
           <span class="inline-block text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded mt-2">Matemáticas</span>
           <div class="mt-4">
-            <button onclick="mostrarSeccion('detalle')" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Ver Detalles</button>
+            <button onclick="mostrarSeccion('detalle')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Ver Detalles</button>
           </div>
         </div>
       </div>
@@ -136,9 +175,9 @@
 
   <!-- Detalle de Línea -->
   <section id="detalle" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-gray-700">Detalle de Línea de Énfasis</h1>
-      <button onclick="mostrarSeccion('busqueda')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Volver</button>
+    <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Detalle de Línea de Énfasis</h1>
+      <button onclick="mostrarSeccion('busqueda')" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
     </header>
 
     <main class="p-6 space-y-4">
@@ -148,8 +187,8 @@
         <p class="text-gray-600">Profesores: Dra. Andrea López, Dr. Carlos Pérez</p>
         <p class="text-gray-600">Horario: Lunes y Miércoles 6-8 pm</p>
         <div class="mt-4 space-x-2">
-        <a href="formulario.html?origen=detalle" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 inline-block">Solicitar Inscripción</a>
-        <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-300">Ver Cronograma</button>
+        <a href="formulario.html?origen=detalle" class="bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover inline-block">Solicitar Inscripción</a>
+        <button class="bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Ver Cronograma</button>
         </div>
       </div>
     </main>
@@ -157,14 +196,14 @@
 
   <!-- Solicitudes del Estudiante (con Cancelar) -->
   <section id="solicitudes" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold text-gray-700">Solicitudes de Inscripción</h1>
-      <button onclick="mostrarSeccion('dashboard-estudiante')" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600">Volver</button>
+    <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Solicitudes de Inscripción</h1>
+      <button onclick="mostrarSeccion('dashboard-estudiante')" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
     </header>
 
     <main class="p-6">
       <table class="w-full bg-white rounded-2xl shadow overflow-hidden">
-        <thead class="bg-gray-200 text-gray-700">
+        <thead class="bg-udem-rojo text-white">
           <tr>
             <th class="p-3 text-left">Línea</th>
             <th class="p-3 text-left">Cursos</th>
@@ -199,9 +238,9 @@
 
   <!-- ================== PROFESOR ================== -->
   <section id="dashboard-profesor" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Dashboard Profesor</h1>
-      <button onclick="cerrarSesion()" class="bg-red-500 text-white px-4 py-2 rounded-lg">Cerrar Sesión</button>
+    <header class="bg-udem-azul shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Menu Principal</h1>
+      <button onclick="cerrarSesion()" class="bg-white text-udem-azul px-4 py-2 rounded-lg hover:bg-gray-100">Cerrar Sesión</button>
     </header>
     <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="bg-white p-6 rounded-2xl shadow">
@@ -213,31 +252,36 @@
         <button onclick="mostrarSeccion('reportes-profesor')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Ver Reportes</button>
       </div>
     </main>
+    <div class="mt-6 text-center">
+      <img id="avatar-display-profesor" class="w-16 h-16 rounded-full mx-auto mb-2" src="" alt="Avatar">
+      <div id="nombre-display-profesor" class="text-gray-600 text-lg"></div>
+    </div>
   </section>
 
   <section id="cursos-profesor" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Cursos Asignados</h1>
-      <button onclick="mostrarSeccion('dashboard-profesor')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    <header class="bg-udem-azul shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Cursos Asignados</h1>
+      <button onclick="mostrarSeccion('dashboard-profesor')" class="bg-white text-udem-azul px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
     </header>
     <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="font-semibold">Criptografía</h2>
         <p>Estudiantes inscritos: 25</p>
-        <button onclick="mostrarSeccion('gestion-curso')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
+        <button onclick="mostrarSeccion('gestion-curso')" class="mt-4 bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Gestionar</button>
       </div>
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="font-semibold">Forense Digital</h2>
         <p>Estudiantes inscritos: 18</p>
-        <button onclick="mostrarSeccion('gestion-curso')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
+        <button onclick="mostrarSeccion('gestion-curso')" class="mt-4 bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Gestionar</button>
       </div>
     </main>
+    
   </section>
 
   <section id="gestion-curso" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Gestión del Curso</h1>
-      <button onclick="mostrarSeccion('cursos-profesor')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    <header class="bg-udem-azul shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Gestión del Curso</h1>
+      <button onclick="mostrarSeccion('cursos-profesor')" class="bg-white text-udem-azul px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
     </header>
     <main class="p-6 space-y-4">
       <div class="bg-white p-6 rounded-2xl shadow">
@@ -251,32 +295,63 @@
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="font-semibold">Gestión de Notas</h2>
         <p class="text-gray-600">Campos para ingreso de notas.</p>
-        <button onclick="window.location.href='profesor.html'" class="mt-4 bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-800">Ir </button>
+        <button onclick="window.location.href='profesor.html'" class="mt-4 bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Ir a Gestión de Notas</button>
       </div>
     </main>
   </section>
 
   <section id="reportes-profesor" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Reportes del Profesor</h1>
-      <button onclick="mostrarSeccion('dashboard-profesor')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    <header class="bg-udem-azul shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Reportes del Profesor</h1>
+      <button onclick="mostrarSeccion('dashboard-profesor')" class="bg-white text-udem-azul px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
     </header>
-    <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-white p-6 rounded-2xl shadow">
-        <h2 class="font-semibold">Reporte de Notas</h2>
-      </div>
-      <div class="bg-white p-6 rounded-2xl shadow">
-        <h2 class="font-semibold">Reporte de Asistencia</h2>
+    <main class="p-6 max-w-3xl mx-auto">
+      <div class="bg-white p-6 rounded-2xl shadow space-y-6">
+        <h2 class="text-lg font-semibold text-udem-azul">Generar Reporte por Estudiante</h2>
+        
+        <form id="formReporte" class="space-y-4">
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">Curso</label>
+            <select class="w-full border px-3 py-2 rounded-lg">
+              <option value="">Seleccione un curso</option>
+              <option value="cripto">Criptografía</option>
+              <option value="forense">Forense Digital</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-sm text-gray-600 mb-1">Estudiante</label>
+            <select class="w-full border px-3 py-2 rounded-lg">
+              <option value="">Seleccione un estudiante</option>
+              <option value="juan">Juan Pérez</option>
+              <option value="maria">María López</option>
+              <option value="carlos">Carlos Gómez</option>
+            </select>
+          </div>
+
+          <button type="submit"
+            class="bg-udem-azul text-white px-6 py-2 rounded-lg bg-udem-azul-hover">
+            Generar Reporte
+          </button>
+        </form>
+
+        <div id="resultadoReporte" class="hidden mt-6 p-4 bg-gray-100 rounded-lg">
+          <h3 class="font-semibold text-gray-700">Reporte del Estudiante</h3>
+          <p id="reporteContenido" class="text-gray-600"></p>
+        </div>
       </div>
     </main>
+
+
   </section>
 
   <!-- ================== ADMIN / COORDINADOR ================== -->
   <section id="dashboard-coordinador" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Dashboard Administrador</h1>
-      <button onclick="cerrarSesion()" class="bg-red-500 text-white px-4 py-2 rounded-lg">Cerrar Sesión</button>
+    <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Menu Principal</h1>
+      <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Cerrar Sesión</button>
     </header>
+
     <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="font-semibold">Solicitudes Pendientes</h2>
@@ -287,21 +362,25 @@
         <button onclick="mostrarSeccion('lineas-coordinador')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
       </div>
     </main>
+    <div class="mt-6 text-center">
+      <img id="avatar-display-coordinador" class="w-16 h-16 rounded-full mx-auto mb-2" src="" alt="Avatar">
+      <div id="nombre-display-coordinador" class="text-gray-600 text-lg"></div>
+    </div>
   </section>
 
   <section id="solicitudes-coordinador" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Revisión de Solicitudes</h1>
-      <button onclick="mostrarSeccion('dashboard-coordinador')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Revisión de Solicitudes</h1>
+      <button onclick="mostrarSeccion('dashboard-coordinador')" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
     </header>
-    <main class="p-6">
+        <main class="p-6">
       <table class="w-full bg-white rounded-2xl shadow">
-        <thead class="bg-gray-200">
+        <thead class="bg-udem-rojo text-white">
           <tr>
-            <th class="p-3">Estudiante</th>
-            <th class="p-3">Línea</th>
-            <th class="p-3">Estado</th>
-            <th class="p-3">Acciones</th>
+            <th class="p-3 text-center">Estudiante</th>
+            <th class="p-3 text-center">Línea</th>
+            <th class="p-3 text-center">Estado</th>
+            <th class="p-3 text-center">Acciones</th>
           </tr>
         </thead>
         <tbody>
@@ -309,10 +388,12 @@
             <td class="p-3">Juan Pérez</td>
             <td class="p-3">Seguridad Informática</td>
             <td class="p-3">Pendiente</td>
-            <td class="p-3 space-x-2">
-              <button class="bg-green-600 text-white px-3 py-1 rounded">Aprobar</button>
-              <button class="bg-red-600 text-white px-3 py-1 rounded">Rechazar</button>
-              <button onclick="window.location.href='detalles.html'" class="bg-orange-600 text-white px-3 py-1 rounded">Detalles</button>
+            <td class="p-3 text-center">
+              <div class="space-x-2 flex justify-center">
+                <button class="text-white px-3 py-1 rounded hover:bg-green-700" style="background-color: var(--udem-verde-exito);">Aprobar</button>
+                <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Rechazar</button>
+                <button onclick="window.location.href='detalles.html'" class="text-white px-3 py-1 rounded" style="background-color: var(--udem-azul-secundario);" onmouseover="this.style.backgroundColor='var(--udem-azul-hover)'" onmouseout="this.style.backgroundColor='var(--udem-azul-secundario)'">Detalles</button>
+              </div>
             </td>
           </tr>
         </tbody>
@@ -321,33 +402,47 @@
   </section>
 
   <section id="lineas-coordinador" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-white shadow p-4 flex justify-between items-center">
-      <h1 class="text-xl font-bold">Gestión de Líneas</h1>
-      <button onclick="mostrarSeccion('dashboard-coordinador')" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
+    <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-white">Gestión de Líneas</h1>
+      <button onclick="mostrarSeccion('dashboard-coordinador')" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
     </header>
     <main class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="bg-white p-6 rounded-2xl shadow">
         <h2 class="font-semibold">Seguridad Informática</h2>
         <p>Estado: Activa</p>
         <div class="mt-4 space-x-2">
-          <button class="bg-yellow-500 text-white px-4 py-2 rounded-lg">Editar</button>
-          <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded-lg">Ver Detalles</button>
+          <button class="text-white px-4 py-2 rounded-lg" style="background-color: var(--udem-amarillo);" onmouseover="this.style.backgroundColor='#FF8F00'" onmouseout="this.style.backgroundColor='var(--udem-amarillo)'">Editar</button>
+          <button class="bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Ver Detalles</button>
         </div>
       </div>
     </main>
   </section>
 
-  <!-- ================== JS ================== -->
+   <!-- ================== JS ================== -->
   <script>
     // Navegación base
     function mostrarDashboard(rol) {
       ocultarSecciones();
       document.getElementById(`dashboard-${rol}`).classList.remove('hidden');
-      // Al entrar a búsqueda, asegurar filtro aplicado si luego navega
-      if (rol === 'estudiante') {
-        setTimeout(filtrarCarrera, 0);
+
+      // Guardar nombre y avatar
+      const nombre = document.getElementById("nombreUsuario")?.value || "Usuario";
+      localStorage.setItem("nombreSesion", nombre);
+
+      // Generar avatar random (de pravatar)
+      const avatarUrl = "https://i.pravatar.cc/100?u=" + nombre;
+      localStorage.setItem("avatarSesion", avatarUrl);
+
+      // Mostrar en dashboard
+      const nombreDisplay = document.getElementById("nombre-display-" + rol);
+      const avatarDisplay = document.getElementById("avatar-display-" + rol);
+      if (nombreDisplay) {
+        nombreDisplay.textContent = "Bienvenido, " + nombre;
       }
-    }
+      if (avatarDisplay) {
+        avatarDisplay.src = avatarUrl;
+      }
+        }
     function mostrarSeccion(id) {
       ocultarSecciones();
       document.getElementById(id).classList.remove('hidden');
@@ -390,20 +485,68 @@
       btn.textContent = 'Cancelada';
     }
     
-        // Esta función se ejecuta cuando la página ha cargado
-        window.addEventListener('DOMContentLoaded', function() {
-      if (window.location.hash === "#detalle") {
-        mostrarSeccion('detalle');
-        history.replaceState(null, '', 'index.html'); // Elimina el hash de la URL
-            }
-          });
-          document.addEventListener('DOMContentLoaded', function() {
-              if (window.location.hash === '#cursos-profesor') {
-                  mostrarSeccion('cursos-profesor');
-                  history.replaceState(null, '', 'index.html');
-              }
-          });
-  </script>
+       // Función para mostrar una sección específica y ocultar las demás
+function mostrarSeccion(idSeccion) {
+    // Ocultar todas las secciones
+    document.querySelectorAll('section').forEach(seccion => {
+        seccion.classList.add('hidden');
+    });
+    
+    // Mostrar la sección específica
+    const seccionTarget = document.getElementById(idSeccion);
+    if (seccionTarget) {
+        seccionTarget.classList.remove('hidden');
+    }
+}
+
+// Event listener principal que maneja todos los casos
+document.addEventListener('DOMContentLoaded', function() {
+    // Mapeo de hashes a secciones
+    const hashToSection = {
+        '#detalle': 'detalle',
+        '#cursos-profesor': 'cursos-profesor',
+        '#solicitudes-coordinador': 'solicitudes-coordinador'
+    };
+    
+    // Verificar si hay un hash en la URL
+    const currentHash = window.location.hash;
+    
+    if (currentHash && hashToSection[currentHash]) {
+        // Mostrar la sección correspondiente al hash
+        mostrarSeccion(hashToSection[currentHash]);
+        
+        // Limpiar el hash de la URL (opcional)
+        history.replaceState(null, '', 'index.html');
+    }
+});
+
+// Event listener para manejar cambios en el hash (navegación con botón atrás/adelante)
+window.addEventListener('hashchange', function() {
+    const hashToSection = {
+        '#detalle': 'detalle',
+        '#cursos-profesor': 'cursos-profesor',
+        '#solicitudes-coordinador': 'solicitudes-coordinador'
+    };
+    
+    const currentHash = window.location.hash;
+    
+    if (currentHash && hashToSection[currentHash]) {
+        mostrarSeccion(hashToSection[currentHash]);
+    }
+});
+function togglePassword() {
+  const input = document.getElementById("password");
+  input.type = input.type === "password" ? "text" : "password";
+}
+document.getElementById("formReporte")?.addEventListener("submit", e => {
+  e.preventDefault();
+  document.getElementById("resultadoReporte").classList.remove("hidden");
+  document.getElementById("reporteContenido").textContent = 
+    "Este es un reporte simulado con las notas y asistencia del estudiante seleccionado.";
+});
+
+</script>
+  
 
 </body>
 </html>

@@ -1,69 +1,72 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Notas - Profesor</title>
-    <style>
-        body { font-family: sans-serif; background-color: #f4f4f4; margin: 0; padding: 20px; }
-        .container { background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); }
-        h1 { color: #333; text-align: center; }
-        h2 { color: #007bff; margin-top: 1.5em; }
-        table { width: 100%; border-collapse: collapse; margin-top: 1em; }
-        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #ddd; }
-        th { background-color: #f2f2f2; }
-        tr:hover { background-color: #f9f9f9; }
-        input[type="number"] { width: 60px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; }
-        .button-group { text-align: right; margin-top: 20px; }
-        .button-group button { padding: 10px 15px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; }
-        .button-group button:hover { background-color: #218838; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestión de Notas - Profesor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --udem-azul-secundario: #1976D2;
+      --udem-azul-hover: #1565C0;
+      --udem-rojo: #B71C1C;
+    }
+    .bg-udem-azul { background-color: var(--udem-azul-secundario) !important; }
+    .bg-udem-azul-hover:hover { background-color: var(--udem-azul-hover) !important; }
+    .bg-udem-rojo { background-color: var(--udem-rojo) !important; }
+  </style>
 </head>
-<header class="container" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">    
-      <button onclick="window.location.href='index.html#cursos-profesor'" class="bg-gray-500 text-white px-4 py-2 rounded-lg">Volver</button>
-    </header>
-<body>
-    <div class="container">
-        <h1>Gestión de Notas y Reportes</h1>
-        <h2>Curso: Programación Avanzada (PROG401)</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Estudiante</th>
-                    <th>Evaluación 1 (25%)</th>
-                    <th>Evaluación 2 (25%)</th>
-                    <th>Evaluación Final (50%)</th>
-                    <th>Promedio</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Juan Pérez</td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="4.5"></td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="4.0"></td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="4.2"></td>
-                    <td>4.17</td>
-                </tr>
-                <tr>
-                    <td>María López</td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="3.8"></td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="4.1"></td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="3.9"></td>
-                    <td>3.95</td>
-                </tr>
-                <tr>
-                    <td>Carlos Gómez</td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="5.0"></td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="4.8"></td>
-                    <td><input type="number" min="0" max="5" step="0.1" value="5.0"></td>
-                    <td>4.95</td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="button-group">
-            <button>Guardar Cambios</button>
-            <button>Generar Reporte Consolidado</button>
-        </div>
+<body class="bg-gray-100 font-sans">
+  <header class="bg-udem-azul shadow p-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold text-white">Gestión de Notas</h1>
+    <button onclick="window.location.href='index.html#cursos-profesor'" 
+      class="bg-white text-udem-azul px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
+  </header>
+
+  <main class="p-6 max-w-5xl mx-auto">
+    <div class="bg-white p-6 rounded-2xl shadow space-y-6">
+      <h2 class="text-lg font-semibold text-udem-azul">Curso: Programación Avanzada (PROG401)</h2>
+
+      <table class="w-full border rounded-lg overflow-hidden shadow">
+        <thead class="bg-udem-azul text-white">
+          <tr>
+            <th class="p-3 text-left">Estudiante</th>
+            <th class="p-3">Eval. 1 (25%)</th>
+            <th class="p-3">Eval. 2 (25%)</th>
+            <th class="p-3">Final (50%)</th>
+            <th class="p-3">Promedio</th>
+          </tr>
+        </thead>
+        <tbody class="text-gray-700">
+          <tr class="border-t hover:bg-gray-50">
+            <td class="p-3">Juan Pérez</td>
+            <td class="p-3"><input type="number" value="4.5" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3"><input type="number" value="4.0" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3"><input type="number" value="4.2" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3">4.17</td>
+          </tr>
+          <tr class="border-t hover:bg-gray-50">
+            <td class="p-3">María López</td>
+            <td class="p-3"><input type="number" value="3.8" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3"><input type="number" value="4.1" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3"><input type="number" value="3.9" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3">3.95</td>
+          </tr>
+          <tr class="border-t hover:bg-gray-50">
+            <td class="p-3">Carlos Gómez</td>
+            <td class="p-3"><input type="number" value="5.0" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3"><input type="number" value="4.8" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3"><input type="number" value="5.0" min="0" max="5" step="0.1" class="border rounded-lg px-2 w-16 text-center"></td>
+            <td class="p-3">4.95</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="flex justify-end space-x-3">
+        <button class="bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Guardar Cambios</button>
+        <button class="bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Generar Reporte</button>
+      </div>
     </div>
+  </main>
 </body>
 </html>
