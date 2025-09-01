@@ -11,14 +11,29 @@
   <!-- ================== LOGIN ================== -->
   <section id="login" class="flex items-center justify-center min-h-screen">
     <div class="bg-white p-10 rounded-3xl shadow-2xl w-full max-w-md">
-      
-      <!-- Ícono con gradiente dinámico -->
-      <div class="flex justify-center mb-6">
+
+      <!-- Ícono con flechas -->
+      <div class="flex items-center justify-center mb-6 space-x-4">
+        <!-- Flecha izquierda -->
+        <button onclick="cambiarGradiente(-1)" class="text-gray-500 hover:text-blue-600 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <!-- Círculo -->
         <div id="circle" class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full w-24 h-24 flex items-center justify-center shadow-lg transition-all duration-500">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-3.314 2.686-6 6-6s6 2.686 6 6-2.686 6-6 6-6-2.686-6-6zM6 21v-2a4 4 0 014-4h4" />
           </svg>
         </div>
+
+        <!-- Flecha derecha -->
+        <button onclick="cambiarGradiente(1)" class="text-gray-500 hover:text-blue-600 transition">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
       </div>
 
       <h2 class="text-2xl font-bold text-center mb-6 text-gray-800">Inicio de Sesión</h2>
@@ -43,30 +58,29 @@
 
         <p class="text-sm text-center mt-4 text-blue-600 cursor-pointer hover:underline">¿Olvidaste tu contraseña?</p>
       </form>
-
-      <!-- Selector de gradiente -->
-      <div class="mt-6">
-        <h3 class="text-sm font-semibold text-gray-600 mb-2 text-center">Cambiar estilo del ícono</h3>
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="cambiarGradiente('from-blue-600 to-purple-600')" class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm">Azul→Morado</button>
-          <button onclick="cambiarGradiente('from-blue-600 to-green-500')" class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600 to-green-500 text-white text-sm">Azul→Verde</button>
-          <button onclick="cambiarGradiente('from-blue-600 to-cyan-400')" class="px-3 py-1 rounded-lg bg-gradient-to-r from-blue-600 to-cyan-400 text-white text-sm">Azul→Cyan</button>
-          <button onclick="cambiarGradiente('from-orange-500 to-red-600')" class="px-3 py-1 rounded-lg bg-gradient-to-r from-orange-500 to-red-600 text-white text-sm">Naranja→Rojo</button>
-          <button onclick="cambiarGradiente('from-purple-600 to-pink-500')" class="px-3 py-1 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 text-white text-sm">Morado→Rosa</button>
-        </div>
-      </div>
     </div>
   </section>
 
   <script>
-    function cambiarGradiente(gradiente) {
+    // Lista de gradientes disponibles
+    const gradientes = [
+      "from-blue-600 to-purple-600",
+      "from-blue-600 to-green-500",
+      "from-blue-600 to-cyan-400",
+      "from-orange-500 to-red-600",
+      "from-purple-600 to-pink-500"
+    ];
+
+    let indice = 0;
+
+    function cambiarGradiente(direccion) {
+      indice = (indice + direccion + gradientes.length) % gradientes.length;
       const circle = document.getElementById("circle");
-      circle.className = "text-white rounded-full w-24 h-24 flex items-center justify-center shadow-lg transition-all duration-500 bg-gradient-to-r " + gradiente;
+      circle.className = "text-white rounded-full w-24 h-24 flex items-center justify-center shadow-lg transition-all duration-500 bg-gradient-to-r " + gradientes[indice];
     }
   </script>
 
 </body>
 </html>
-
 
 
