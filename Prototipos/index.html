@@ -160,9 +160,8 @@ input[type=number] {
       <div class="flex items-center space-x-4">
         <span id="nombre-display-estudiante" class="text-white"></span>
         <img id="avatar-display-estudiante" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
-        <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100">
-          Cerrar Sesión
-        </button>
+        <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100"
+                title="Salir del sistema">Cerrar sesion</button>
       </div>
     </header>
 
@@ -200,7 +199,8 @@ input[type=number] {
               </select>
             </div>
             <button type="button" onclick="resetFiltroCarrera()" 
-                    class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg">Limpiar Filtros</button>
+                    class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg"
+                    title="Limpiar todos los filtros de busqueda">Limpiar Filtros</button>
           </div>
 
           <div id="lista-lineas" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -635,8 +635,16 @@ input[type=number] {
       <div class="flex items-center space-x-4">
         <span id="nombre-display-profesor" class="text-white"></span>
         <img id="avatar-display-profesor" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
-        <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100">
-          Cerrar Sesión
+        <button onclick="cerrarSesion()" 
+                      class="relative group bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100">
+                  Cerrar Sesión
+                  <span class="absolute -top-8 left-1/2 -translate-x-1/2 
+                              bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 
+                              group-hover:opacity-100 transition">
+                    Salir del sistema 
+  </span>
+</button>
+
         </button>
       </div>
     </header>
@@ -652,7 +660,8 @@ input[type=number] {
               <p class="text-gray-600">25 estudiantes inscritos</p>
               <p class="text-sm text-gray-500">Horario: Lunes y Miércoles 2:00-4:00 PM</p>
               <button onclick="abrirGestionNotas('Seguridad Informática')" 
-                        class="mt-2 px-3 py-1 bg-udem-azul text-white rounded">📊 Gestionar Notas</button>
+                        class="mt-2 px-3 py-1 bg-udem-azul text-white rounded"
+                        title="Abrir gestión de notas de este curso">📊 Gestionar Notas</button>
 
             </div>
             <div class="border-l-4 border-udem-azul pl-4">
@@ -660,7 +669,9 @@ input[type=number] {
               <p class="text-gray-600">18 estudiantes inscritos</p>
               <p class="text-sm text-gray-500">Horario: Martes y Jueves 8:00-10:00 AM</p>
               <button onclick="abrirGestionNotas('Redes de Computadores')" 
-                        class="mt-2 px-3 py-1 bg-udem-azul text-white rounded">📊 Gestionar Notas</button>
+                        class="mt-2 px-3 py-1 bg-udem-azul text-white rounded"
+                        title="Abrir gestión de notas de este curso">📊 Gestionar Notas</button>
+
             </div>
           </div>
         </div>
@@ -738,9 +749,8 @@ input[type=number] {
       <div class="flex items-center space-x-4">
         <span id="nombre-display-coordinador" class="text-white"></span>
         <img id="avatar-display-coordinador" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
-        <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100">
-          Cerrar Sesión
-        </button>
+        <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100"
+          title="Salir del sistema">Cerrar Sesion</button>
       </div>
     </header>
 
