@@ -1,167 +1,432 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sistema de Gestión - UdeM</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    :root {
-      --udem-rojo: #B71C1C;
-      --udem-rojo-hover: #D32F2F;
-      --udem-azul: #1976D2;
-      --udem-azul-hover: #1565C0;
-      --udem-verde: #388E3C;
-      --udem-amarillo: #FFA000;
-    }
-    .tab-active {
-      border-bottom: 3px solid var(--udem-rojo);
-      color: var(--udem-rojo);
-      font-weight: bold;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototipo Sistema de Gestión</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            /* Colores principales Universidad de Medellín */
+            --udem-rojo: #B71C1C;
+            --udem-rojo-hover: #D32F2F;
+            --udem-rojo-claro: #FFEBEE;
+            --udem-blanco: #FFFFFF;
+            --udem-gris-claro: #F5F5F5;
+            --udem-gris-medio: #757575;
+            --udem-gris-oscuro: #424242;
+            --udem-azul-secundario: #1976D2;
+            --udem-azul-hover: #1565C0;
+            --udem-verde-exito: #388E3C;
+            --udem-amarillo: #FFA000;
+        }
+
+        /* Clases Tailwind personalizadas para UDEM */
+        .bg-udem-rojo { background-color: var(--udem-rojo) !important; }
+        .bg-udem-rojo-hover:hover { background-color: var(--udem-rojo-hover) !important; }
+        .bg-udem-azul { background-color: var(--udem-azul-secundario) !important; }
+        .bg-udem-azul-hover:hover { background-color: var(--udem-azul-hover) !important; }
+        .text-udem-rojo { color: var(--udem-rojo) !important; }
+        .text-udem-azul { color: var(--udem-azul-secundario) !important; }
+        .bg-udem-verde { background-color: var(--udem-verde-exito) !important; }
+        .bg-udem-verde-hover:hover { background-color: #2E7D32 !important; }
+        .border-udem-rojo { border-color: var(--udem-rojo) !important; }
+    </style>
 </head>
 <body class="bg-gray-100 font-sans">
 
-  <!-- ============ LOGIN ============ -->
-  <section id="login" class="flex items-center justify-center min-h-screen bg-gradient-to-r from-red-700 to-red-900">
-    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
-      <h2 class="text-2xl font-bold text-center mb-6 text-red-800">Inicio de Sesión</h2>
-      <input id="usuario" type="text" placeholder="Usuario" class="w-full mb-4 px-3 py-2 border rounded-lg">
-      <input id="password" type="password" placeholder="Contraseña" class="w-full mb-4 px-3 py-2 border rounded-lg">
-      <div class="space-y-2">
-        <button onclick="abrirDashboard('estudiante')" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Entrar como Estudiante</button>
-        <button onclick="abrirDashboard('profesor')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">Entrar como Profesor</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ DASHBOARD ESTUDIANTE ============ -->
-  <section id="dashboard-estudiante" class="hidden min-h-screen">
-    <header class="bg-red-800 text-white p-4 flex justify-between items-center">
-      <h1 class="font-bold text-lg">Dashboard Estudiante</h1>
-      <button onclick="cerrarSesion()" class="bg-white text-red-800 px-4 py-2 rounded-lg">Cerrar Sesión</button>
-    </header>
-
-    <!-- Tabs -->
-    <div class="bg-white shadow flex space-x-6 px-6 py-2">
-      <button onclick="cambiarTab('estudiante','lineas')" id="tab-estudiante-lineas" class="tab-active">Líneas</button>
-      <button onclick="cambiarTab('estudiante','solicitudes')" id="tab-estudiante-solicitudes">Solicitudes</button>
-      <button onclick="cambiarTab('estudiante','notificaciones')" id="tab-estudiante-notificaciones">Notificaciones</button>
-    </div>
-
-    <!-- Contenido -->
-    <main class="p-6">
-      <!-- Líneas -->
-      <div id="contenido-estudiante-lineas">
-        <h2 class="text-xl font-semibold mb-4">Líneas de Énfasis</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-4 bg-white shadow rounded-xl">
-            <h3 class="font-semibold">IA y Ciencia de Datos</h3>
-            <p class="text-gray-500">Cupos: 20/30</p>
-            <button class="mt-2 bg-red-700 text-white px-4 py-2 rounded-lg">Ver Detalles</button>
-          </div>
-          <div class="p-4 bg-white shadow rounded-xl">
-            <h3 class="font-semibold">Seguridad Informática</h3>
-            <p class="text-gray-500">Cupos: 15/25</p>
-            <button class="mt-2 bg-red-700 text-white px-4 py-2 rounded-lg">Ver Detalles</button>
-          </div>
+    <section id="login" class="flex items-center justify-center min-h-screen bg-gradient-to-r from-red-700 to-red-900">
+        <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+            <h2 class="text-2xl font-bold text-center mb-6 text-udem-rojo">Inicio de Sesión</h2>
+            <form onsubmit="return false;">
+                <label class="block mb-2 text-udem-gris-oscuro">Usuario / Código</label>
+                <input type="text" id="nombreUsuario" class="w-full mb-4 px-3 py-2 border rounded-lg" placeholder="Ingresa tu usuario">
+                <label class="block mb-2 text-gray-600">Contraseña</label>
+                <div class="flex items-center border rounded-lg px-3 mb-4">
+                    <input type="password" id="password" class="flex-1 py-2 focus:outline-none" placeholder="********">
+                    <button type="button" onclick="togglePassword()" class="text-gray-500 ml-2">👁️</button>
+                </div>
+                <label class="mt-3 flex items-center space-x-2 mb-6">
+                    <input type="checkbox" required>
+                    <span class="text-sm text-gray-600">No soy un robot</span>
+                </label>
+                <div class="grid grid-cols-1 gap-2">
+                    <button type="button" onclick="mostrarDashboard('estudiante')" class="w-full bg-udem-azul text-white py-2 rounded-lg bg-udem-azul-hover">Entrar como Estudiante</button>
+                    <button type="button" onclick="mostrarDashboard('profesor')" class="w-full bg-udem-verde text-white py-2 rounded-lg bg-udem-verde-hover">Entrar como Profesor</button>
+                    <button type="button" onclick="mostrarDashboard('coordinador')" class="w-full bg-udem-rojo text-white py-2 rounded-lg bg-udem-rojo-hover">Entrar como Administrador</button>
+                </div>
+                <p class="text-sm text-center mt-4 text-blue-500 cursor-pointer hover:underline">Recuperar Contraseña</p>
+            </form>
         </div>
-      </div>
-      <!-- Solicitudes -->
-      <div id="contenido-estudiante-solicitudes" class="hidden">
-        <h2 class="text-xl font-semibold mb-4">Mis Solicitudes</h2>
-        <table class="w-full bg-white rounded-xl shadow">
-          <thead class="bg-red-700 text-white">
-            <tr><th class="p-2">Línea</th><th class="p-2">Estado</th><th class="p-2">Acción</th></tr>
-          </thead>
-          <tbody>
-            <tr class="border-t">
-              <td class="p-2">IA y Ciencia de Datos</td>
-              <td class="p-2">Pendiente</td>
-              <td class="p-2"><button class="bg-red-600 text-white px-3 py-1 rounded">Cancelar</button></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <!-- Notificaciones -->
-      <div id="contenido-estudiante-notificaciones" class="hidden">
-        <h2 class="text-xl font-semibold mb-4">Notificaciones</h2>
-        <ul class="list-disc list-inside text-gray-600">
-          <li>Tu solicitud a "IA y Ciencia de Datos" está en revisión</li>
-          <li>Nuevo cronograma disponible</li>
-        </ul>
-      </div>
-    </main>
-  </section>
+    </section>
 
-  <!-- ============ DASHBOARD PROFESOR ============ -->
-  <section id="dashboard-profesor" class="hidden min-h-screen">
-    <header class="bg-blue-700 text-white p-4 flex justify-between items-center">
-      <h1 class="font-bold text-lg">Dashboard Profesor</h1>
-      <button onclick="cerrarSesion()" class="bg-white text-blue-700 px-4 py-2 rounded-lg">Cerrar Sesión</button>
-    </header>
+    <section id="dashboard-estudiante" class="hidden min-h-screen bg-gray-50">
+        <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white">Menu Principal</h1>
+            <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Cerrar Sesión</button>
+        </header>
 
-    <!-- Tabs -->
-    <div class="bg-white shadow flex space-x-6 px-6 py-2">
-      <button onclick="cambiarTab('profesor','cursos')" id="tab-profesor-cursos" class="tab-active">Cursos</button>
-      <button onclick="cambiarTab('profesor','reportes')" id="tab-profesor-reportes">Reportes</button>
+        <main class="p-6 space-y-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                        Líneas de Énfasis Disponibles
+                        <span class="text-sm text-gray-400" title="Aquí puedes consultar y seleccionar las líneas de énfasis disponibles.">ⓘ</span>
+                    </h2>
+                    <p class="text-gray-500">Consulta y selecciona las líneas activas.</p>
+                    <button onclick="mostrarSeccion('busqueda')" class="mt-4 bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Ver Líneas</button>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                        Mis Solicitudes
+                        <span class="text-sm text-gray-400" title="Revisa el estado de tus solicitudes de inscripción.">ⓘ</span>
+                    </h2>
+                    <p class="text-gray-500">Revisa o cancela solicitudes pendientes.</p>
+                    <button onclick="mostrarSeccion('solicitudes')" class="mt-4 bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Ver Solicitudes</button>
+                </div>
+
+                <div class="bg-white p-6 rounded-2xl shadow">
+                    <h2 class="text-lg font-semibold text-gray-700 mb-2 flex items-center gap-2">
+                        Notificaciones
+                        <span class="text-sm text-gray-400" title="Recibe alertas sobre el estado de tus cursos y solicitudes.">ⓘ</span>
+                    </h2>
+                    <ul class="text-gray-600 list-disc list-inside">
+                        <li>Aprobación de línea en espera</li>
+                        <li>Nuevo cronograma disponible</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <img id="avatar-display-estudiante" class="w-16 h-16 rounded-full mx-auto mb-2" src="" alt="Avatar">
+                <div id="nombre-display-estudiante" class="text-gray-600 text-lg"></div>
+            </div>
+        </main>
+    </section>
+
+    <div id="modal-detalle-linea" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-11/12 md:max-w-xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800" id="modal-titulo-linea"></h3>
+                <button onclick="cerrarModal('modal-detalle-linea')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <p id="modal-cuerpo-linea" class="text-gray-600 mb-4"></p>
+            <div class="flex justify-end gap-2">
+                <button class="bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Solicitar Inscripción</button>
+                <button class="bg-udem-azul text-white px-4 py-2 rounded-lg bg-udem-azul-hover">Ver Cronograma</button>
+            </div>
+        </div>
     </div>
 
-    <!-- Contenido -->
-    <main class="p-6">
-      <!-- Cursos -->
-      <div id="contenido-profesor-cursos">
-        <h2 class="text-xl font-semibold mb-4">Mis Cursos</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div class="p-4 bg-white rounded-xl shadow">
-            <h3 class="font-semibold">Criptografía</h3>
-            <p>Estudiantes: 25</p>
-          </div>
-          <div class="p-4 bg-white rounded-xl shadow">
-            <h3 class="font-semibold">Forense Digital</h3>
-            <p>Estudiantes: 18</p>
-          </div>
-        </div>
-      </div>
-      <!-- Reportes -->
-      <div id="contenido-profesor-reportes" class="hidden">
-        <h2 class="text-xl font-semibold mb-4">Generar Reportes</h2>
-        <form class="space-y-4 bg-white p-4 rounded-xl shadow max-w-lg">
-          <select class="w-full border px-3 py-2 rounded-lg">
-            <option>Seleccione curso</option>
-            <option>Criptografía</option>
-            <option>Forense Digital</option>
-          </select>
-          <select class="w-full border px-3 py-2 rounded-lg">
-            <option>Seleccione estudiante</option>
-            <option>Juan Pérez</option>
-            <option>Ana Gómez</option>
-          </select>
-          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Generar</button>
-        </form>
-      </div>
-    </main>
-  </section>
+    <section id="solicitudes" class="hidden min-h-screen bg-gray-50">
+        <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white">Solicitudes de Inscripción</h1>
+            <button onclick="mostrarSeccion('dashboard-estudiante')" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Volver</button>
+        </header>
+        <main class="p-6">
+            <table class="w-full bg-white rounded-2xl shadow overflow-hidden">
+                <thead class="bg-udem-rojo text-white">
+                    <tr>
+                        <th class="p-3 text-left">Línea</th>
+                        <th class="p-3 text-left">Cursos</th>
+                        <th class="p-3 text-left">Fecha</th>
+                        <th class="p-3 text-left">Estado</th>
+                        <th class="p-3 text-left">Acción</th>
+                    </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                    <tr class="border-t">
+                        <td class="p-3">Seguridad Informática</td>
+                        <td class="p-3">Criptografía, Forense Digital</td>
+                        <td class="p-3">27/08/2025</td>
+                        <td class="p-3 estado">Pendiente</td>
+                        <td class="p-3">
+                            <button onclick="cancelarSolicitud(this)" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600">Cancelar</button>
+                        </td>
+                    </tr>
+                    <tr class="border-t">
+                        <td class="p-3">IA y Ciencia de Datos</td>
+                        <td class="p-3">ML I</td>
+                        <td class="p-3">20/08/2025</td>
+                        <td class="p-3 estado">Aprobada</td>
+                        <td class="p-3">
+                            <button disabled class="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-not-allowed">No disponible</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </main>
+    </section>
 
-  <!-- ============ JS ============ -->
-  <script>
-    function abrirDashboard(rol) {
-      document.getElementById("login").classList.add("hidden");
-      document.getElementById(`dashboard-${rol}`).classList.remove("hidden");
-    }
-    function cerrarSesion() {
-      document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
-      document.getElementById("login").classList.remove("hidden");
-    }
-    function cambiarTab(rol, tab) {
-      // ocultar todos
-      document.querySelectorAll(`#dashboard-${rol} [id^="contenido-${rol}-"]`).forEach(c=>c.classList.add("hidden"));
-      document.querySelectorAll(`#dashboard-${rol} [id^="tab-${rol}-"]`).forEach(b=>b.classList.remove("tab-active"));
-      // mostrar
-      document.getElementById(`contenido-${rol}-${tab}`).classList.remove("hidden");
-      document.getElementById(`tab-${rol}-${tab}`).classList.add("tab-active");
-    }
-  </script>
+    <section id="dashboard-profesor" class="hidden min-h-screen bg-gray-50">
+        <header class="bg-udem-azul shadow p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white">Menu Principal</h1>
+            <button onclick="cerrarSesion()" class="bg-white text-udem-azul px-4 py-2 rounded-lg hover:bg-gray-100">Cerrar Sesión</button>
+        </header>
+        <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <h2 class="font-semibold">Cursos Asignados</h2>
+                <button onclick="mostrarModal('modal-cursos-profesor')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Ver Cursos</button>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <h2 class="font-semibold">Reportes</h2>
+                <button onclick="mostrarModal('modal-reportes-profesor')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Ver Reportes</button>
+            </div>
+        </main>
+        <div class="mt-6 text-center">
+            <img id="avatar-display-profesor" class="w-16 h-16 rounded-full mx-auto mb-2" src="" alt="Avatar">
+            <div id="nombre-display-profesor" class="text-gray-600 text-lg"></div>
+        </div>
+    </section>
+
+    <div id="modal-cursos-profesor" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-11/12 md:max-w-xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Cursos Asignados</h3>
+                <button onclick="cerrarModal('modal-cursos-profesor')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <h4 class="font-semibold">Criptografía</h4>
+                    <p class="text-sm text-gray-600">Estudiantes inscritos: 25</p>
+                    <button onclick="mostrarModal('modal-gestion-curso')" class="mt-2 bg-udem-azul text-white px-3 py-1 rounded-lg text-sm">Gestionar</button>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <h4 class="font-semibold">Forense Digital</h4>
+                    <p class="text-sm text-gray-600">Estudiantes inscritos: 18</p>
+                    <button onclick="mostrarModal('modal-gestion-curso')" class="mt-2 bg-udem-azul text-white px-3 py-1 rounded-lg text-sm">Gestionar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-gestion-curso" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-11/12 md:max-w-2xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Gestión del Curso</h3>
+                <button onclick="cerrarModal('modal-gestion-curso')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <h4 class="font-semibold">Lista de Estudiantes</h4>
+                    <ul class="list-disc list-inside text-gray-700">
+                        <li>Juan Pérez — Estado: Activo</li>
+                        <li>Ana Gómez — Estado: Activo</li>
+                        <li>Carlos Díaz — Estado: Activo</li>
+                    </ul>
+                </div>
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <h4 class="font-semibold">Gestión de Notas</h4>
+                    <p class="text-gray-600">Campos para ingreso de notas.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-reportes-profesor" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-11/12 md:max-w-xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Generar Reporte</h3>
+                <button onclick="cerrarModal('modal-reportes-profesor')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <form id="formReporte" class="space-y-4">
+                <div>
+                    <label class="block text-sm text-gray-600 mb-1">Curso</label>
+                    <select class="w-full border px-3 py-2 rounded-lg">
+                        <option value="">Seleccione un curso</option>
+                        <option value="cripto">Criptografía</option>
+                        <option value="forense">Forense Digital</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-600 mb-1">Estudiante</label>
+                    <select class="w-full border px-3 py-2 rounded-lg">
+                        <option value="">Seleccione un estudiante</option>
+                        <option value="juan">Juan Pérez</option>
+                        <option value="maria">María López</option>
+                        <option value="carlos">Carlos Gómez</option>
+                    </select>
+                </div>
+                <button type="submit" class="bg-udem-azul text-white px-6 py-2 rounded-lg bg-udem-azul-hover">Generar Reporte</button>
+            </form>
+            <div id="resultadoReporte" class="hidden mt-6 p-4 bg-gray-100 rounded-lg">
+                <h3 class="font-semibold text-gray-700">Reporte del Estudiante</h3>
+                <p id="reporteContenido" class="text-gray-600"></p>
+            </div>
+        </div>
+    </div>
+
+    <section id="dashboard-coordinador" class="hidden min-h-screen bg-gray-50">
+        <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white">Menu Principal</h1>
+            <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Cerrar Sesión</button>
+        </header>
+        <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <h2 class="font-semibold">Solicitudes Pendientes</h2>
+                <button onclick="mostrarModal('modal-solicitudes-coordinador')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Revisar</button>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <h2 class="font-semibold">Gestión de Líneas</h2>
+                <button onclick="mostrarModal('modal-lineas-coordinador')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
+            </div>
+        </main>
+        <div class="mt-6 text-center">
+            <img id="avatar-display-coordinador" class="w-16 h-16 rounded-full mx-auto mb-2" src="" alt="Avatar">
+            <div id="nombre-display-coordinador" class="text-gray-600 text-lg"></div>
+        </div>
+    </section>
+
+    <div id="modal-solicitudes-coordinador" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-11/12 md:max-w-3xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Revisión de Solicitudes</h3>
+                <button onclick="cerrarModal('modal-solicitudes-coordinador')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <table class="w-full bg-white rounded-2xl shadow">
+                <thead class="bg-udem-rojo text-white">
+                    <tr>
+                        <th class="p-3 text-center">Estudiante</th>
+                        <th class="p-3 text-center">Línea</th>
+                        <th class="p-3 text-center">Estado</th>
+                        <th class="p-3 text-center">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-t">
+                        <td class="p-3">Juan Pérez</td>
+                        <td class="p-3">Seguridad Informática</td>
+                        <td class="p-3">Pendiente</td>
+                        <td class="p-3 text-center">
+                            <div class="space-x-2 flex justify-center">
+                                <button class="text-white px-3 py-1 rounded hover:bg-green-700" style="background-color: var(--udem-verde-exito);">Aprobar</button>
+                                <button class="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700">Rechazar</button>
+                                <button onclick="window.location.href='detalles.html'" class="text-white px-3 py-1 rounded" style="background-color: var(--udem-azul-secundario);" onmouseover="this.style.backgroundColor='var(--udem-azul-hover)'" onmouseout="this.style.backgroundColor='var(--udem-azul-secundario)'">Detalles</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="modal-lineas-coordinador" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
+        <div class="bg-white p-6 rounded-2xl shadow-xl w-11/12 md:max-w-2xl mx-auto">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-xl font-semibold text-gray-800">Gestión de Líneas</h3>
+                <button onclick="cerrarModal('modal-lineas-coordinador')" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+            </div>
+            <div class="space-y-4">
+                <div class="bg-gray-100 p-4 rounded-lg">
+                    <h4 class="font-semibold">Seguridad Informática</h4>
+                    <p class="text-sm text-gray-600">Estado: Activa</p>
+                    <div class="mt-2 space-x-2">
+                        <button class="text-white px-3 py-1 rounded-lg text-sm" style="background-color: var(--udem-amarillo);" onmouseover="this.style.backgroundColor='#FF8F00'" onmouseout="this.style.backgroundColor='var(--udem-amarillo)'">Editar</button>
+                        <button class="bg-udem-azul text-white px-3 py-1 rounded-lg text-sm bg-udem-azul-hover">Ver Detalles</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Navegación principal y control de modales
+        function mostrarDashboard(rol) {
+            ocultarTodo();
+            document.getElementById(`dashboard-${rol}`).classList.remove('hidden');
+            const nombre = document.getElementById("nombreUsuario")?.value || "Usuario";
+            localStorage.setItem("nombreSesion", nombre);
+            const avatarUrl = "https://i.pravatar.cc/100?u=" + nombre;
+            localStorage.setItem("avatarSesion", avatarUrl);
+            const nombreDisplay = document.getElementById(`nombre-display-${rol}`);
+            const avatarDisplay = document.getElementById(`avatar-display-${rol}`);
+            if (nombreDisplay) nombreDisplay.textContent = `Bienvenido, ${nombre}`;
+            if (avatarDisplay) avatarDisplay.src = avatarUrl;
+        }
+
+        function mostrarSeccion(id) {
+            ocultarTodo();
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function cerrarSesion() {
+            ocultarTodo();
+            document.getElementById('login').classList.remove('hidden');
+        }
+
+        function ocultarTodo() {
+            document.querySelectorAll('section').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.modal').forEach(mod => mod.classList.add('hidden'));
+        }
+
+        function mostrarModal(id) {
+            document.getElementById(id).classList.remove('hidden');
+        }
+
+        function cerrarModal(id) {
+            document.getElementById(id).classList.add('hidden');
+        }
+
+        // Funcionalidades específicas
+        function togglePassword() {
+            const input = document.getElementById("password");
+            input.type = input.type === "password" ? "text" : "password";
+        }
+
+        function cancelarSolicitud(btn) {
+            const row = btn.closest('tr');
+            const estadoCell = row.querySelector('.estado');
+            estadoCell.textContent = 'Cancelada';
+            estadoCell.classList.add('text-red-600');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+            btn.textContent = 'Cancelada';
+        }
+
+        // Simulación de datos para los modales de detalle
+        const lineas = {
+            'IA y Ciencia de Datos': {
+                cuerpo: 'Incluye cursos de Machine Learning, Deep Learning y Minería de Datos.',
+                profesores: 'Dr. Juan Felipe Restrepo, Dra. Andrea Pérez',
+                horario: 'Martes y Jueves 4-6 pm'
+            },
+            'Seguridad Informática': {
+                cuerpo: 'Incluye cursos de Criptografía, Auditoría de Sistemas y Forense Digital.',
+                profesores: 'Dra. Andrea López, Dr. Carlos Pérez',
+                horario: 'Lunes y Miércoles 6-8 pm'
+            },
+            'Gestión de Proyectos': {
+                cuerpo: 'Incluye metodologías ágiles, gestión de riesgos y planificación de proyectos.',
+                profesores: 'Dra. Laura Vélez, Ing. Mateo Ríos',
+                horario: 'Viernes 8-10 am'
+            },
+            'Métodos Numéricos Avanzados': {
+                cuerpo: 'Análisis de algoritmos numéricos para problemas complejos en ingeniería.',
+                profesores: 'Dr. Alejandro Giraldo',
+                horario: 'Sábados 8-12 m'
+            }
+        };
+
+        function mostrarDetalleLinea(nombre) {
+            const data = lineas[nombre];
+            if (data) {
+                document.getElementById('modal-titulo-linea').textContent = nombre;
+                document.getElementById('modal-cuerpo-linea').innerHTML = `
+                    <p class="text-gray-600">${data.cuerpo}</p>
+                    <p class="text-gray-600 mt-2">Profesores: ${data.profesores}</p>
+                    <p class="text-gray-600">Horario: ${data.horario}</p>
+                `;
+                mostrarModal('modal-detalle-linea');
+            }
+        }
+        
+        // Asignar eventos de clic a las tarjetas de líneas de énfasis
+        document.querySelectorAll('.linea-card h2').forEach(titulo => {
+            titulo.parentElement.addEventListener('click', () => {
+                mostrarDetalleLinea(titulo.textContent);
+            });
+        });
+    </script>
 </body>
 </html>
