@@ -74,7 +74,7 @@
                         <span class="text-sm text-gray-400" title="Aquí puedes consultar y seleccionar las líneas de énfasis disponibles.">ⓘ</span>
                     </h2>
                     <p class="text-gray-500">Consulta y selecciona las líneas activas.</p>
-                    <button onclick="mostrarSeccion('busqueda')" class="mt-4 bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover">Ver Líneas</button>
+                    <button onclick="toggleBusqueda()" class="mt-4 bg-udem-rojo text-white px-4 py-2 rounded-lg bg-udem-rojo-hover" id="btn-ver-lineas">Ver Líneas</button>
                 </div>
 
                 <div class="bg-white p-6 rounded-2xl shadow">
@@ -95,6 +95,57 @@
                         <li>Aprobación de línea en espera</li>
                         <li>Nuevo cronograma disponible</li>
                     </ul>
+                </div>
+            </div>
+            
+            <div id="seccion-busqueda" class="hidden space-y-6">
+                <div class="bg-white p-4 rounded-2xl shadow grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                    <div>
+                        <label for="filtro-carrera" class="block text-sm text-gray-600 mb-1">Carrera (Programa)</label>
+                        <select id="filtro-carrera" class="w-full border rounded-lg px-3 py-2">
+                            <option value="Todas">Todas</option>
+                            <option value="Ingeniería de Sistemas">Ingeniería de Sistemas</option>
+                            <option value="Ingeniería Industrial">Ingeniería Industrial</option>
+                            <option value="Matemáticas">Matemáticas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="filtro-area" class="block text-sm text-gray-600 mb-1">Área de Énfasis</label>
+                        <select id="filtro-area" class="w-full border rounded-lg px-3 py-2">
+                            <option value="Todas">Todas</option>
+                            <option value="IA y Datos">IA y Datos</option>
+                            <option value="Seguridad">Seguridad</option>
+                            <option value="Gestión">Gestión</option>
+                        </select>
+                    </div>
+                    <button type="button" onclick="resetFiltros()" class="text-white px-4 py-2 rounded-lg" style="background-color: var(--udem-amarillo);" onmouseover="this.style.backgroundColor='#FF8F00'" onmouseout="this.style.backgroundColor='var(--udem-amarillo)'">Limpiar Filtros</button>
+                </div>
+            
+                <div id="lista-lineas" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="linea-card p-6 rounded-2xl shadow cursor-pointer hover:shadow-xl transition-shadow" style="background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);" data-carrera="Ingeniería de Sistemas" data-area="IA y Datos">
+                        <h2 class="text-lg font-semibold text-gray-700">IA y Ciencia de Datos</h2>
+                        <p class="text-gray-500">Cupos: 20/30</p>
+                        <p class="text-gray-500">Prerrequisitos: Programación Avanzada</p>
+                        <span class="inline-block text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2">Ing. de Sistemas</span>
+                    </div>
+                    <div class="linea-card p-6 rounded-2xl shadow cursor-pointer hover:shadow-xl transition-shadow" style="background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);" data-carrera="Ingeniería de Sistemas" data-area="Seguridad">
+                        <h2 class="text-lg font-semibold text-gray-700">Seguridad Informática</h2>
+                        <p class="text-gray-500">Cupos: 15/25</p>
+                        <p class="text-gray-500">Prerrequisitos: Redes de Computadores</p>
+                        <span class="inline-block text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded mt-2">Ing. de Sistemas</span>
+                    </div>
+                    <div class="linea-card p-6 rounded-2xl shadow cursor-pointer hover:shadow-xl transition-shadow" style="background: linear-gradient(135deg, #ffffff 0%, #fff3e0 100%);" data-carrera="Ingeniería Industrial" data-area="Gestión">
+                        <h2 class="text-lg font-semibold text-gray-700">Gestión de Proyectos</h2>
+                        <p class="text-gray-500">Cupos: 10/20</p>
+                        <p class="text-gray-500">Prerrequisitos: Fundamentos de Gestión</p>
+                        <span class="inline-block text-xs bg-orange-100 text-orange-700 px-2 py-1 rounded mt-2">Ing. Industrial</span>
+                    </div>
+                    <div class="linea-card p-6 rounded-2xl shadow cursor-pointer hover:shadow-xl transition-shadow" style="background: linear-gradient(135deg, #ffffff 0%, #e8f5e8 100%);" data-carrera="Matemáticas" data-area="IA y Datos">
+                        <h2 class="text-lg font-semibold text-gray-700">Métodos Numéricos Avanzados</h2>
+                        <p class="text-gray-500">Cupos: 12/18</p>
+                        <p class="text-gray-500">Prerrequisitos: Cálculo Multivariable</p>
+                        <span class="inline-block text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded mt-2">Matemáticas</span>
+                    </div>
                 </div>
             </div>
 
@@ -367,6 +418,12 @@
         function cerrarModal(id) {
             document.getElementById(id).classList.add('hidden');
         }
+        
+        // Función para mostrar/ocultar la sección de búsqueda en el dashboard del estudiante
+        function toggleBusqueda() {
+            const seccionBusqueda = document.getElementById('seccion-busqueda');
+            seccionBusqueda.classList.toggle('hidden');
+        }
 
         // Funcionalidades específicas
         function togglePassword() {
@@ -427,6 +484,33 @@
                 mostrarDetalleLinea(titulo.textContent);
             });
         });
+
+        // Funcionalidad de filtros
+        const selectCarrera = document.getElementById('filtro-carrera');
+        const selectArea = document.getElementById('filtro-area');
+        
+        if (selectCarrera && selectArea) {
+            selectCarrera.addEventListener('change', filtrarLineas);
+            selectArea.addEventListener('change', filtrarLineas);
+        }
+
+        function filtrarLineas() {
+            const carreraValue = selectCarrera.value;
+            const areaValue = selectArea.value;
+
+            document.querySelectorAll('#lista-lineas .linea-card').forEach(card => {
+                const coincideCarrera = carreraValue === 'Todas' || card.dataset.carrera === carreraValue;
+                const coincideArea = areaValue === 'Todas' || card.dataset.area === areaValue;
+                
+                card.classList.toggle('hidden', !(coincideCarrera && coincideArea));
+            });
+        }
+
+        function resetFiltros() {
+            if (selectCarrera) selectCarrera.value = 'Todas';
+            if (selectArea) selectArea.value = 'Todas';
+            filtrarLineas();
+        }
     </script>
 </body>
 </html>
