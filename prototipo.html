@@ -7,7 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         :root {
-            /* Colores principales Universidad de Medellín */
             --udem-rojo: #B71C1C;
             --udem-rojo-hover: #D32F2F;
             --udem-rojo-claro: #FFEBEE;
@@ -21,7 +20,6 @@
             --udem-amarillo: #FFA000;
         }
 
-        /* Clases Tailwind personalizadas para UDEM */
         .bg-udem-rojo { background-color: var(--udem-rojo) !important; }
         .bg-udem-rojo-hover:hover { background-color: var(--udem-rojo-hover) !important; }
         .bg-udem-azul { background-color: var(--udem-azul-secundario) !important; }
@@ -32,35 +30,33 @@
         .bg-udem-verde-hover:hover { background-color: #2E7D32 !important; }
         .border-udem-rojo { border-color: var(--udem-rojo) !important; }
 
-        /* Estilo para el fondo del login */
         #login {
             background-image: url('https://image.pollinations.ai/prompt/abstract%20blurry%20background%20with%20strong%20red%20tones%20and%20subtle%20glowing%20lights%20and%20circuitry%20elements?width=1000&height=800&seed=43');
             background-size: cover;
             background-position: center;
             backdrop-filter: blur(8px);
         }
-        /* Estilo para los iconos dentro de los inputs */
         .input-icon {
             position: absolute;
             left: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #9ca3af; /* Color gris de Tailwind */
+            color: #9ca3af;
         }
         .input-wrapper {
             position: relative;
             display: flex;
             align-items: center;
-            width: 100%; /* Asegura que el wrapper ocupe todo el ancho disponible */
+            width: 100%;
         }
         .input-wrapper input {
-            flex-grow: 1; /* Permite que el input crezca para llenar el espacio */
-            padding-left: 40px; /* Espacio para el icono */
-            padding-right: 12px; /* Espacio predeterminado a la derecha */
-            height: 44px; /* Altura fija para uniformidad */
-            border-radius: 0.5rem; /* Esquinas redondeadas de Tailwind */
-            border: 1px solid #d1d5db; /* Borde de Tailwind */
-            box-sizing: border-box; /* Incluye padding y border en el ancho/alto total */
+            flex-grow: 1;
+            padding-left: 40px;
+            padding-right: 12px;
+            height: 44px;
+            border-radius: 0.5rem;
+            border: 1px solid #d1d5db;
+            box-sizing: border-box;
         }
         .input-wrapper .toggle-password-btn {
             position: absolute;
@@ -71,12 +67,11 @@
             border: none;
             cursor: pointer;
             padding: 0;
-            line-height: 1; /* Alinea el ojo verticalmente */
+            line-height: 1;
         }
         
-        /* Estilos de las tablas para el scroll */
         .table-container {
-            max-height: 250px; /* Ajuste para reducir el tamaño de la pantalla */
+            max-height: 250px;
             overflow-y: auto;
             border: 1px solid #e5e7eb;
             border-radius: 0.5rem;
@@ -98,7 +93,6 @@
             z-index: 10;
         }
 
-        /* Estilo para el botón de cerrar en el modal */
         .close-button {
             background-color: transparent;
             border: none;
@@ -362,7 +356,7 @@
                                 </tr>
                             </thead>
                             <tbody id="lista-estudiantes-table">
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -377,7 +371,7 @@
                                 </tr>
                             </thead>
                             <tbody id="notas-estudiantes-table">
-                                </tbody>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -420,6 +414,27 @@
             </div>
         </div>
     </div>
+
+    <section id="dashboard-coordinador" class="hidden min-h-screen bg-gray-50">
+        <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+            <h1 class="text-xl font-bold text-white">Menu Principal (Coordinador)</h1>
+            <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-4 py-2 rounded-lg hover:bg-gray-100">Cerrar Sesión</button>
+        </header>
+        <main class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <h2 class="font-semibold">Solicitudes Pendientes</h2>
+                <button onclick="mostrarModal('modal-solicitudes-coordinador')" class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg">Revisar</button>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow">
+                <h2 class="font-semibold">Gestión de Líneas</h2>
+                <button onclick="mostrarModal('modal-lineas-coordinador')" class="mt-4 bg-green-600 text-white px-4 py-2 rounded-lg">Gestionar</button>
+            </div>
+        </main>
+        <div class="mt-6 text-center">
+            <img id="avatar-display-coordinador" class="w-16 h-16 rounded-full mx-auto mb-2" src="" alt="Avatar">
+            <div id="nombre-display-coordinador" class="text-gray-600 text-lg"></div>
+        </div>
+    </section>
 
     <div id="modal-solicitudes-coordinador" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden">
         <div class="bg-white p-6 rounded-2xl shadow-xl w-11/12 md:max-w-3xl mx-auto">
@@ -471,7 +486,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div >
 
     <script>
         const usuarios = {
@@ -562,13 +577,11 @@
             document.getElementById(id).classList.add('hidden');
         }
         
-        // Función para mostrar/ocultar la sección de búsqueda en el dashboard del estudiante
         function toggleBusqueda() {
             const seccionBusqueda = document.getElementById('seccion-busqueda');
             seccionBusqueda.classList.toggle('hidden');
         }
 
-        // Funcionalidades específicas
         function togglePassword() {
             const input = document.getElementById("password");
             input.type = input.type === "password" ? "text" : "password";
@@ -592,7 +605,6 @@
             listaEstudiantesBody.innerHTML = '';
             notasEstudiantesBody.innerHTML = '';
 
-            // Llenar las tablas con la data de estudiantes
             estudiantes.forEach(estudiante => {
                 const trEstudiante = document.createElement('tr');
                 trEstudiante.innerHTML = `
@@ -612,7 +624,6 @@
             mostrarModal('modal-gestion-curso');
         }
 
-        // Simulación de datos para los modales de detalle
         const lineas = {
             'IA y Ciencia de Datos': {
                 cuerpo: 'Incluye cursos de Machine Learning, Deep Learning y Minería de Datos.',
@@ -649,14 +660,12 @@
             }
         }
         
-        // Asignar eventos de clic a las tarjetas de líneas de énfasis
         document.querySelectorAll('.linea-card h2').forEach(titulo => {
             titulo.parentElement.addEventListener('click', () => {
                 mostrarDetalleLinea(titulo.textContent);
             });
         });
 
-        // Funcionalidad de filtros
         const selectCarrera = document.getElementById('filtro-carrera');
         const selectArea = document.getElementById('filtro-area');
         
@@ -683,23 +692,19 @@
             filtrarLineas();
         }
 
-        // Nueva funcionalidad para el formulario de reportes
         document.getElementById('formReporte').addEventListener('submit', function(event) {
-            event.preventDefault(); // Evita que la página se recargue
+            event.preventDefault();
 
             const notificacion = document.getElementById('notificacion-reporte');
-            notificacion.classList.remove('hidden'); // Muestra la notificación
+            notificacion.classList.remove('hidden');
 
-            // Oculta la notificación después de 3 segundos
             setTimeout(() => {
                 notificacion.classList.add('hidden');
             }, 3000);
 
-            // Opcional: limpiar el formulario después de enviar
             this.reset();
         });
         
-        // Función para asegurar que el login se muestre al cargar la página
         document.addEventListener('DOMContentLoaded', () => {
             mostrarSeccion('login');
         });
