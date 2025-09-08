@@ -40,9 +40,17 @@
             <h2 class="text-2xl font-bold text-center mb-6 text-udem-rojo">Inicio de Sesión</h2>
             <form onsubmit="return false;">
                 <label class="block mb-2 text-udem-gris-oscuro">Usuario / Código</label>
-                <input type="text" id="nombreUsuario" class="w-full mb-4 px-3 py-2 border rounded-lg" placeholder="Ingresa tu usuario">
+                <div class="flex items-center border rounded-lg px-3 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                    <input type="text" id="nombreUsuario" class="flex-1 py-2 focus:outline-none" placeholder="Ingresa tu usuario">
+                </div>
                 <label class="block mb-2 text-gray-600">Contraseña</label>
                 <div class="flex items-center border rounded-lg px-3 mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743A10.025 10.025 0 0110 18a10.025 10.025 0 01-2.257-4.257A6 6 0 012 8a6.002 6.002 0 016-6c1.666 0 3.197.697 4.257 1.743A10.025 10.025 0 0118 8zm-6 0a2 2 0 11-4 0 2 2 0 014 0z" clip-rule="evenodd" />
+                    </svg>
                     <input type="password" id="password" class="flex-1 py-2 focus:outline-none" placeholder="********">
                     <button type="button" onclick="togglePassword()" class="text-gray-500 ml-2">👁️</button>
                 </div>
@@ -306,7 +314,7 @@
                 <p id="reporteContenido" class="text-gray-600"></p>
             </div>
         </div>
-    </div>
+    </div
 
     <section id="dashboard-coordinador" class="hidden min-h-screen bg-gray-50">
         <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
