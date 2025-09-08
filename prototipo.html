@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistema de Gestión - UdeM</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --udem-rojo: #B71C1C;
+      --udem-rojo-hover: #D32F2F;
+      --udem-azul: #1976D2;
+      --udem-azul-hover: #1565C0;
+      --udem-verde: #388E3C;
+      --udem-amarillo: #FFA000;
+    }
+    .tab-active {
+      border-bottom: 3px solid var(--udem-rojo);
+      color: var(--udem-rojo);
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans">
+
+  <!-- ============ LOGIN ============ -->
+  <section id="login" class="flex items-center justify-center min-h-screen bg-gradient-to-r from-red-700 to-red-900">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+      <h2 class="text-2xl font-bold text-center mb-6 text-red-800">Inicio de Sesión</h2>
+      <input id="usuario" type="text" placeholder="Usuario" class="w-full mb-4 px-3 py-2 border rounded-lg">
+      <input id="password" type="password" placeholder="Contraseña" class="w-full mb-4 px-3 py-2 border rounded-lg">
+      <div class="space-y-2">
+        <button onclick="abrirDashboard('estudiante')" class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">Entrar como Estudiante</button>
+        <button onclick="abrirDashboard('profesor')" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">Entrar como Profesor</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ DASHBOARD ESTUDIANTE ============ -->
+  <section id="dashboard-estudiante" class="hidden min-h-screen">
+    <header class="bg-red-800 text-white p-4 flex justify-between items-center">
+      <h1 class="font-bold text-lg">Dashboard Estudiante</h1>
+      <button onclick="cerrarSesion()" class="bg-white text-red-800 px-4 py-2 rounded-lg">Cerrar Sesión</button>
+    </header>
+
+    <!-- Tabs -->
+    <div class="bg-white shadow flex space-x-6 px-6 py-2">
+      <button onclick="cambiarTab('estudiante','lineas')" id="tab-estudiante-lineas" class="tab-active">Líneas</button>
+      <button onclick="cambiarTab('estudiante','solicitudes')" id="tab-estudiante-solicitudes">Solicitudes</button>
+      <button onclick="cambiarTab('estudiante','notificaciones')" id="tab-estudiante-notificaciones">Notificaciones</button>
+    </div>
+
+    <!-- Contenido -->
+    <main class="p-6">
+      <!-- Líneas -->
+      <div id="contenido-estudiante-lineas">
+        <h2 class="text-xl font-semibold mb-4">Líneas de Énfasis</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-4 bg-white shadow rounded-xl">
+            <h3 class="font-semibold">IA y Ciencia de Datos</h3>
+            <p class="text-gray-500">Cupos: 20/30</p>
+            <button class="mt-2 bg-red-700 text-white px-4 py-2 rounded-lg">Ver Detalles</button>
+          </div>
+          <div class="p-4 bg-white shadow rounded-xl">
+            <h3 class="font-semibold">Seguridad Informática</h3>
+            <p class="text-gray-500">Cupos: 15/25</p>
+            <button class="mt-2 bg-red-700 text-white px-4 py-2 rounded-lg">Ver Detalles</button>
+          </div>
+        </div>
+      </div>
+      <!-- Solicitudes -->
+      <div id="contenido-estudiante-solicitudes" class="hidden">
+        <h2 class="text-xl font-semibold mb-4">Mis Solicitudes</h2>
+        <table class="w-full bg-white rounded-xl shadow">
+          <thead class="bg-red-700 text-white">
+            <tr><th class="p-2">Línea</th><th class="p-2">Estado</th><th class="p-2">Acción</th></tr>
+          </thead>
+          <tbody>
+            <tr class="border-t">
+              <td class="p-2">IA y Ciencia de Datos</td>
+              <td class="p-2">Pendiente</td>
+              <td class="p-2"><button class="bg-red-600 text-white px-3 py-1 rounded">Cancelar</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Notificaciones -->
+      <div id="contenido-estudiante-notificaciones" class="hidden">
+        <h2 class="text-xl font-semibold mb-4">Notificaciones</h2>
+        <ul class="list-disc list-inside text-gray-600">
+          <li>Tu solicitud a "IA y Ciencia de Datos" está en revisión</li>
+          <li>Nuevo cronograma disponible</li>
+        </ul>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============ DASHBOARD PROFESOR ============ -->
+  <section id="dashboard-profesor" class="hidden min-h-screen">
+    <header class="bg-blue-700 text-white p-4 flex justify-between items-center">
+      <h1 class="font-bold text-lg">Dashboard Profesor</h1>
+      <button onclick="cerrarSesion()" class="bg-white text-blue-700 px-4 py-2 rounded-lg">Cerrar Sesión</button>
+    </header>
+
+    <!-- Tabs -->
+    <div class="bg-white shadow flex space-x-6 px-6 py-2">
+      <button onclick="cambiarTab('profesor','cursos')" id="tab-profesor-cursos" class="tab-active">Cursos</button>
+      <button onclick="cambiarTab('profesor','reportes')" id="tab-profesor-reportes">Reportes</button>
+    </div>
+
+    <!-- Contenido -->
+    <main class="p-6">
+      <!-- Cursos -->
+      <div id="contenido-profesor-cursos">
+        <h2 class="text-xl font-semibold mb-4">Mis Cursos</h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="p-4 bg-white rounded-xl shadow">
+            <h3 class="font-semibold">Criptografía</h3>
+            <p>Estudiantes: 25</p>
+          </div>
+          <div class="p-4 bg-white rounded-xl shadow">
+            <h3 class="font-semibold">Forense Digital</h3>
+            <p>Estudiantes: 18</p>
+          </div>
+        </div>
+      </div>
+      <!-- Reportes -->
+      <div id="contenido-profesor-reportes" class="hidden">
+        <h2 class="text-xl font-semibold mb-4">Generar Reportes</h2>
+        <form class="space-y-4 bg-white p-4 rounded-xl shadow max-w-lg">
+          <select class="w-full border px-3 py-2 rounded-lg">
+            <option>Seleccione curso</option>
+            <option>Criptografía</option>
+            <option>Forense Digital</option>
+          </select>
+          <select class="w-full border px-3 py-2 rounded-lg">
+            <option>Seleccione estudiante</option>
+            <option>Juan Pérez</option>
+            <option>Ana Gómez</option>
+          </select>
+          <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg">Generar</button>
+        </form>
+      </div>
+    </main>
+  </section>
+
+  <!-- ============ JS ============ -->
+  <script>
+    function abrirDashboard(rol) {
+      document.getElementById("login").classList.add("hidden");
+      document.getElementById(`dashboard-${rol}`).classList.remove("hidden");
+    }
+    function cerrarSesion() {
+      document.querySelectorAll("section").forEach(s=>s.classList.add("hidden"));
+      document.getElementById("login").classList.remove("hidden");
+    }
+    function cambiarTab(rol, tab) {
+      // ocultar todos
+      document.querySelectorAll(`#dashboard-${rol} [id^="contenido-${rol}-"]`).forEach(c=>c.classList.add("hidden"));
+      document.querySelectorAll(`#dashboard-${rol} [id^="tab-${rol}-"]`).forEach(b=>b.classList.remove("tab-active"));
+      // mostrar
+      document.getElementById(`contenido-${rol}-${tab}`).classList.remove("hidden");
+      document.getElementById(`tab-${rol}-${tab}`).classList.add("tab-active");
+    }
+  </script>
+</body>
+</html>
