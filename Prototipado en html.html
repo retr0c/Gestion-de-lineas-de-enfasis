@@ -1577,8 +1577,12 @@
     // Inicializar (carga desde storage si existe)
     loadSavedNotas();
 
-    // ==================== ASISTENTE VIRTUAL LÓGICA ====================
+    // ==================== ASISTENTE VIRTUAL LÓGICA (CON ESPACIO PARA API) ====================
     document.addEventListener('DOMContentLoaded', () => {
+      // --- CONFIGURACIÓN DEL ASISTENTE ---
+      const GEMINI_API_KEY = "TU_API_KEY_AQUI"; // <--- ⚠️ Pega tu API Key aquí
+
+      // --- ELEMENTOS DEL DOM ---
       const openChatBtn = document.getElementById('open-chat-btn');
       const closeChatBtn = document.getElementById('close-chat-btn');
       const chatWindow = document.getElementById('chat-window');
@@ -1586,15 +1590,14 @@
       const sendChatBtn = document.getElementById('send-chat-btn');
       const chatBody = document.getElementById('chat-body');
 
-      // Abrir y cerrar la ventana del chat
+      // --- MANEJO DE EVENTOS ---
       openChatBtn.addEventListener('click', () => {
         chatWindow.classList.toggle('hidden');
         chatInput.focus();
       });
       closeChatBtn.addEventListener('click', () => chatWindow.classList.add('hidden'));
 
-      // Enviar mensaje
-      const sendMessage = () => {
+      const sendMessage = async () => {
         const userText = chatInput.value.trim();
         if (userText === '') return;
 
@@ -1602,10 +1605,12 @@
         chatInput.value = '';
 
         // Simular que el asistente "piensa"
-        setTimeout(() => {
-          const assistantResponse = getAssistantResponse(userText);
-          addMessage(assistantResponse, 'assistant');
-        }, 800);
+        addMessage("...", 'assistant');
+        const assistantResponse = await getAssistantResponse(userText);
+
+        // Actualizar el mensaje "pensando" con la respuesta real
+        const thinkingMessage = chatBody.lastChild;
+        thinkingMessage.innerHTML = `<p>${assistantResponse}</p>`;
       };
 
       sendChatBtn.addEventListener('click', sendMessage);
@@ -1616,38 +1621,84 @@
         }
       });
 
-      // Función para añadir mensajes al DOM
+      // --- FUNCIONES DEL CHAT ---
       function addMessage(text, type) {
         const messageDiv = document.createElement('div');
         messageDiv.className = `chat-message ${type}-message`;
-        messageDiv.innerHTML = `<p>${text}</p>`; // Usamos innerHTML para permitir saltos de línea y formato
+        messageDiv.innerHTML = `<p>${text}</p>`;
         chatBody.appendChild(messageDiv);
-        // Auto-scroll hacia el último mensaje
         chatBody.scrollTop = chatBody.scrollHeight;
       }
 
-      // --- EL CEREBRO DEL ASISTENTE (PROTOTIPO CON REGLAS) ---
-      function getAssistantResponse(userInput) {
-        const input = userInput.toLowerCase();
+      // --- LÓGICA PRINCIPAL DEL ASISTENTE ---
+      async function getAssistantResponse(userInput) {
+        // Si no hay API key, usa el cerebro del prototipo
+        if (GEMINI_API_KEY === "TU_API_KEY_AQUI" || GEMINI_API_KEY === "") {
+          return getPrototypeResponse(userInput);
+        }
+        // Si hay API key, intenta usar la IA real
+        try {
+          const response = await getRealAIResponse(userInput);
+          return response;
+        } catch (error) {
+          console.error("Error llamando a la API:", error);
+          return "Hubo un problema conectando con la IA. Por favor, revisa la consola para más detalles.";
+        }
+      }
 
-        // Regla 1: Recomendar por carrera
+      // --- CEREBRO REAL (SIMULADO) CONECTADO A UNA API ---
+      async function getRealAIResponse(userInput) {
+        // Aquí iría la URL de tu backend o proxy que llama a la API de Gemini
+        const API_URL = "https://tu-backend.com/api/chat"; // URL de ejemplo
+
+        // Aquí se define el contexto para que la IA sepa cómo responder
+        const systemPrompt = `Eres un asistente virtual de la Universidad de Medellín. Tu rol es ayudar a los estudiantes a elegir su línea de énfasis. Sé amable y directo. Usa la siguiente información para responder: ${JSON.stringify(lineasData)}`;
+        
+        console.log("Enviando a la API (simulado):", userInput);
+        
+        /* // --- DESCOMENTA ESTE BLOQUE CUANDO TENGAS UN BACKEND REAL ---
+        
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            // La API Key se debería manejar en el backend, no aquí
+          },
+          body: JSON.stringify({
+            prompt: userInput,
+            context: systemPrompt 
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error de red: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data.response; // Asegúrate que tu backend devuelva un objeto con la clave "response"
+        */
+        
+        // --- RESPUESTA SIMULADA (BORRA ESTO CUANDO USES EL FETCH REAL) ---
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simula espera de red
+        return `(Respuesta simulada de IA) ¡Hola! He recibido tu pregunta: "${userInput}". Aún no estoy conectado a una IA real, pero cuando mi desarrollador me conecte, podré darte respuestas mucho más inteligentes.`;
+      }
+
+      // --- CEREBRO DEL PROTOTIPO (RESPUESTAS PREDEFINIDAS) ---
+      function getPrototypeResponse(userInput) {
+        const input = userInput.toLowerCase();
         if (input.includes('recomienda') || input.includes('sugiere')) {
           let carrera = null;
           if (input.includes('sistemas')) carrera = 'Ingeniería de Sistemas';
           if (input.includes('industrial')) carrera = 'Ingeniería Industrial';
           if (input.includes('matemáticas')) carrera = 'Matemáticas';
-
           if (carrera) {
             const lineasRecomendadas = Object.values(lineasData)
               .filter(linea => linea.programa === carrera)
               .map(linea => `<li><b>${linea.titulo}</b></li>`).join('');
-
             return `¡Claro! Para <b>${carrera}</b>, te recomiendo estas líneas: <ul>${lineasRecomendadas}</ul> ¿Quieres saber los detalles de alguna en específico?`;
           }
           return 'Por favor, dime para qué carrera necesitas recomendaciones (ej: "sistemas", "industrial").';
         }
-
-        // Regla 2: Preguntar por cupos
         if (input.includes('cupos') || input.includes('disponibilidad')) {
           const linea = findLineaInText(input);
           if (linea) {
@@ -1655,8 +1706,6 @@
           }
           return '¿De qué línea de énfasis te gustaría saber los cupos?';
         }
-
-        // Regla 3: Preguntar por prerrequisitos
         if (input.includes('prerrequisito') || input.includes('requisito')) {
           const linea = findLineaInText(input);
           if (linea) {
@@ -1665,27 +1714,21 @@
           }
           return '¿De qué línea te gustaría conocer los prerrequisitos?';
         }
-
-        // Regla 4: Saludos y despedidas
         if (input.includes('hola') || input.includes('buenos dias')) {
           return '¡Hola! Estoy aquí para ayudarte a encontrar la línea de énfasis perfecta para ti. ¿Qué te gustaría saber?';
         }
         if (input.includes('gracias') || input.includes('adiós')) {
           return '¡De nada! Si tienes más dudas, no dudes en preguntar. ¡Mucho éxito!';
         }
-
-        // Regla por defecto (si no entiende)
         return 'No estoy seguro de haber entendido. Intenta preguntarme sobre recomendaciones, cupos o prerrequisitos de alguna línea.';
       }
 
-      // Función auxiliar para encontrar una línea en el texto del usuario
       function findLineaInText(text) {
         for (const key in lineasData) {
           if (text.toLowerCase().includes(lineasData[key].titulo.toLowerCase())) {
             return lineasData[key];
           }
         }
-        // Búsqueda parcial
         if (text.includes('seguridad')) return lineasData['seguridad-informatica'];
         if (text.includes('inteligencia') || text.includes('ia')) return lineasData['inteligencia-artificial'];
         if (text.includes('calidad')) return lineasData['gestion-calidad'];
