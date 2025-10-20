@@ -146,7 +146,7 @@
       <div class="hidden md:flex">
         <div class="relative w-full rounded-2xl overflow-hidden shadow-lg">
           <div class="absolute inset-0 bg-udem-rojo opacity-10"></div>
-          <img src="https://images.unsplash.com/photo-1556125574-d7f27ec36a06?q=80&w=1600&auto=format&fit=crop" alt="Campus" class="w-full h-full object-cover">
+          <img src="Campus.png" alt="Campus" class="w-full h-full object-cover">
           <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white">
             <h3 class="text-xl font-semibold">Sistema de Gestión - Líneas de Énfasis</h3>
             <p class="text-sm text-white/90">Universidad de Medellín</p>
@@ -576,93 +576,213 @@
     </div>
   </div>
 
-  <section id="dashboard-profesor" class="hidden min-h-screen bg-gray-50">
-    <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
-      <div class="flex items-center space-x-3">
-        <img src="escudo.png" alt="UdeM" class="h-10 w-10">
-        <h1 class="text-xl font-bold text-white">Panel Profesor</h1>
-      </div>
-      <div class="flex items-center space-x-4">
-        <span id="nombre-display-profesor" class="text-white"></span>
-        <img id="avatar-display-profesor" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
-        <button onclick="cerrarSesion()" class="relative group bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100">
-          Cerrar Sesión
-          <span class="absolute -top-8 left-1/2 -translate-x-1/2
-                               bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0
-                               group-hover:opacity-100 transition">
-            Salir del sistema </span>
-        </button>
-      </div>
-    </header>
-    <main class="p-6 max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div class="bg-white p-6 rounded-2xl shadow">
-          <h2 class="text-xl font-semibold text-udem-azul mb-4">Cursos Asignados</h2>
-          <div class="space-y-4">
-            <div class="border-l-4 border-udem-rojo pl-4">
-              <h3 class="font-semibold">Seguridad Informática</h3>
-              <p class="text-gray-600">25 estudiantes inscritos</p>
-              <p class="text-sm text-gray-500">Horario: Lunes y Miércoles 2:00-4:00 PM</p>
-              <button onclick="abrirGestionNotas('Seguridad Informática')" class="mt-2 px-3 py-1 bg-udem-azul text-white rounded" title="Abrir gestión de notas de este curso">📊 Gestionar Notas</button>
-            </div>
-            <div class="border-l-4 border-udem-azul pl-4">
-              <h3 class="font-semibold">Redes de Computadores</h3>
-              <p class="text-gray-600">18 estudiantes inscritos</p>
-              <p class="text-sm text-gray-500">Horario: Martes y Jueves 8:00-10:00 AM</p>
-              <button onclick="abrirGestionNotas('Redes de Computadores')" class="mt-2 px-3 py-1 bg-udem-azul text-white rounded" title="Abrir gestión de notas de este curso">📊 Gestionar Notas</button>
-            </div>
-          </div>
-        </div>
-        <div class="bg-white p-6 rounded-2xl shadow">
-          <h2 class="text-xl font-semibold text-udem-azul mb-4">Actividades Pendientes</h2>
-          <div class="space-y-3">
-            <div class="flex items-center justify-between p-3 bg-yellow-50 rounded-lg">
-              <span>Calificar examen parcial</span>
-              <span class="text-yellow-600 text-sm">Vence en 2 días</span>
-            </div>
-            <div class="flex items-center justify-between p-3 bg-blue-50 rounded-lg">
-              <span>Preparar clase práctica</span>
-              <span class="text-blue-600 text-sm">Mañana</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </section>
+  <!-- ==================== REEMPLAZA TODA LA SECCIÓN DEL PROFESOR ==================== -->
+<!-- Busca en tu HTML: <section id="dashboard-profesor" -->
+<!-- Borra TODO hasta el cierre </section> de esa sección -->
+<!-- Y pega esto: -->
 
-  <div id="modal-gestion-notas" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-    <div class="absolute inset-0 bg-black/60" onclick="closeGestionNotas()"></div>
-    <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-5xl p-6 z-10 mx-4 max-h-[90vh] overflow-y-auto">
-      <div class="flex justify-between items-center mb-3">
-        <h3 id="titulo-curso-notas" class="text-xl font-semibold">Gestión de Notas</h3>
-        <button onclick="closeGestionNotas()" class="text-gray-400 hover:text-gray-600 text-xl">✕</button>
+<section id="dashboard-profesor" class="hidden min-h-screen bg-gray-50">
+  <!-- HEADER -->
+  <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
+    <div class="flex items-center space-x-3">
+      <img src="escudo.png" alt="UdeM" class="h-10 w-10">
+      <h1 class="text-xl font-bold text-white">Panel Profesor</h1>
+    </div>
+    <div class="flex items-center space-x-4">
+      <span id="nombre-display-profesor" class="text-white"></span>
+      <img id="avatar-display-profesor" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
+      <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100">
+        Cerrar Sesión
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="p-6 max-w-7xl mx-auto">
+    
+    <!-- ESTADÍSTICAS RÁPIDAS -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-blue-500">
+        <div class="text-gray-500 text-sm">Cursos Activos</div>
+        <div class="text-2xl font-bold text-gray-800" id="stat-cursos">3</div>
       </div>
-      <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-        <div class="flex items-center gap-3">
-          <button onclick="agregarEvaluacion()" class="bg-udem-azul text-white px-4 py-2 rounded">➕ Agregar Evaluación</button>
-          <button id="btn-guardar-cambios" onclick="guardarCambios()" class="bg-udem-rojo text-white px-4 py-2 rounded">💾 Guardar cambios</button>
+      <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-green-500">
+        <div class="text-gray-500 text-sm">Total Estudiantes</div>
+        <div class="text-2xl font-bold text-gray-800" id="stat-estudiantes">68</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-yellow-500">
+        <div class="text-gray-500 text-sm">Evaluaciones Pendientes</div>
+        <div class="text-2xl font-bold text-gray-800" id="stat-pendientes">5</div>
+      </div>
+      <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-red-500">
+        <div class="text-gray-500 text-sm">Próxima Clase</div>
+        <div class="text-sm font-bold text-gray-800" id="stat-proxima">Hoy 2:00 PM</div>
+      </div>
+    </div>
+
+    <!-- NAVEGACIÓN POR PESTAÑAS -->
+    <div class="bg-white rounded-xl shadow-md mb-6">
+      <div class="border-b border-gray-200">
+        <nav class="flex space-x-4 px-6">
+          <button onclick="cambiarTab('cursos')" id="tab-cursos" 
+                  class="tab-btn py-4 px-4 font-medium border-b-2 border-udem-rojo text-udem-rojo">
+            📚 Mis Cursos
+          </button>
+          <button onclick="cambiarTab('calendario')" id="tab-calendario" 
+                  class="tab-btn py-4 px-4 font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+            📅 Calendario
+          </button>
+          <button onclick="cambiarTab('reportes')" id="tab-reportes" 
+                  class="tab-btn py-4 px-4 font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700">
+            📊 Reportes
+          </button>
+        </nav>
+      </div>
+
+      <!-- CONTENIDO DE PESTAÑAS -->
+      <div class="p-6">
+        
+        <!-- TAB: MIS CURSOS -->
+        <div id="content-cursos" class="tab-content">
+          <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-bold text-gray-800">Cursos Asignados - Semestre 2025-1</h2>
+            <button onclick="simularAsignacion()" class="text-sm bg-gray-200 px-3 py-1 rounded hover:bg-gray-300">
+              ⚙️ Simular nueva asignación
+            </button>
+          </div>
+          <div id="lista-cursos" class="space-y-4">
+            <!-- Los cursos se cargarán aquí dinámicamente -->
+          </div>
+        </div>
+
+        <!-- TAB: CALENDARIO -->
+        <div id="content-calendario" class="tab-content hidden">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">Calendario de Clases</h2>
+          <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+            <p class="text-gray-600 mb-4">🗓️ Próximas clases programadas:</p>
+            <div id="calendario-lista" class="space-y-3">
+              <!-- Se llenará dinámicamente -->
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB: REPORTES -->
+        <div id="content-reportes" class="tab-content hidden">
+          <h2 class="text-xl font-bold text-gray-800 mb-4">Centro de Reportes</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <h3 class="font-semibold text-gray-700 mb-2">📈 Reporte de Notas</h3>
+              <p class="text-sm text-gray-600 mb-3">Descarga consolidado de notas por curso</p>
+              <button onclick="generarReporteGeneral('notas')" class="text-sm bg-udem-azul text-white px-4 py-2 rounded hover:bg-udem-azul-hover">
+                Generar
+              </button>
+            </div>
+            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <h3 class="font-semibold text-gray-700 mb-2">📊 Reporte de Asistencia</h3>
+              <p class="text-sm text-gray-600 mb-3">Estadísticas de asistencia por curso</p>
+              <button onclick="generarReporteGeneral('asistencia')" class="text-sm bg-udem-azul text-white px-4 py-2 rounded hover:bg-udem-azul-hover">
+                Generar
+              </button>
+            </div>
+            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <h3 class="font-semibold text-gray-700 mb-2">📋 Reporte de Evaluaciones</h3>
+              <p class="text-sm text-gray-600 mb-3">Resumen de evaluaciones pendientes</p>
+              <button onclick="generarReporteGeneral('evaluaciones')" class="text-sm bg-udem-azul text-white px-4 py-2 rounded hover:bg-udem-azul-hover">
+                Generar
+              </button>
+            </div>
+            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
+              <h3 class="font-semibold text-gray-700 mb-2">📄 Reporte Consolidado</h3>
+              <p class="text-sm text-gray-600 mb-3">Reporte completo de todos los cursos</p>
+              <button onclick="generarReporteGeneral('consolidado')" class="text-sm bg-udem-rojo text-white px-4 py-2 rounded hover:bg-opacity-90">
+                Generar
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+</section>
+
+  <!-- ==================== MODAL MEJORADO DE GESTIÓN DE NOTAS ==================== -->
+<!-- Busca en tu HTML: <div id="modal-gestion-notas" -->
+<!-- Borra TODO ese modal (hasta su cierre </div> completo) -->
+<!-- Y pega esto: -->
+
+<div id="modal-gestion-notas" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/60" onclick="closeGestionNotas()"></div>
+  <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto z-10 mx-4">
+    
+    <!-- HEADER DEL MODAL -->
+    <div class="sticky top-0 bg-white border-b p-4 flex justify-between items-center z-20">
+      <div>
+        <h3 id="titulo-curso-notas" class="text-xl font-bold text-gray-800">Gestión de Notas</h3>
+        <p class="text-sm text-gray-500" id="info-curso-notas">Curso: [Nombre del curso]</p>
+      </div>
+      <button onclick="closeGestionNotas()" class="text-gray-400 hover:text-gray-600 text-2xl">✕</button>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="p-4 bg-gray-50 border-b">
+      <div class="flex flex-wrap gap-3 items-center justify-between">
+        <div class="flex gap-3">
+          <button onclick="agregarEvaluacion()" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors flex items-center gap-2">
+            <span>➕</span> Nueva Evaluación
+          </button>
+          <button onclick="agregarEstudiante()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
+            <span>👤</span> Agregar Estudiante
+          </button>
+          <button onclick="guardarCambios()" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors flex items-center gap-2">
+            <span>💾</span> Guardar Cambios
+          </button>
         </div>
         <div class="flex items-center gap-3">
-          <p id="porcentaje-restante" class="text-sm text-gray-600"></p>
-          <button id="btn-generar-reporte" onclick="generarReporte()" class="bg-green-600 text-white px-4 py-2 rounded disabled:opacity-50 disabled:cursor-not-allowed" disabled>
-            📤 Generar reporte
+          <div id="porcentaje-restante" class="text-sm font-medium px-3 py-2 rounded-lg bg-yellow-100 text-yellow-800">
+            ⚠️ Configurar porcentajes
+          </div>
+          <button id="btn-generar-reporte" onclick="generarReporteCurso()" 
+                  class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2" 
+                  disabled>
+            <span>📤</span> Generar Reporte
           </button>
         </div>
       </div>
+    </div>
+
+    <!-- TABLA DE NOTAS -->
+    <div class="p-4">
       <div class="overflow-x-auto">
-        <table class="w-full text-sm border" id="tabla-notas">
+        <table class="w-full text-sm border-collapse" id="tabla-notas">
           <thead class="bg-udem-azul text-white">
             <tr id="thead-notas">
-              <th class="p-2 border">Estudiante</th>
+              <th class="p-3 border text-left sticky left-0 bg-udem-azul z-10">Estudiante</th>
+              <th class="p-3 border text-left">Código</th>
+              <th class="p-3 border text-center bg-udem-rojo">Nota Final</th>
             </tr>
           </thead>
-          <tbody id="tbody-notas"></tbody>
+          <tbody id="tbody-notas" class="bg-white">
+          </tbody>
         </table>
       </div>
-      <p class="text-xs text-gray-500 mt-3">Nota: Puedes guardar cambios aunque la suma no sea 100%. Solo podrás "Generar reporte" cuando la suma de porcentajes sea exactamente 100%.</p>
+      <div class="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+        <p class="text-sm text-gray-700">
+          <strong>💡 Instrucciones:</strong>
+        </p>
+        <ul class="text-sm text-gray-600 mt-2 space-y-1 list-disc list-inside">
+          <li>Puedes guardar cambios aunque la suma de porcentajes no sea 100%</li>
+          <li>Solo podrás generar el reporte final cuando la suma sea exactamente 100%</li>
+          <li>Haz clic en los campos para editar nombres, porcentajes y notas</li>
+          <li>Las notas se guardan localmente en tu navegador</li>
+          <li>Usa el botón "🗑️" en cada evaluación para eliminarla</li>
+        </ul>
+      </div>
     </div>
-  </div>
 
+  </div>
+</div>
 
   <section id="dashboard-coordinador" class="hidden min-h-screen bg-gray-50">
     <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
@@ -855,6 +975,11 @@
       const nav = document.querySelector("nav");
       if (nav) {
         nav.classList.toggle("hidden", id !== "login");
+      }
+      
+      // NUEVO: Inicializar el dashboard del profesor cuando se muestra
+      if (id === 'dashboard-profesor') {
+        setTimeout(() => inicializarDashboardProfesor(), 100);
       }
     }
     // ------------------- Login -------------------
@@ -1227,65 +1352,495 @@
     // Inicialización
     setRole('estudiante');
     mostrarSeccion('login');
-    // ==================== PROFESOR ====================
-    const cursosProfesor = {
-      "Seguridad Informática": [{
-        nombre: "Juan Pérez",
-        codigo: "202512345",
-        nota: ""
-      }, {
-        nombre: "Ana Gómez",
-        codigo: "202512346",
-        nota: ""
-      }],
-      "Redes de Computadores": [{
-        nombre: "Carlos Ruiz",
-        codigo: "202512347",
-        nota: ""
-      }]
+    
+
+// ==================== PROFESOR - CÓDIGO MEJORADO ====================
+
+// --- DATOS SIMULADOS (Esto se reemplazará con BD real) ---
+let cursosAsignados = [
+  {
+    id: 'seg-info-2025-1',
+    nombre: 'Seguridad Informática',
+    codigo: 'IS-401',
+    lineaEnfasis: 'Ciberseguridad',
+    semestre: '2025-1',
+    horario: 'Lun-Mié 2:00-4:00 PM',
+    aula: 'Lab 302',
+    estudiantes: 25,
+    estado: 'Activo'
+  },
+  {
+    id: 'redes-2025-1',
+    nombre: 'Redes de Computadores',
+    codigo: 'IS-305',
+    lineaEnfasis: 'Infraestructura',
+    semestre: '2025-1',
+    horario: 'Mar-Jue 8:00-10:00 AM',
+    aula: 'Aula 201',
+    estudiantes: 30,
+    estado: 'Activo'
+  },
+  {
+    id: 'prog-avanz-2025-1',
+    nombre: 'Programación Avanzada',
+    codigo: 'IS-301',
+    lineaEnfasis: 'Desarrollo de Software',
+    semestre: '2025-1',
+    horario: 'Vie 2:00-6:00 PM',
+    aula: 'Lab 405',
+    estudiantes: 13,
+    estado: 'Activo'
+  }
+];
+
+let baseDatosNotas = {};
+let cursoActual = null;
+
+// --- INICIALIZACIÓN CUANDO SE MUESTRA EL DASHBOARD PROFESOR ---
+// Modificar la función mostrarSeccion existente para llamar a esto
+function inicializarDashboardProfesor() {
+  cargarCursosProfesor();
+  cargarCalendarioProfesor();
+  actualizarEstadisticasProfesor();
+  cargarNotasGuardadas();
+}
+
+// --- GESTIÓN DE PESTAÑAS ---
+function cambiarTab(tabName) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+  const content = document.getElementById(`content-${tabName}`);
+  if (content) content.classList.remove('hidden');
+  
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.classList.remove('border-udem-rojo', 'text-udem-rojo');
+    btn.classList.add('border-transparent', 'text-gray-500');
+  });
+  const btnActivo = document.getElementById(`tab-${tabName}`);
+  if (btnActivo) {
+    btnActivo.classList.remove('border-transparent', 'text-gray-500');
+    btnActivo.classList.add('border-udem-rojo', 'text-udem-rojo');
+  }
+}
+
+// --- CARGAR CURSOS ---
+function cargarCursosProfesor() {
+  const container = document.getElementById('lista-cursos');
+  if (!container) return;
+  container.innerHTML = '';
+  
+  cursosAsignados.forEach(curso => {
+    const card = crearCardCurso(curso);
+    container.appendChild(card);
+  });
+}
+
+function crearCardCurso(curso) {
+  const div = document.createElement('div');
+  div.className = 'bg-white border-l-4 border-udem-azul rounded-lg p-5 shadow-md hover:shadow-lg transition-shadow';
+  div.innerHTML = `
+    <div class="flex justify-between items-start mb-3">
+      <div>
+        <h3 class="text-lg font-bold text-gray-800">${curso.nombre}</h3>
+        <p class="text-sm text-gray-500">${curso.codigo} • ${curso.lineaEnfasis}</p>
+      </div>
+      <span class="px-3 py-1 rounded-full text-xs font-medium ${curso.estado === 'Activo' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-600'}">
+        ${curso.estado}
+      </span>
+    </div>
+    <div class="grid grid-cols-2 gap-3 text-sm text-gray-600 mb-4">
+      <div>👥 <strong>${curso.estudiantes}</strong> estudiantes</div>
+      <div>🕐 ${curso.horario}</div>
+      <div>📍 ${curso.aula}</div>
+      <div>📅 Semestre ${curso.semestre}</div>
+    </div>
+    <div class="flex gap-2 flex-wrap">
+      <button onclick="abrirGestionNotas('${curso.id}')" 
+              class="flex-1 bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors text-sm font-medium">
+        📊 Gestionar Notas
+      </button>
+      <button onclick="verEstudiantesCurso('${curso.id}')" 
+              class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors text-sm font-medium">
+        👥 Ver Estudiantes
+      </button>
+    </div>
+  `;
+  return div;
+}
+
+// --- ESTADÍSTICAS ---
+function actualizarEstadisticasProfesor() {
+  const totalCursos = cursosAsignados.length;
+  const totalEstudiantes = cursosAsignados.reduce((sum, c) => sum + c.estudiantes, 0);
+  
+  const statCursos = document.getElementById('stat-cursos');
+  const statEstudiantes = document.getElementById('stat-estudiantes');
+  
+  if (statCursos) statCursos.textContent = totalCursos;
+  if (statEstudiantes) statEstudiantes.textContent = totalEstudiantes;
+}
+
+// --- CALENDARIO ---
+function cargarCalendarioProfesor() {
+  const container = document.getElementById('calendario-lista');
+  if (!container) return;
+  
+  container.innerHTML = '';
+  cursosAsignados.forEach(curso => {
+    const div = document.createElement('div');
+    div.className = 'flex items-center justify-between p-3 bg-white rounded-lg border';
+    div.innerHTML = `
+      <div>
+        <div class="font-semibold text-gray-800">${curso.nombre}</div>
+        <div class="text-sm text-gray-500">${curso.horario} • ${curso.aula}</div>
+      </div>
+      <span class="text-2xl">📚</span>
+    `;
+    container.appendChild(div);
+  });
+}
+
+// --- GESTIÓN DE NOTAS ---
+function abrirGestionNotas(cursoId) {
+  cursoActual = cursoId;
+  const curso = cursosAsignados.find(c => c.id === cursoId);
+  if (!curso) return;
+
+  // Inicializar datos si no existen
+  if (!baseDatosNotas[cursoId]) {
+    baseDatosNotas[cursoId] = {
+      evaluaciones: [
+        { nombre: 'Parcial 1', porcentaje: 30 },
+        { nombre: 'Parcial 2', porcentaje: 30 },
+        { nombre: 'Proyecto Final', porcentaje: 40 }
+      ],
+      estudiantes: generarEstudiantesDemo(curso.estudiantes)
     };
+  }
 
-    function verEstudiantesCurso(curso) {
-      const modal = document.getElementById("modal-estudiantes-curso");
-      modal.classList.remove("hidden");
-      modal.classList.add("flex");
-      document.getElementById("titulo-curso").textContent = curso;
-      const tbody = document.getElementById("tbody-estudiantes");
-      tbody.innerHTML = "";
-      cursosProfesor[curso].forEach((est, i) => {
-        tbody.innerHTML += `
-          <tr class="border-b">
-            <td class="p-2">${est.nombre}</td>
-            <td class="p-2">${est.codigo}</td>
-            <td class="p-2">
-              <input type="number" min="0" max="5" step="0.1"
-                     value="${est.nota}"
-                     onchange="guardarNota('${curso}', ${i}, this.value)"
-                    class="border rounded px-2 py-1 w-20">
-            </td>
-            <td class="p-2">
-              <button onclick="subirReporte('${est.nombre}')"
-                       class="bg-udem-rojo text-white px-3 py-1 rounded">📤 Reporte</button>
-            </td>
-          </tr>
-        `;
-      });
-    }
+  document.getElementById('titulo-curso-notas').textContent = `Gestión de Notas: ${curso.nombre}`;
+  document.getElementById('info-curso-notas').textContent = `${curso.codigo} • ${curso.estudiantes} estudiantes`;
+  
+  document.getElementById('modal-gestion-notas').classList.remove('hidden');
+  document.getElementById('modal-gestion-notas').classList.add('flex');
+  
+  renderTablaNotas();
+}
 
-    function guardarNota(curso, index, nota) {
-      cursosProfesor[curso][index].nota = nota;
-      agregarNotificacion(`Nota guardada para ${cursosProfesor[curso][index].nombre}`);
-    }
+function closeGestionNotas() {
+  document.getElementById('modal-gestion-notas').classList.add('hidden');
+  document.getElementById('modal-gestion-notas').classList.remove('flex');
+  cursoActual = null;
+}
 
-    function subirReporte(nombre) {
-      agregarNotificacion(`Reporte subido para ${nombre}`);
-    }
+function generarEstudiantesDemo(cantidad) {
+  const nombres = ['Juan Pérez', 'Ana Gómez', 'Carlos Ruiz', 'María López', 'Pedro Martínez', 
+                   'Laura García', 'Diego Torres', 'Sofía Vargas', 'Andrés Castro', 'Valentina Ríos',
+                   'Santiago Morales', 'Isabella Herrera', 'Mateo Silva', 'Camila Rojas', 'Daniel Ospina',
+                   'Mariana Cardona', 'Sebastián Parra', 'Gabriela Ortiz', 'Nicolás Ramírez', 'Lucía Mendoza',
+                   'Felipe Gutiérrez', 'Paula Jiménez', 'Alejandro Castro', 'Carolina Mejía', 'Andrés Salazar',
+                   'Daniela Vargas', 'Miguel Ángel Reyes', 'Natalia Cruz', 'David Molina', 'Sara Valencia'];
+  const estudiantes = [];
+  for (let i = 0; i < cantidad; i++) {
+    estudiantes.push({
+      nombre: nombres[i % nombres.length],
+      codigo: `20251${String(2340 + i).padStart(4, '0')}`,
+      notas: [0, 0, 0]
+    });
+  }
+  return estudiantes;
+}
 
-    function closeEstudiantesCurso() {
-      const modal = document.getElementById("modal-estudiantes-curso");
-      modal.classList.add("hidden");
-      modal.classList.remove("flex");
+function renderTablaNotas() {
+  if (!cursoActual) return;
+  const datos = baseDatosNotas[cursoActual];
+  if (!datos) return;
+
+  const thead = document.getElementById('thead-notas');
+  thead.innerHTML = `
+    <th class="p-3 border text-left sticky left-0 bg-udem-azul z-10">Estudiante</th>
+    <th class="p-3 border text-left">Código</th>
+  `;
+  
+  datos.evaluaciones.forEach((ev, i) => {
+    thead.innerHTML += `
+      <th class="p-3 border text-center">
+        <div class="flex flex-col items-center gap-1">
+          <input type="text" value="${ev.nombre}" 
+                 onchange="cambiarNombreEval(${i}, this.value)"
+                 class="bg-transparent border-b border-white/30 text-center text-white font-medium px-2 py-1 w-32"
+                 title="Clic para editar nombre">
+          <div class="flex items-center gap-1">
+            <input type="number" min="0" max="100" step="1" value="${ev.porcentaje}"
+                   onchange="cambiarPorcentaje(${i}, this.value)"
+                   class="w-16 border rounded text-center text-xs bg-white text-gray-800 px-1 py-1"
+                   title="Porcentaje de esta evaluación">
+            <span class="text-xs">%</span>
+            <button onclick="eliminarEvaluacion(${i})" 
+                    class="ml-1 text-white/70 hover:text-white text-xs" 
+                    title="Eliminar evaluación">
+              🗑️
+            </button>
+          </div>
+        </div>
+      </th>
+    `;
+  });
+  thead.innerHTML += `<th class="p-3 border text-center bg-udem-rojo">Nota Final</th>`;
+
+  const tbody = document.getElementById('tbody-notas');
+  tbody.innerHTML = '';
+  datos.estudiantes.forEach((est, idxEst) => {
+    let row = `
+      <tr class="border-t hover:bg-gray-50">
+        <td class="p-3 border font-medium sticky left-0 bg-white z-10">${est.nombre}</td>
+        <td class="p-3 border text-gray-600 text-sm">${est.codigo}</td>
+    `;
+    datos.evaluaciones.forEach((_, idxEv) => {
+      row += `
+        <td class="p-3 border text-center">
+          <input type="number" min="0" max="5" step="0.1"
+                 value="${est.notas[idxEv] ?? 0}"
+                 onchange="cambiarNota(${idxEst}, ${idxEv}, this.value)"
+                 class="w-20 border rounded text-center px-2 py-1 focus:ring-2 focus:ring-udem-azul focus:outline-none">
+        </td>
+      `;
+    });
+    row += `
+        <td class="p-3 border text-center font-bold text-lg" id="final-${idxEst}">0.00</td>
+      </tr>
+    `;
+    tbody.innerHTML += row;
+  });
+
+  calcularFinales();
+  validarPorcentajes();
+}
+
+function cambiarNota(idxEst, idxEv, valor) {
+  if (!cursoActual) return;
+  baseDatosNotas[cursoActual].estudiantes[idxEst].notas[idxEv] = parseFloat(valor) || 0;
+  calcularFinales();
+}
+
+function cambiarPorcentaje(idxEv, valor) {
+  if (!cursoActual) return;
+  baseDatosNotas[cursoActual].evaluaciones[idxEv].porcentaje = parseInt(valor) || 0;
+  validarPorcentajes();
+  calcularFinales();
+}
+
+function cambiarNombreEval(idxEv, nuevoNombre) {
+  if (!cursoActual) return;
+  baseDatosNotas[cursoActual].evaluaciones[idxEv].nombre = nuevoNombre;
+}
+
+function calcularFinales() {
+  if (!cursoActual) return;
+  const datos = baseDatosNotas[cursoActual];
+  datos.estudiantes.forEach((est, i) => {
+    let final = 0;
+    datos.evaluaciones.forEach((ev, j) => {
+      final += (est.notas[j] || 0) * ((ev.porcentaje || 0) / 100);
+    });
+    const el = document.getElementById(`final-${i}`);
+    if (el) {
+      el.textContent = final.toFixed(2);
+      el.className = 'p-3 border text-center font-bold text-lg';
+      if (final >= 4.0) el.classList.add('text-green-600');
+      else if (final >= 3.0) el.classList.add('text-yellow-600');
+      else el.classList.add('text-red-600');
     }
+  });
+}
+
+function validarPorcentajes() {
+  if (!cursoActual) return;
+  const datos = baseDatosNotas[cursoActual];
+  const total = datos.evaluaciones.reduce((acc, ev) => acc + (Number(ev.porcentaje) || 0), 0);
+  const restante = 100 - total;
+  
+  const pEl = document.getElementById('porcentaje-restante');
+  const btnGenerar = document.getElementById('btn-generar-reporte');
+  if (!pEl || !btnGenerar) return;
+
+  if (total === 100) {
+    pEl.textContent = '✅ Distribución completa (100%)';
+    pEl.className = 'text-sm font-medium px-3 py-2 rounded-lg bg-green-100 text-green-800';
+    btnGenerar.disabled = false;
+  } else if (total < 100) {
+    pEl.textContent = `⚠️ Faltan ${restante}% por asignar`;
+    pEl.className = 'text-sm font-medium px-3 py-2 rounded-lg bg-yellow-100 text-yellow-800';
+    btnGenerar.disabled = true;
+  } else {
+    pEl.textContent = `❌ Exceso de ${Math.abs(restante)}% (corrija)`;
+    pEl.className = 'text-sm font-medium px-3 py-2 rounded-lg bg-red-100 text-red-800';
+    btnGenerar.disabled = true;
+  }
+}
+
+function agregarEvaluacion() {
+  if (!cursoActual) return;
+  const datos = baseDatosNotas[cursoActual];
+  datos.evaluaciones.push({ nombre: `Evaluación ${datos.evaluaciones.length + 1}`, porcentaje: 0 });
+  datos.estudiantes.forEach(est => est.notas.push(0));
+  renderTablaNotas();
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion('Nueva evaluación agregada');
+  }
+}
+
+function eliminarEvaluacion(idxEv) {
+  if (!cursoActual) return;
+  if (!confirm('¿Eliminar esta evaluación? Se perderán todas las notas asociadas.')) return;
+  const datos = baseDatosNotas[cursoActual];
+  datos.evaluaciones.splice(idxEv, 1);
+  datos.estudiantes.forEach(est => est.notas.splice(idxEv, 1));
+  renderTablaNotas();
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion('Evaluación eliminada');
+  }
+}
+
+function agregarEstudiante() {
+  if (!cursoActual) return;
+  const nombre = prompt('Nombre del estudiante:');
+  if (!nombre) return;
+  const codigo = prompt('Código del estudiante:');
+  if (!codigo) return;
+  
+  const datos = baseDatosNotas[cursoActual];
+  const nuevasNotas = new Array(datos.evaluaciones.length).fill(0);
+  datos.estudiantes.push({ nombre, codigo, notas: nuevasNotas });
+  renderTablaNotas();
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion(`Estudiante ${nombre} agregado`);
+  }
+}
+
+function guardarCambios() {
+  saveToStorage();
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion('✅ Cambios guardados correctamente');
+  } else {
+    alert('Cambios guardados');
+  }
+}
+
+function generarReporteCurso() {
+  if (!cursoActual) return;
+  const datos = baseDatosNotas[cursoActual];
+  const total = datos.evaluaciones.reduce((acc, ev) => acc + (Number(ev.porcentaje) || 0), 0);
+  
+  if (total !== 100) {
+    alert('No se puede generar el reporte: la suma de porcentajes debe ser exactamente 100%');
+    return;
+  }
+
+  calcularFinales();
+  
+  const curso = cursosAsignados.find(c => c.id === cursoActual);
+  const reporte = {
+    curso: curso.nombre,
+    codigo: curso.codigo,
+    fecha: new Date().toLocaleString('es-CO'),
+    evaluaciones: datos.evaluaciones,
+    estudiantes: datos.estudiantes.map((est, idx) => ({
+      nombre: est.nombre,
+      codigo: est.codigo,
+      notas: est.notas,
+      final: Number(document.getElementById(`final-${idx}`)?.textContent || 0)
+    }))
+  };
+
+  const blob = new Blob([JSON.stringify(reporte, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${reporte.codigo}_reporte_notas_${Date.now()}.json`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+
+  saveToStorage();
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion('📥 Reporte generado y descargado');
+  }
+  closeGestionNotas();
+}
+
+// --- PERSISTENCIA DE DATOS (SIMULACIÓN CON LOCALSTORAGE) ---
+function cargarNotasGuardadas() {
+  try {
+    const saved = localStorage.getItem('notas_profesor_udem');
+    if (saved) {
+      baseDatosNotas = JSON.parse(saved);
+    }
+  } catch (e) {
+    console.warn('No se pudieron cargar notas guardadas:', e);
+  }
+}
+
+function saveToStorage() {
+  try {
+    localStorage.setItem('notas_profesor_udem', JSON.stringify(baseDatosNotas));
+  } catch (e) {
+    console.error('Error al guardar:', e);
+  }
+}
+
+// --- FUNCIONES ADICIONALES ---
+function verEstudiantesCurso(cursoId) {
+  const curso = cursosAsignados.find(c => c.id === cursoId);
+  if (!curso) return;
+  alert(`📋 Lista de estudiantes de: ${curso.nombre}\n\n` +
+        `Total: ${curso.estudiantes} estudiantes\n\n` +
+        `Funcionalidad completa disponible en la gestión de notas.`);
+}
+
+function simularAsignacion() {
+  const nuevoCurso = {
+    id: `nuevo-curso-${Date.now()}`,
+    nombre: prompt('Nombre del curso:') || 'Curso Nuevo',
+    codigo: prompt('Código del curso:') || 'XX-000',
+    lineaEnfasis: 'General',
+    semestre: '2025-1',
+    horario: 'Por definir',
+    aula: 'Por asignar',
+    estudiantes: parseInt(prompt('Número de estudiantes:') || '0'),
+    estado: 'Activo'
+  };
+  
+  if (nuevoCurso.estudiantes > 0) {
+    cursosAsignados.push(nuevoCurso);
+    cargarCursosProfesor();
+    actualizarEstadisticasProfesor();
+    if (typeof agregarNotificacion === 'function') {
+      agregarNotificacion(`✅ Curso "${nuevoCurso.nombre}" asignado`);
+    }
+  }
+}
+
+function generarReporteGeneral(tipo) {
+  const reportes = {
+    'notas': '📈 Generando reporte de notas...',
+    'asistencia': '📊 Generando reporte de asistencia...',
+    'evaluaciones': '📋 Generando reporte de evaluaciones...',
+    'consolidado': '📄 Generando reporte consolidado...'
+  };
+  
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion(reportes[tipo] || 'Generando reporte...');
+  } else {
+    alert(reportes[tipo]);
+  }
+  
+  setTimeout(() => {
+    if (typeof agregarNotificacion === 'function') {
+      agregarNotificacion(`✅ Reporte de ${tipo} generado`);
+    }
+  }, 1500);
+}
     // ==================== COORDINADOR ====================
     let lineasAdmin = ["Seguridad Informática", "Inteligencia Artificial", "Gestión de Calidad"];
 
@@ -1357,226 +1912,7 @@
     }
     // Render inicial de las líneas al cargar
     document.addEventListener("DOMContentLoaded", renderLineasAdmin);
-    // ================= PROFESOR: GESTIÓN DE NOTAS (versión final prototipo) =================
-    // Key para localStorage (simulación)
-    const STORAGE_KEY = 'notas_profe_v1';
-    // Valores por defecto (puedes cambiar/añadir estudiantes aquí)
-    let evaluaciones = [{
-      nombre: "Parcial 1",
-      porcentaje: 30
-    }, {
-      nombre: "Parcial 2",
-      porcentaje: 30
-    }, {
-      nombre: "Proyecto",
-      porcentaje: 40
-    }];
-    let estudiantesNotas = [{
-      nombre: "Juan Pérez",
-      codigo: "202512345",
-      notas: [0, 0, 0]
-    }, {
-      nombre: "Ana Gómez",
-      codigo: "202512346",
-      notas: [0, 0, 0]
-    }, {
-      nombre: "Carlos Ruiz",
-      codigo: "202512347",
-      notas: [0, 0, 0]
-    }];
-    // Cargar desde localStorage si existe
-    function loadSavedNotas() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        if (!raw) return;
-        const parsed = JSON.parse(raw);
-        if (parsed.evaluaciones && parsed.estudiantesNotas) {
-          evaluaciones = parsed.evaluaciones;
-          estudiantesNotas = parsed.estudiantesNotas;
-        }
-      } catch (e) {
-        console.warn('No se pudo cargar notas guardadas:', e);
-      }
-    }
-    // Guardar en localStorage (simulado)
-    function saveToStorage() {
-      const payload = {
-        evaluaciones,
-        estudiantesNotas
-      };
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-    }
-    // Abrir modal de notas
-    function abrirGestionNotas(curso) {
-      document.getElementById("modal-gestion-notas").classList.remove("hidden");
-      document.getElementById("modal-gestion-notas").classList.add("flex");
-      document.getElementById("titulo-curso-notas").textContent = `Gestión de Notas - ${curso}`;
-      renderTablaNotas();
-    }
-    // Cerrar modal
-    function closeGestionNotas() {
-      document.getElementById("modal-gestion-notas").classList.add("hidden");
-      document.getElementById("modal-gestion-notas").classList.remove("flex");
-    }
-    // Renderizar tabla de notas (encabezado + filas)
-    function renderTablaNotas() {
-      // Encabezado
-      const thead = document.getElementById("thead-notas");
-      thead.innerHTML = `<th class="p-2 border">Estudiante</th>`;
-      evaluaciones.forEach((ev, i) => {
-        // Nombre visible y campo solo números para porcentaje
-        thead.innerHTML += `
-        <th class="p-2 border">
-          <div class="flex flex-col items-center">
-            <div class="font-medium text-xs truncate">${ev.nombre}</div>
-            <input type="number" min="0" max="100" step="1" value="${ev.porcentaje}"
-                   onchange="cambiarPorcentaje(${i}, this.value)"
-                   class="w-16 border rounded text-center text-xs mt-1"
-                   title="Ingrese porcentaje (ej: 15, 20)">
-          </div>
-        </th>
-      `;
-      });
-      thead.innerHTML += `<th class="p-2 border">Final</th>`;
-      // Filas de estudiantes
-      const tbody = document.getElementById("tbody-notas");
-      tbody.innerHTML = "";
-      estudiantesNotas.forEach((est, idxEst) => {
-        let row = `<tr class="border-t"><td class="p-2 border">${est.nombre}<div class="text-xs text-gray-400">${est.codigo}</div></td>`;
-        evaluaciones.forEach((_, idxEv) => {
-          row += `
-          <td class="p-2 border">
-            <input type="number" min="0" max="5" step="0.1"
-                  value="${est.notas[idxEv] ?? 0}"
-                   onchange="cambiarNota(${idxEst}, ${idxEv}, this.value)"
-                   class="w-16 border rounded text-center">
-          </td>`;
-        });
-        row += `<td class="p-2 border font-semibold" id="final-${idxEst}">0</td></tr>`;
-        tbody.innerHTML += row;
-      });
-      calcularFinales();
-      validarPorcentajes();
-    }
-    // Cambiar nota de un estudiante (escucha inputs)
-    function cambiarNota(idxEst, idxEv, valor) {
-      estudiantesNotas[idxEst].notas[idxEv] = parseFloat(valor) || 0;
-      calcularFinales();
-    }
-    // Cambiar porcentaje (campo de solo números)
-    function cambiarPorcentaje(idxEv, valor) {
-      // no forzamos clamp, permitimos ingresar cualquier número y validamos la suma
-      evaluaciones[idxEv].porcentaje = parseInt(valor) || 0;
-      validarPorcentajes();
-      calcularFinales();
-    }
-    // Calcular notas finales por estudiante (0-5)
-    function calcularFinales() {
-      estudiantesNotas.forEach((est, i) => {
-        let final = 0;
-        evaluaciones.forEach((ev, j) => {
-          final += (est.notas[j] || 0) * ((ev.porcentaje || 0) / 100);
-        });
-        const el = document.getElementById(`final-${i}`);
-        if (el) el.textContent = final.toFixed(2);
-      });
-    }
-    // Validar suma de porcentajes y controlar botones
-    function validarPorcentajes() {
-      const total = evaluaciones.reduce((acc, ev) => acc + (Number(ev.porcentaje) || 0), 0);
-      const restante = 100 - total;
-      const pEl = document.getElementById("porcentaje-restante");
-      const btnGenerar = document.getElementById("btn-generar-reporte");
-      if (!pEl || !btnGenerar) return;
-      if (total === 100) {
-        pEl.textContent = "✔️ Distribución completa (100%)";
-        pEl.classList.remove('text-yellow-600', 'text-red-600');
-        pEl.classList.add('text-green-600');
-        btnGenerar.disabled = false;
-        btnGenerar.classList.remove('opacity-50', 'cursor-not-allowed');
-      } else if (total < 100) {
-        pEl.textContent = `⚠️ Faltan ${restante}% por asignar`;
-        pEl.classList.remove('text-green-600', 'text-red-600');
-        pEl.classList.add('text-yellow-600');
-        btnGenerar.disabled = true;
-        btnGenerar.classList.add('opacity-50', 'cursor-not-allowed');
-      } else { // total > 100
-        pEl.textContent = `❌ Exceso de ${Math.abs(restante)}% (corrija)`;
-        pEl.classList.remove('text-green-600', 'text-yellow-600');
-        pEl.classList.add('text-red-600');
-        btnGenerar.disabled = true;
-        btnGenerar.classList.add('opacity-50', 'cursor-not-allowed');
-      }
-    }
-    // Agregar evaluación (columna nueva)
-    function agregarEvaluacion() {
-      evaluaciones.push({
-        nombre: `Eval ${evaluaciones.length + 1}`,
-        porcentaje: 0
-      });
-      estudiantesNotas.forEach(est => est.notas.push(0));
-      renderTablaNotas();
-    }
-    // Guardar cambios (simulado): persiste en localStorage y notifica
-    function guardarCambios() {
-      saveToStorage();
-      // Usamos la función global agregarNotificacion que ya existe en tu app
-      if (typeof agregarNotificacion === 'function') {
-        agregarNotificacion("Cambios guardados (simulado)");
-      } else {
-        alert("Cambios guardados (simulado)");
-      }
-    }
-    // Generar reporte definitivo (solo si suma == 100)
-    // Genera y descarga un JSON con la info (simulación de subida)
-    function generarReporte() {
-      const total = evaluaciones.reduce((acc, ev) => acc + (Number(ev.porcentaje) || 0), 0);
-      if (total !== 100) {
-        if (typeof agregarNotificacion === 'function') {
-          agregarNotificacion("No se puede generar: la suma de porcentajes debe ser exactamente 100%");
-        } else {
-          alert("No se puede generar: la suma de porcentajes debe ser exactamente 100%");
-        }
-        return;
-      }
-      // Calcular finales actualizados
-      calcularFinales();
-      // Armar objeto de reporte
-      const reporte = {
-        curso: document.getElementById("titulo-curso-notas") ?.textContent || "Curso",
-        fecha: new Date().toLocaleString(),
-        evaluaciones,
-        estudiantes: estudiantesNotas.map((est, idx) => ({
-          nombre: est.nombre,
-          codigo: est.codigo,
-          notas: est.notas,
-          final: Number(document.getElementById(`final-${idx}`) ?.textContent || 0)
-        }))
-      };
-      // Simular "subida" descargando JSON
-      const blob = new Blob([JSON.stringify(reporte, null, 2)], {
-        type: "application/json"
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `${reporte.curso.replace(/\s+/g,'_')}_reporte_notas.json`;
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      URL.revokeObjectURL(url);
-      // Guardar en localStorage también (finalizado)
-      saveToStorage();
-      if (typeof agregarNotificacion === 'function') {
-        agregarNotificacion("Reporte generado y descargado (simulado).");
-      } else {
-        alert("Reporte generado y descargado (simulado).");
-      }
-      closeGestionNotas();
-    }
-    // Inicializar (carga desde storage si existe)
-    loadSavedNotas();
-
+    
     // ==================== ASISTENTE VIRTUAL LÓGICA (PARA GEMINI) ====================
     document.addEventListener('DOMContentLoaded', () => {
         // --- CONFIGURACIÓN DEL ASISTENTE ---
