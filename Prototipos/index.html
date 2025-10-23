@@ -186,7 +186,7 @@
               <button type="button" class="text-gray-500 hover:underline" onclick="document.getElementById('loginForm').reset()">Limpiar</button>
             </div>
           </form>
-          <p class="mt-4 text-xs text-gray-500">* En esta versión prototipo, cualquier usuario/contraseña válidos pasan. Luego conectamos con backend real.</p>
+          
           
           <!-- ELIMINAR ANTES DE PRODUCCIÓN -->
           <details class="mt-4">
@@ -584,10 +584,7 @@
     </div>
   </div>
 
-  <!-- ==================== REEMPLAZA TODA LA SECCIÓN DEL PROFESOR ==================== -->
-<!-- Busca en tu HTML: <section id="dashboard-profesor" -->
-<!-- Borra TODO hasta el cierre </section> de esa sección -->
-<!-- Y pega esto: -->
+  <!-- ==================== SECCIÓN DEL PROFESOR ==================== -->
 
 <section id="dashboard-profesor" class="hidden min-h-screen bg-gray-50">
   <!-- HEADER -->
@@ -713,10 +710,7 @@
   </main>
 </section>
 
-  <!-- ==================== MODAL MEJORADO DE GESTIÓN DE NOTAS ==================== -->
-<!-- Busca en tu HTML: <div id="modal-gestion-notas" -->
-<!-- Borra TODO ese modal (hasta su cierre </div> completo) -->
-<!-- Y pega esto: -->
+  <!-- ==================== MODAL DE GESTIÓN DE NOTAS ==================== -->
 
 <div id="modal-gestion-notas" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
   <div class="absolute inset-0 bg-black/60" onclick="closeGestionNotas()"></div>
@@ -781,7 +775,6 @@
           <li>Puedes guardar cambios aunque la suma de porcentajes no sea 100%</li>
           <li>Solo podrás generar el reporte final cuando la suma sea exactamente 100%</li>
           <li>Haz clic en los campos para editar nombres, porcentajes y notas</li>
-          <li>Las notas se guardan localmente en tu navegador</li>
           <li>Usa el botón "🗑️" en cada evaluación para eliminarla</li>
         </ul>
       </div>
@@ -1860,23 +1853,7 @@ function closeGestionNotas() {
   cursoActual = null;
 }
 
-function generarEstudiantesDemo(cantidad) {
-  const nombres = ['Juan Pérez', 'Ana Gómez', 'Carlos Ruiz', 'María López', 'Pedro Martínez', 
-                   'Laura García', 'Diego Torres', 'Sofía Vargas', 'Andrés Castro', 'Valentina Ríos',
-                   'Santiago Morales', 'Isabella Herrera', 'Mateo Silva', 'Camila Rojas', 'Daniel Ospina',
-                   'Mariana Cardona', 'Sebastián Parra', 'Gabriela Ortiz', 'Nicolás Ramírez', 'Lucía Mendoza',
-                   'Felipe Gutiérrez', 'Paula Jiménez', 'Alejandro Castro', 'Carolina Mejía', 'Andrés Salazar',
-                   'Daniela Vargas', 'Miguel Ángel Reyes', 'Natalia Cruz', 'David Molina', 'Sara Valencia'];
-  const estudiantes = [];
-  for (let i = 0; i < cantidad; i++) {
-    estudiantes.push({
-      nombre: nombres[i % nombres.length],
-      codigo: `20251${String(2340 + i).padStart(4, '0')}`,
-      notas: [0, 0, 0]
-    });
-  }
-  return estudiantes;
-}
+
 
 function renderTablaNotas() {
   if (!cursoActual) return;
