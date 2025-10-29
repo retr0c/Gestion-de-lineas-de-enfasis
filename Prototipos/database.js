@@ -13,6 +13,7 @@ class Database {
     this.inscripciones = [];
     this.evaluaciones = [];
     this.notas = [];
+    this.asistencias = [];
     this.notificaciones = [];
     
     this.ready = false;
@@ -82,6 +83,7 @@ class Database {
       this.evaluaciones = data.evaluaciones || [];
       this.notas = data.notas || [];
       this.notificaciones = data.notificaciones || [];
+      this.asistencias = data.asistencias || [];
       
       // Notificar a la interfaz que hay cambios
       window.dispatchEvent(new CustomEvent('db-updated'));
@@ -99,7 +101,8 @@ class Database {
         inscripciones: this.inscripciones,
         evaluaciones: this.evaluaciones,
         notas: this.notas,
-        notificaciones: this.notificaciones
+        notificaciones: this.notificaciones,
+        asistencias: this.asistencias
       });
       console.log('💾 Datos guardados en Firebase');
     } catch (error) {
@@ -586,7 +589,60 @@ class Database {
       n.cursoId === cursoId
     );
   }
+// ========== MÉTODOS DE ASISTENCIAS ==========
+  async registrarAsistencia(datos) {
+    const existente = this.asistencias.find(a => 
+      a.estudianteId === datos.estudianteId && 
+      a.cursoId === datos.cursoId &&
+      a.fecha === datos.fecha
+    );
+    
+    if (existente) {
+      existente.presente = datos.presente;
+      existente.observaciones = datos.observaciones || '';
+    } else {
+      const id = this.asistencias.length > 0 
+        ? Math.max(...this.asistencias.map(a => a.id)) + 1 
+        : 1;
+      
+      this.asistencias.push({
+        id,
+        estudianteId: datos.estudianteId,
+        cursoId: datos.cursoId,
+        fecha: datos.fecha,
+        presente: datos.presente,
+        observaciones: datos.observaciones || '',
+        fechaRegistro: new Date().toISOString()
+      });
+    }
+    
+    await this.guardar();
+  }
 
+  obtenerAsistenciasCurso(cursoId, fecha = null) {
+    let asistencias = this.asistencias.filter(a => a.cursoId === cursoId);
+    
+    if (fecha) {
+      asistencias = asistencias.filter(a => a.fecha === fecha);
+    }
+    
+    return asistencias;
+  }
+
+  obtenerAsistenciasEstudiante(estudianteId, cursoId) {
+    return this.asistencias.filter(a => 
+      a.estudianteId === estudianteId && 
+      a.cursoId === cursoId
+    );
+  }
+
+  calcularPorcentajeAsistencia(estudianteId, cursoId) {
+    const asistencias = this.obtenerAsistenciasEstudiante(estudianteId, cursoId);
+    if (asistencias.length === 0) return 0;
+    
+    const presentes = asistencias.filter(a => a.presente).length;
+    return (presentes / asistencias.length) * 100;
+  }
   // ========== MÉTODOS DE NOTIFICACIONES ==========
   async crearNotificacion(datos) {
     const id = this.notificaciones.length > 0 

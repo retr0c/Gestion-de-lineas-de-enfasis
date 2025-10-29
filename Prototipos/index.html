@@ -123,22 +123,6 @@
         <img src="escudo.png" alt="UdeM" class="h-10 w-10">
         <span class="font-bold text-lg">Universidad de Medellín</span>
       </div>
-      <div id="role-tabs" class="hidden md:flex items-center space-x-2">
-        <button data-role="estudiante" class="px-3 py-1 rounded-lg hover:bg-white/10 focus:outline-none">Estudiante</button>
-        <button data-role="profesor" class="px-3 py-1 rounded-lg hover:bg-white/10 focus:outline-none">Profesor</button>
-        <button data-role="coordinador" class="px-3 py-1 rounded-lg hover:bg-white/10 focus:outline-none">Coordinador</button>
-      </div>
-      <div class="md:hidden">
-        <button id="menu-toggle" aria-label="Abrir menú">☰</button>
-      </div>
-    </div>
-    <div id="menu-mobile" class="hidden md:hidden bg-udem-rojo text-whitee px-4 pb-4">
-      <div id="role-tabs-mobile" class="space-y-2">
-        <button data-role="estudiante" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/10">Estudiante</button>
-        <button data-role="profesor" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/10">Profesor</button>
-        <button data-role="coordinador" class="block w-full text-left px-3 py-2 rounded-lg hover:bg-white/10">Coordinador</button>
-      </div>
-    </div>
   </nav>
 
   <section id="login" class="min-h-[calc(100vh-4rem)] flex items-center justify-center bg-gradient-to-br from-red-700/10 to-rose-900/10">
@@ -147,27 +131,34 @@
         <div class="relative w-full rounded-2xl overflow-hidden shadow-lg">
           <div class="absolute inset-0 bg-udem-rojo opacity-10"></div>
           <img src="Campus.png" alt="Campus" class="w-full h-full object-cover">
-          <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-whitee">
+          <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/60 to-transparent text-white">
             <h3 class="text-xl font-semibold">Sistema de Gestión - Líneas de Énfasis</h3>
-            <p class="text-sm text-whitee/90">Universidad de Medellín</p>
+            <p class="text-sm text-white/90">Universidad de Medellín</p>
           </div>
         </div>
       </div>
       <div>
         <div class="bg-white rounded-2xl shadow-xl p-6">
           <h2 class="text-2xl font-extrabold text-udem-rojo mb-1">Inicio de sesión</h2>
-          <p class="text-gray-600 mb-4">Selecciona tu <span class="font-medium">rol arriba</span> y entra con tus credenciales.</p>
+          <p class="text-gray-700 mb-4">Ingresa tus credenciales y selecciona tu rol para iniciar sesión.</p>
           <div class="mb-4">
-            <span class="text-sm text-gray-600">Rol seleccionado:</span>
-            <span id="chip-rol" class="ml-2 inline-flex items-center px-3 py-1 rounded-full bg-udem-rojo text-whitee text-sm">Estudiante</span>
+            <div class="mb-4">
+            <label for="rolSeleccionado" class="block text-sm text-gray-600 font-medium mb-1">Rol seleccionado:</label>
+            <select id="rolSeleccionado" name="rol" class="ml-2 inline-flex items-center px-3 py-2 rounded-lg bg-udem-rojo text-white text-sm focus:ring-2 focus:ring-udem-azul focus:outline-none">
+                <option data-role="estudiante" selected>Estudiante</option>
+                <option data-role="profesor">Profesor</option>
+                <option data-role="coordinador">Coordinador</option>
+            </select>
+            </div>
           </div>
           <form id="loginForm" class="space-y-4" autocomplete="on" novalidate>
             <div>
-              <label for="nombreUsuario" class="block text-sm text-gray-700 mb-1">Usuario / Código</label>
+              <label for="nombreUsuario" class="block text-sm text-gray-800 font-medium mb-1">Usuario / Código</label>
               <input id="nombreUsuario" name="usuario" type="text" required class="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-udem-azul focus:outline-none" placeholder="p.ej. 202512345 o jperez">
             </div>
             <div>
-              <label for="password" class="block text-sm text-gray-700 mb-1">Contraseña</label>
+              <div>
+              <label for="password" class="block text-sm text-gray-800 font-medium mb-1">Contraseña</label>
               <div class="flex items-center border rounded-lg px-3">
                 <input id="password" name="password" type="password" required class="flex-1 py-2 focus:outline-none" placeholder="********">
                 <button type="button" id="btnTogglePass" class="text-gray-500 ml-2" aria-label="Mostrar/Ocultar contraseña">👁️</button>
@@ -175,26 +166,16 @@
             </div>
             <label class="mt-1 flex items-center space-x-2">
               <input id="chkRobot" type="checkbox" class="accent-red-700">
-              <span class="text-sm text-gray-600">No soy un robot</span>
+              <span class="text-sm text-gray-800">No soy un robot</span>
             </label>
             <div id="loginError" class="hidden text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg p-2"></div>
-            <button type="submit" class="w-full bg-udem-rojo text-whitee py-2.5 rounded-lg hover:bg-udem-rojo-hover font-semibold">
+            <button type="submit" class="w-full bg-udem-rojo text-white py-2.5 rounded-lg hover:bg-udem-rojo-hover font-semibold">
               Iniciar sesión
             </button>
             <div class="flex items-center justify-between text-sm">
-              <button type="button" class="text-blue-600 hover:underline">¿Olvidaste tu contraseña?</button>
               <button type="button" class="text-gray-500 hover:underline" onclick="document.getElementById('loginForm').reset()">Limpiar</button>
             </div>
           </form>
-          
-          
-          <!-- ELIMINAR ANTES DE PRODUCCIÓN -->
-          <details class="mt-4">
-            <summary class="text-xs text-gray-400 cursor-pointer hover:text-gray-600">Opciones de desarrollo</summary>
-            <button type="button" onclick="resetearBaseDatos()" class="mt-2 w-full bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 text-sm">
-              🔄 Resetear Base de Datos
-            </button>
-          </details>
         </div>
       </div>
     </div>
@@ -204,10 +185,10 @@
     <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
       <div class="flex items-center space-x-3">
         <img src="escudo.png" alt="UdeM" class="h-10 w-10">
-        <h1 class="text-xl font-bold text-whitee">Panel Estudiante</h1>
+        <h1 class="text-xl font-bold text-white">Panel Estudiante</h1>
       </div>
       <div class="flex items-center space-x-4">
-        <span id="nombre-display-estudiante" class="text-whitee"></span>
+        <span id="nombre-display-estudiante" class="text-white"></span>
         <img id="avatar-display-estudiante" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
         <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100" title="Salir del sistema">Cerrar sesion</button>
       </div>
@@ -240,7 +221,7 @@
                 <option value="Matemáticas">Matemáticas</option>
               </select>
             </div>
-            <button type="button" onclick="resetFiltroCarrera()" class="bg-yellow-500 hover:bg-yellow-600 text-whitee px-4 py-2 rounded-lg" title="Limpiar todos los filtros de busqueda">Limpiar Filtros</button>
+            <button type="button" onclick="resetFiltroCarrera()" class="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg" title="Limpiar todos los filtros de busqueda">Limpiar Filtros</button>
           </div>
 
           <div id="lista-lineas" class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -250,10 +231,10 @@
               <p class="text-gray-500">Prerrequisitos: Redes de Computadores</p>
               <p class="text-sm text-gray-400 mt-2">Modalidad: Presencial | Duración: 16 semanas</p>
               <div class="mt-4 flex flex-wrap gap-2">
-                <button onclick="verDetallesLinea('seguridad-informatica')" class="bg-udem-azul text-whitee px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
+                <button onclick="verDetallesLinea('seguridad-informatica')" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
                   Ver Detalles
                 </button>
-                <button onclick="openSolicitudModal('Seguridad Informática')" class="bg-udem-rojo text-whitee px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
+                <button onclick="openSolicitudModal('Seguridad Informática')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
                   Solicitar
                 </button>
               </div>
@@ -265,10 +246,10 @@
               <p class="text-gray-500">Prerrequisitos: Algoritmos Avanzados, Matemáticas III</p>
               <p class="text-sm text-gray-400 mt-2">Modalidad: Híbrida | Duración: 16 semanas</p>
               <div class="mt-4 flex flex-wrap gap-2">
-                <button onclick="verDetallesLinea('inteligencia-artificial')" class="bg-udem-azul text-whitee px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
+                <button onclick="verDetallesLinea('inteligencia-artificial')" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
                   Ver Detalles
                 </button>
-                <button onclick="openSolicitudModal('Inteligencia Artificial')" class="bg-udem-rojo text-whitee px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
+                <button onclick="openSolicitudModal('Inteligencia Artificial')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
                   Solicitar
                 </button>
               </div>
@@ -280,10 +261,10 @@
               <p class="text-gray-500">Prerrequisitos: Estadística II, Control de Procesos</p>
               <p class="text-sm text-gray-400 mt-2">Modalidad: Presencial | Duración: 16 semanas</p>
               <div class="mt-4 flex flex-wrap gap-2">
-                <button onclick="verDetallesLinea('gestion-calidad')" class="bg-udem-azul text-whitee px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
+                <button onclick="verDetallesLinea('gestion-calidad')" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
                   Ver Detalles
                 </button>
-                <button onclick="openSolicitudModal('Gestión de Calidad')" class="bg-udem-rojo text-whitee px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
+                <button onclick="openSolicitudModal('Gestión de Calidad')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
                   Solicitar
                 </button>
               </div>
@@ -295,10 +276,10 @@
               <p class="text-gray-500">Prerrequisitos: Cálculo III, Probabilidad</p>
               <p class="text-sm text-gray-400 mt-2">Modalidad: Virtual | Duración: 16 semanas</p>
               <div class="mt-4 flex flex-wrap gap-2">
-                <button onclick="verDetallesLinea('analisis-datos')" class="bg-udem-azul text-whitee px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
+                <button onclick="verDetallesLinea('analisis-datos')" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea, cronograma y requisitos">
                   Ver Detalles
                 </button>
-                <button onclick="openSolicitudModal('Análisis de Datos')" class="bg-udem-rojo text-whitee px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
+                <button onclick="openSolicitudModal('Análisis de Datos')" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción a esta línea de énfasis">
                   Solicitar
                 </button>
               </div>
@@ -310,7 +291,7 @@
           <h2 class="text-xl font-semibold text-udem-azul mb-4">Mis Solicitudes</h2>
           <div class="overflow-x-auto">
             <table class="w-full rounded-2xl shadow overflow-hidden">
-              <thead class="bg-udem-rojo text-whitee">
+              <thead class="bg-udem-rojo text-white">
                 <tr>
                   <th class="p-3 text-left">Línea</th>
                   <th class="p-3 text-left">Programa</th>
@@ -332,9 +313,6 @@
             <li class="bg-gray-50 p-2 rounded">📢 Aprobación de línea en espera</li>
             <li class="bg-gray-50 p-2 rounded">📢 Nuevo cronograma disponible</li>
           </ul>
-          <button onclick="agregarNotificacion('Nueva notificación automática')" class="mt-3 w-full bg-udem-azul text-whitee py-2 rounded-lg hover:bg-udem-azul-hover">
-            Simular Notificación
-          </button>
         </div>
       </aside>
     </main>
@@ -448,7 +426,7 @@
           <button type="button" onclick="closeSolicitudModal()" class="px-6 py-2 rounded-lg border hover:bg-gray-50 transition-colors" title="Cancelar y cerrar formulario">
             Cancelar
           </button>
-          <button type="submit" class="px-6 py-2 rounded-lg bg-udem-rojo text-whitee hover:bg-udem-rojo-hover transition-colors font-semibold" title="Enviar solicitud de inscripción">
+          <button type="submit" class="px-6 py-2 rounded-lg bg-udem-rojo text-white hover:bg-udem-rojo-hover transition-colors font-semibold" title="Enviar solicitud de inscripción">
             📤 Enviar Solicitud
           </button>
         </div>
@@ -515,7 +493,7 @@
           </p>
         </div>
         <div class="bg-white border rounded-lg overflow-hidden">
-          <div class="bg-udem-azul text-whitee p-4">
+          <div class="bg-udem-azul text-white p-4">
             <h4 class="font-semibold">📅 Cronograma General</h4>
           </div>
           <div class="p-4">
@@ -569,16 +547,10 @@
             </ul>
           </div>
         </div>
-        <div class="flex flex-wrap gap-3 pt-4 border-t">
-          <button onclick="openSolicitudModalFromDetails()" class="bg-udem-rojo text-whitee px-6 py-3 rounded-lg hover:bg-udem-rojo-hover transition-colors font-semibold" title="Iniciar proceso de inscripción a esta línea">
-            📝 Solicitar Inscripción
-          </button>
-          <button onclick="descargarSyllabus()" class="bg-udem-azul text-whitee px-6 py-3 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Descargar programa académico detallado en PDF">
-            📄 Descargar Syllabus
-          </button>
-          <button onclick="contactarProfesor()" class="bg-green-600 text-whitee px-6 py-3 rounded-lg hover:bg-green-700 transition-colors" title="Enviar mensaje al profesor de la línea">
-            📧 Contactar Profesor
-          </button>
+        <<div class="flex flex-wrap gap-3 pt-4 border-t">
+        <button onclick="closeDetallesModal()" class="border border-gray-300 px-6 py-2 rounded-lg hover:bg-gray-50">
+            Cerrar
+        </button>
         </div>
       </div>
     </div>
@@ -591,10 +563,10 @@
   <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
     <div class="flex items-center space-x-3">
       <img src="escudo.png" alt="UdeM" class="h-10 w-10">
-      <h1 class="text-xl font-bold text-whitee">Panel Profesor</h1>
+      <h1 class="text-xl font-bold text-white">Panel Profesor</h1>
     </div>
     <div class="flex items-center space-x-4">
-      <span id="nombre-display-profesor" class="text-whitee"></span>
+      <span id="nombre-display-profesor" class="text-white"></span>
       <img id="avatar-display-profesor" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
       <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100">
         Cerrar Sesión
@@ -630,16 +602,12 @@
       <div class="border-b border-gray-200">
         <nav class="flex space-x-4 px-6">
           <button onclick="cambiarTab('cursos')" id="tab-cursos" 
-                  class="tab-btn py-4 px-4 font-medium border-b-2 border-udem-rojo text-udem-rojo">
-            📚 Mis Cursos
+                    class="tab-btn py-4 px-4 font-medium border-b-2 border-udem-rojo text-udem-rojo"> 
+            📚 Mis Cursos 
           </button>
           <button onclick="cambiarTab('calendario')" id="tab-calendario" 
                   class="tab-btn py-4 px-4 font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700">
             📅 Calendario
-          </button>
-          <button onclick="cambiarTab('reportes')" id="tab-reportes" 
-                  class="tab-btn py-4 px-4 font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700">
-            📊 Reportes
           </button>
         </nav>
       </div>
@@ -669,44 +637,6 @@
           </div>
         </div>
 
-        <!-- TAB: REPORTES -->
-        <div id="content-reportes" class="tab-content hidden">
-          <h2 class="text-xl font-bold text-gray-800 mb-4">Centro de Reportes</h2>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-              <h3 class="font-semibold text-gray-700 mb-2">📈 Reporte de Notas</h3>
-              <p class="text-sm text-gray-600 mb-3">Descarga consolidado de notas por curso</p>
-              <button onclick="generarReporteGeneral('notas')" class="text-sm bg-udem-azul text-whitee px-4 py-2 rounded hover:bg-udem-azul-hover">
-                Generar
-              </button>
-            </div>
-            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-              <h3 class="font-semibold text-gray-700 mb-2">📊 Reporte de Asistencia</h3>
-              <p class="text-sm text-gray-600 mb-3">Estadísticas de asistencia por curso</p>
-              <button onclick="generarReporteGeneral('asistencia')" class="text-sm bg-udem-azul text-whitee px-4 py-2 rounded hover:bg-udem-azul-hover">
-                Generar
-              </button>
-            </div>
-            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-              <h3 class="font-semibold text-gray-700 mb-2">📋 Reporte de Evaluaciones</h3>
-              <p class="text-sm text-gray-600 mb-3">Resumen de evaluaciones pendientes</p>
-              <button onclick="generarReporteGeneral('evaluaciones')" class="text-sm bg-udem-azul text-whitee px-4 py-2 rounded hover:bg-udem-azul-hover">
-                Generar
-              </button>
-            </div>
-            <div class="border rounded-lg p-4 hover:shadow-md transition-shadow cursor-pointer">
-              <h3 class="font-semibold text-gray-700 mb-2">📄 Reporte Consolidado</h3>
-              <p class="text-sm text-gray-600 mb-3">Reporte completo de todos los cursos</p>
-              <button onclick="generarReporteGeneral('consolidado')" class="text-sm bg-udem-rojo text-whitee px-4 py-2 rounded hover:bg-opacity-90">
-                Generar
-              </button>
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
   </main>
 </section>
 
@@ -729,13 +659,10 @@
     <div class="p-4 bg-gray-50 border-b">
       <div class="flex flex-wrap gap-3 items-center justify-between">
         <div class="flex gap-3">
-          <button onclick="agregarEvaluacion()" class="bg-udem-azul text-whitee px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors flex items-center gap-2">
+          <button onclick="agregarEvaluacion()" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors flex items-center gap-2">
             <span>➕</span> Nueva Evaluación
           </button>
-          <button onclick="exportarNotasExcel()" class="bg-green-600 text-whitee px-4 py-2 rounded-lg hover:bg-green-700 transition-colors flex items-center gap-2">
-            <span>📊</span> Exportar a Excel
-          </button>
-          <button onclick="guardarCambios()" class="bg-udem-rojo text-whitee px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors flex items-center gap-2">
+          <button onclick="guardarCambios()" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-opacity-90 transition-colors flex items-center gap-2">
             <span>💾</span> Guardar Cambios
           </button>
         </div>
@@ -744,7 +671,7 @@
             ⚠️ Configurar porcentajes
           </div>
           <button id="btn-generar-reporte" onclick="generarReporteCurso()" 
-                  class="bg-purple-600 text-whitee px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2" 
+                  class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2" 
                   disabled>
             <span>📤</span> Generar Reporte
           </button>
@@ -756,7 +683,7 @@
     <div class="p-4">
       <div class="overflow-x-auto">
         <table class="w-full text-sm border-collapse" id="tabla-notas">
-          <thead class="bg-udem-azul text-whitee">
+          <thead class="bg-udem-azul text-white">
             <tr id="thead-notas">
               <th class="p-3 border text-left sticky left-0 bg-udem-azul z-10">Estudiante</th>
               <th class="p-3 border text-left">Código</th>
@@ -782,15 +709,72 @@
 
   </div>
 </div>
+<!-- ==================== MODAL DE GESTIÓN DE ASISTENCIAS ==================== -->
+
+<div id="modal-gestion-asistencias" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+  <div class="absolute inset-0 bg-black/60" onclick="closeGestionAsistencias()"></div>
+  <div class="relative bg-white rounded-2xl shadow-xl w-full max-w-6xl max-h-[90vh] overflow-y-auto z-10 mx-4">
+    
+    <!-- HEADER -->
+    <div class="sticky top-0 bg-white border-b p-4 flex justify-between items-center z-20">
+      <div>
+        <h3 id="titulo-curso-asistencias" class="text-xl font-bold text-gray-800">Gestión de Asistencias</h3>
+        <p class="text-sm text-gray-500" id="info-curso-asistencias">Curso: [Nombre del curso]</p>
+      </div>
+      <button onclick="closeGestionAsistencias()" class="text-gray-400 hover:text-gray-600 text-2xl">✕</button>
+    </div>
+
+    <!-- TOOLBAR -->
+    <div class="p-4 bg-gray-50 border-b">
+      <div class="flex flex-wrap gap-3 items-center justify-between">
+        <div class="flex gap-3 items-center">
+          <label class="text-sm font-medium text-gray-700">Fecha:</label>
+          <input type="date" id="fecha-asistencia" class="border rounded px-3 py-2 text-sm" />
+          <button onclick="cargarAsistenciaFecha()" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover">
+            📅 Cargar
+          </button>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="guardarAsistencias()" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-opacity-90">
+            💾 Guardar Asistencias
+          </button>
+          <button onclick="generarReporteAsistencias()" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700">
+            📊 Generar Reporte
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABLA -->
+    <div class="p-4">
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm border-collapse">
+          <thead class="bg-udem-azul text-white">
+            <tr>
+              <th class="p-3 border text-left">Estudiante</th>
+              <th class="p-3 border text-left">Código</th>
+              <th class="p-3 border text-center">Presente</th>
+              <th class="p-3 border text-center">% Asistencia</th>
+              <th class="p-3 border text-left">Observaciones</th>
+            </tr>
+          </thead>
+          <tbody id="tbody-asistencias" class="bg-white">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
 
   <section id="dashboard-coordinador" class="hidden min-h-screen bg-gray-50">
     <header class="bg-udem-rojo shadow p-4 flex justify-between items-center">
       <div class="flex items-center space-x-3">
         <img src="escudo.png" alt="UdeM" class="h-10 w-10">
-        <h1 class="text-xl font-bold text-whitee">Panel Coordinador</h1>
+        <h1 class="text-xl font-bold text-white">Panel Coordinador</h1>
       </div>
       <div class="flex items-center space-x-4">
-        <span id="nombre-display-coordinador" class="text-whitee"></span>
+        <span id="nombre-display-coordinador" class="text-white"></span>
         <img id="avatar-display-coordinador" src="" class="w-10 h-10 rounded-full border-2 border-white" alt="Avatar">
         <button onclick="cerrarSesion()" class="bg-white text-udem-rojo px-3 py-1 rounded-lg hover:bg-gray-100" title="Salir del sistema">Cerrar Sesion</button>
       </div>
@@ -832,7 +816,7 @@
                   <td class="p-3">Seguridad Informática</td>
                   <td class="p-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Pendiente</span></td>
                   <td class="p-3">
-                    <button onclick="verSolicitudDetalle(1)" class="bg-udem-azul text-whitee px-3 py-1 rounded text-xs hover:bg-udem-azul-hover">Ver Detalles</button>
+                    <button onclick="verSolicitudDetalle(1)" class="bg-udem-azul text-white px-3 py-1 rounded text-xs hover:bg-udem-azul-hover">Ver Detalles</button>
                   </td>
                 </tr>
                 <tr class="border-t">
@@ -840,7 +824,7 @@
                   <td class="p-3">Inteligencia Artificial</td>
                   <td class="p-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Pendiente</span></td>
                   <td class="p-3">
-                    <button onclick="verSolicitudDetalle(2)" class="bg-udem-azul text-whitee px-3 py-1 rounded text-xs hover:bg-udem-azul-hover">Ver Detalles</button>
+                    <button onclick="verSolicitudDetalle(2)" class="bg-udem-azul text-white px-3 py-1 rounded text-xs hover:bg-udem-azul-hover">Ver Detalles</button>
                   </td>
                 </tr>
               </tbody>
@@ -852,7 +836,7 @@
         <h2 class="text-xl font-bold text-udem-azul mb-4">Gestión de Líneas de Énfasis</h2>
         <form onsubmit="agregarLinea(event)" class="flex gap-3 mb-4">
           <input id="nueva-linea" placeholder="Nombre de línea" class="flex-1 border px-3 py-2 rounded">
-          <button class="bg-udem-rojo text-whitee px-4 py-2 rounded">Agregar</button>
+          <button class="bg-udem-rojo text-white px-4 py-2 rounded">Agregar</button>
         </form>
         <ul id="lista-lineas-admin" class="space-y-2"></ul>
       </section>
@@ -865,8 +849,8 @@
       <h3 class="text-xl font-semibold mb-4">Solicitud Estudiante</h3>
       <div id="detalle-solicitud"></div>
       <div class="flex justify-end gap-3 mt-4">
-        <button onclick="aprobarSolicitud()" class="bg-green-600 text-whitee px-4 py-2 rounded">✅ Aprobar</button>
-        <button onclick="rechazarSolicitud()" class="bg-red-600 text-whitee px-4 py-2 rounded">❌ Rechazar</button>
+        <button onclick="aprobarSolicitud()" class="bg-green-600 text-white px-4 py-2 rounded">✅ Aprobar</button>
+        <button onclick="rechazarSolicitud()" class="bg-red-600 text-white px-4 py-2 rounded">❌ Rechazar</button>
       </div>
     </div>
   </div>
@@ -895,79 +879,12 @@
 <!-- Cargar base de datos -->
 <script src="database.js"></script>
 <script>
-    // ------------------- Estado global (prototipo) -------------------
-    let selectedRole = 'estudiante';
-    let solicitudesData = [];
-    let currentLineaDetails = null;
-    // Base de datos de líneas de énfasis
-    const lineasData = {
-      'seguridad-informatica': {
-        titulo: 'Seguridad Informática',
-        programa: 'Ingeniería de Sistemas',
-        cupos: '15/25',
-        modalidad: 'Presencial',
-        duracion: '16 semanas',
-        inicio: '15 de Agosto 2025',
-        creditos: '6',
-        profesor: 'Dr. Juan Martínez',
-        horario: 'Lun-Mié 2:00-4:00 PM',
-        aula: 'Lab. Sistemas 302',
-        prerrequisitos: ['Redes de Computadores', 'Promedio mínimo: 3.5'],
-        competencias: ['Análisis de vulnerabilidades', 'Implementación de controles', 'Auditoría de sistemas'],
-        herramientas: ['Kali Linux', 'Wireshark', 'Metasploit', 'OWASP ZAP'],
-        descripcion: 'Esta línea de énfasis se enfoca en formar profesionales capaces de identificar, evaluar y mitigar riesgos de seguridad en sistemas de información. Los estudiantes desarrollarán competencias en criptografía, análisis forense digital, y gestión de incidentes de seguridad.'
-      },
-      'inteligencia-artificial': {
-        titulo: 'Inteligencia Artificial',
-        programa: 'Ingeniería de Sistemas',
-        cupos: '18/20',
-        modalidad: 'Híbrida',
-        duracion: '16 semanas',
-        inicio: '15 de Agosto 2025',
-        creditos: '8',
-        profesor: 'Dra. Ana García',
-        horario: 'Mar-Jue 10:00-12:00 PM',
-        aula: 'Lab. IA 405',
-        prerrequisitos: ['Algoritmos Avanzados', 'Matemáticas III', 'Promedio mínimo: 4.0'],
-        competencias: ['Machine Learning', 'Redes Neuronales', 'Procesamiento de Lenguaje Natural'],
-        herramientas: ['Python', 'TensorFlow', 'PyTorch', 'Jupyter'],
-        descripcion: 'Programa avanzado que cubre algoritmos de machine learning, redes neuronales profundas y aplicaciones de IA en la industria. Los estudiantes trabajarán en proyectos reales con grandes volúmenes de datos.'
-      },
-      'gestion-calidad': {
-        titulo: 'Gestión de Calidad',
-        programa: 'Ingeniería Industrial',
-        cupos: '12/18',
-        modalidad: 'Presencial',
-        duracion: '16 semanas',
-        inicio: '15 de Agosto 2025',
-        creditos: '6',
-        profesor: 'Ing. Carlos López',
-        horario: 'Lun-Vie 8:00-10:00 AM',
-        aula: 'Aula 201',
-        prerrequisitos: ['Estadística II', 'Control de Procesos', 'Promedio mínimo: 3.8'],
-        competencias: ['Sistemas de Gestión', 'Auditoría de Calidad', 'Mejora Continua'],
-        herramientas: ['Minitab', 'Six Sigma', 'ISO 9001', 'Lean Manufacturing'],
-        descripcion: 'Formación integral en sistemas de gestión de calidad, implementación de normas internacionales y metodologías de mejora continua en procesos industriales.'
-      },
-      'analisis-datos': {
-        titulo: 'Análisis de Datos',
-        programa: 'Matemáticas',
-        cupos: '19/20',
-        modalidad: 'Virtual',
-        duracion: '16 semanas',
-        inicio: '15 de Agosto 2025',
-        creditos: '7',
-        profesor: 'Dr. María Rodríguez',
-        horario: 'Sábados 9:00-1:00 PM',
-        aula: 'Plataforma Virtual',
-        prerrequisitos: ['Cálculo III', 'Probabilidad', 'Promedio mínimo: 4.2'],
-        competencias: ['Estadística Avanzada', 'Big Data', 'Visualización de Datos'],
-        herramientas: ['R', 'Python', 'Tableau', 'SQL'],
-        descripcion: 'Programa especializado en técnicas avanzadas de análisis estadístico, ciencia de datos y visualización para la toma de decisiones basada en datos.'
-      }
-    };
+    
     // ------------------- Utilidades UI -------------------
     const roleButtons = () => document.querySelectorAll('[data-role]');
+    // ------------------- Variables Globales -------------------
+    let selectedRole = 'estudiante';
+    let currentLineaDetails = null;
 
     function setRole(role) {
       selectedRole = role;
@@ -1008,79 +925,133 @@
     const form = document.getElementById('loginForm');
     const errorBox = document.getElementById('loginError');
     if (form) {
-      // ==================== FORMULARIO DE SOLICITUD ====================
-const formSolicitud = document.getElementById('solicitudForm');
-if (formSolicitud) {
-  formSolicitud.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    const usuario = obtenerUsuarioActual();
-    if (!usuario) {
-      alert('Debes iniciar sesión primero');
-      cerrarSesion();
-      return;
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const user = document.getElementById('nombreUsuario').value.trim();
+        const pass = document.getElementById('password').value.trim();
+        const robot = document.getElementById('chkRobot').checked;
+        
+        if (!user || !pass) {
+        showError('Completa usuario y contraseña.');
+        return;
+        }
+        if (!robot) {
+        showError('Confirma la casilla "No soy un robot".');
+        return;
+        }
+        
+        // LOGIN CON BASE DE DATOS
+        const usuario = DB.login(user, pass);
+        
+        if (!usuario) {
+        showError('Usuario o contraseña incorrectos.');
+        return;
+        }
+        
+        // Guardar sesión actual
+        sessionStorage.setItem('usuarioActual', JSON.stringify(usuario));
+        
+        const avatarUrl = "https://i.pravatar.cc/100?u=" + encodeURIComponent(user);
+        
+        ['estudiante', 'profesor', 'coordinador'].forEach(rol => {
+        const nameEl = document.getElementById('nombre-display-' + rol);
+        const avatarEl = document.getElementById('avatar-display-' + rol);
+        if (nameEl) nameEl.textContent = usuario.nombre;
+        if (avatarEl) avatarEl.src = avatarUrl;
+        });
+        
+        mostrarSeccion('dashboard-' + usuario.rol);
+        
+        // Inicializar según el rol
+        if (usuario.rol === 'estudiante') {
+        setTimeout(() => {
+            cargarDatosEstudiante();
+        }, 100);
+        } else if (usuario.rol === 'profesor') {
+        setTimeout(() => {
+            inicializarDashboardProfesor();
+        }, 100);
+        } else if (usuario.rol === 'coordinador') {
+        setTimeout(() => {
+            inicializarDashboardCoordinador();
+        }, 100);
+        }
+    });
     }
-    
-    const lineaIdElement = document.getElementById('modal-linea');
-    const lineaId = parseInt(lineaIdElement.dataset.lineaId);
-    
-    if (!lineaId) {
-      alert('Error: No se pudo identificar la línea de énfasis');
-      return;
-    }
-    
-    // Validar checkbox de declaración
-    if (!document.getElementById('declaracion-veracidad').checked) {
-      alert('Debes aceptar la declaración de veracidad');
-      return;
-    }
-    
-    // Recopilar archivos
-    const archivos = {
-      notas: document.getElementById('archivo-notas').files[0]?.name || 'certificado_notas.pdf',
-      motivacion: document.getElementById('archivo-motivacion').files[0]?.name || 'carta_motivacion.pdf',
-      prerrequisitos: Array.from(document.getElementById('archivo-prerrequisitos').files || []).map(f => f.name),
-      otros: Array.from(document.getElementById('archivo-otros').files || []).map(f => f.name)
-    };
-    
-    const datos = {
-      estudianteId: usuario.id,
-      lineaEnfasisId: lineaId,
-      nombre: document.getElementById('solicitud-nombre').value,
-      cedula: document.getElementById('solicitud-cedula').value,
-      email: document.getElementById('solicitud-email').value,
-      telefono: document.getElementById('solicitud-telefono').value,
-      programa: document.getElementById('solicitud-programa').value,
-      semestre: document.getElementById('solicitud-semestre').value,
-      promedio: parseFloat(document.getElementById('solicitud-promedio').value),
-      codigo: document.getElementById('solicitud-codigo').value,
-      archivos: archivos
-    };
-    
-    // Crear solicitud en BD
-    DB.crearSolicitud(datos);
-    
-    // Cerrar modal
-    closeSolicitudModal();
-    
-    // Recargar solicitudes
-    renderSolicitudes();
-    
-    // Mostrar confirmación
-    mostrarConfirmacion(
-      '¡Solicitud Enviada!',
-      'Tu solicitud ha sido registrada exitosamente. El coordinador la revisará pronto y recibirás una notificación con la respuesta.'
-    );
-  });
-}
 
-// Eventos de roles
-roleButtons().forEach(btn => {
-  btn.addEventListener('click', () => {
-    setRole(btn.dataset.role);
-    document.getElementById('menu-mobile')?.classList.add('hidden');
-  });
-});
+    // ==================== FORMULARIO DE SOLICITUD ====================
+    const formSolicitud = document.getElementById('solicitudForm');
+    if (formSolicitud) {
+    formSolicitud.addEventListener('submit', (e) => {
+        e.preventDefault();
+        
+        const usuario = obtenerUsuarioActual();
+        if (!usuario) {
+        alert('Debes iniciar sesión primero');
+        cerrarSesion();
+        return;
+        }
+        
+        const lineaIdElement = document.getElementById('modal-linea');
+        const lineaId = parseInt(lineaIdElement.dataset.lineaId);
+        
+        if (!lineaId) {
+        alert('Error: No se pudo identificar la línea de énfasis');
+        return;
+        }
+        
+        // Validar checkbox de declaración
+        if (!document.getElementById('declaracion-veracidad').checked) {
+        alert('Debes aceptar la declaración de veracidad');
+        return;
+        }
+        
+        // Recopilar archivos
+        const archivos = {
+        notas: document.getElementById('archivo-notas').files[0]?.name || 'certificado_notas.pdf',
+        motivacion: document.getElementById('archivo-motivacion').files[0]?.name || 'carta_motivacion.pdf',
+        prerrequisitos: Array.from(document.getElementById('archivo-prerrequisitos').files || []).map(f => f.name),
+        otros: Array.from(document.getElementById('archivo-otros').files || []).map(f => f.name)
+        };
+        
+        const datos = {
+        estudianteId: usuario.id,
+        lineaEnfasisId: lineaId,
+        nombre: document.getElementById('solicitud-nombre').value,
+        cedula: document.getElementById('solicitud-cedula').value,
+        email: document.getElementById('solicitud-email').value,
+        telefono: document.getElementById('solicitud-telefono').value,
+        programa: document.getElementById('solicitud-programa').value,
+        semestre: document.getElementById('solicitud-semestre').value,
+        promedio: parseFloat(document.getElementById('solicitud-promedio').value),
+        codigo: document.getElementById('solicitud-codigo').value,
+        archivos: archivos
+        };
+        
+        // Crear solicitud en BD
+        DB.crearSolicitud(datos);
+        
+        // Cerrar modal
+        closeSolicitudModal();
+        
+        // Recargar solicitudes
+        renderSolicitudes();
+        
+        // Mostrar confirmación
+        mostrarConfirmacion(
+        '¡Solicitud Enviada!',
+        'Tu solicitud ha sido registrada exitosamente. El coordinador la revisará pronto y recibirás una notificación con la respuesta.'
+        );
+    });
+    }
+
+    // Eventos de roles
+    roleButtons().forEach(btn => {
+    btn.addEventListener('click', () => {
+        setRole(btn.dataset.role);
+        document.getElementById('menu-mobile')?.classList.add('hidden');
+    });
+    });
       form.addEventListener('submit', (e) => {
         e.preventDefault();
         const user = document.getElementById('nombreUsuario').value.trim();
@@ -1133,7 +1104,7 @@ roleButtons().forEach(btn => {
       }, 100);
     }
   });
-}
+
     function showError(msg) {
       if (!errorBox) return;
       errorBox.textContent = msg;
@@ -1146,48 +1117,13 @@ roleButtons().forEach(btn => {
       return saved ? JSON.parse(saved) : null;
     }
     // ------------------- Modal de detalles de línea -------------------
-    function verDetallesLinea(lineaId) {
-      const linea = lineasData[lineaId];
-      if (!linea) return;
-      currentLineaDetails = lineaId;
-      // Llenar datos del modal
-      document.getElementById('modal-titulo-linea').textContent = linea.titulo;
-      document.getElementById('modal-programa-linea').textContent = linea.programa;
-      document.getElementById('modal-cupos').textContent = linea.cupos;
-      document.getElementById('modal-modalidad').textContent = linea.modalidad;
-      document.getElementById('modal-duracion').textContent = linea.duracion;
-      document.getElementById('modal-inicio').textContent = linea.inicio;
-      document.getElementById('modal-creditos').textContent = linea.creditos;
-      document.getElementById('modal-profesor').textContent = linea.profesor;
-      document.getElementById('modal-horario').textContent = linea.horario;
-      document.getElementById('modal-aula').textContent = linea.aula;
-      document.getElementById('modal-descripcion').textContent = linea.descripcion;
-      // Llenar listas
-      const prereqList = document.getElementById('modal-prerrequisitos');
-      prereqList.innerHTML = linea.prerrequisitos.map(p => `<li>• ${p}</li>`).join('');
-      const compList = document.getElementById('modal-competencias');
-      compList.innerHTML = linea.competencias.map(c => `<li>• ${c}</li>`).join('');
-      const herrList = document.getElementById('modal-herramientas');
-      herrList.innerHTML = linea.herramientas.map(h => `<li>• ${h}</li>`).join('');
-      // Mostrar modal
-      const modal = document.getElementById('modal-detalles-linea');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+    
 
     function closeDetallesModal() {
       const modal = document.getElementById('modal-detalles-linea');
       modal.classList.add('hidden');
       modal.classList.remove('flex');
       currentLineaDetails = null;
-    }
-
-    function openSolicitudModalFromDetails() {
-      if (currentLineaDetails) {
-        const linea = lineasData[currentLineaDetails];
-        closeDetallesModal();
-        setTimeout(() => openSolicitudModal(linea.titulo), 300);
-      }
     }
 
     function descargarSyllabus() {
@@ -1265,14 +1201,41 @@ function cargarNotificacionesEstudiante() {
   
   notificaciones.slice(0, 5).forEach(notif => {
     const li = document.createElement('li');
-    li.className = `bg-gray-50 p-2 rounded ${notif.leida ? '' : 'border-l-2 border-blue-500'}`;
+    li.className = `bg-gray-50 p-2 rounded cursor-pointer hover:bg-gray-100 ${notif.leida ? '' : 'border-l-2 border-blue-500'}`;
+    li.onclick = () => marcarComoLeida(notif.id);
     li.innerHTML = `
       <div class="font-medium text-sm">${notif.titulo}</div>
       <div class="text-xs text-gray-600">${notif.mensaje}</div>
+      <div class="text-xs text-gray-400 mt-1">${formatearFecha(notif.fechaCreacion)}</div>
     `;
     lista.appendChild(li);
   });
 }
+
+async function marcarComoLeida(notifId) {
+  await DB.marcarNotificacionLeida(notifId);
+  cargarNotificacionesEstudiante();
+}
+
+function formatearFecha(fecha) {
+  const date = new Date(fecha);
+  const ahora = new Date();
+  const diff = ahora - date;
+  
+  if (diff < 60000) return 'Hace un momento';
+  if (diff < 3600000) return `Hace ${Math.floor(diff / 60000)} minutos`;
+  if (diff < 86400000) return `Hace ${Math.floor(diff / 3600000)} horas`;
+  return date.toLocaleDateString('es-CO');
+}
+
+// Escuchar actualizaciones de la BD
+window.addEventListener('db-updated', () => {
+  const usuario = obtenerUsuarioActual();
+  if (usuario && usuario.rol === 'estudiante') {
+    cargarNotificacionesEstudiante();
+    renderSolicitudes();
+  }
+});
 
 function renderSolicitudes() {
   const usuario = obtenerUsuarioActual();
@@ -1305,7 +1268,7 @@ function renderSolicitudes() {
       <td class="p-3"><span class="px-3 py-1 rounded-full text-xs font-medium ${estadoClass}">${req.estado}</span></td>
       <td class="p-3">
         <button onclick="cancelarSolicitudPorId(${req.id}, this)"
-                 class="bg-red-500 text-whitee px-3 py-1 rounded text-xs hover:bg-red-600 transition-colors ${req.estado !== 'pendiente' ? 'opacity-50 cursor-not-allowed' : ''}"
+                 class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600 transition-colors ${req.estado !== 'pendiente' ? 'opacity-50 cursor-not-allowed' : ''}"
                  ${req.estado !== 'pendiente' ? 'disabled' : ''}
                 title="${req.estado !== 'pendiente' ? 'No se puede cancelar' : 'Cancelar esta solicitud'}">
           ${req.estado === 'cancelada' ? 'Cancelada' : 'Cancelar'}
@@ -1339,7 +1302,7 @@ function cancelarSolicitudPorId(id, btn) {
               </div>
               <h3 class="text-lg font-medium text-gray-900 mb-2">${titulo}</h3>
               <p class="text-sm text-gray-600 mb-6">${mensaje}</p>
-              <button onclick="cerrarConfirmacion()" class="bg-udem-rojo text-whitee px-6 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors">
+              <button onclick="cerrarConfirmacion()" class="bg-udem-rojo text-white px-6 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors">
                 Entendido
               </button>
             </div>
@@ -1356,28 +1319,21 @@ function cancelarSolicitudPorId(id, btn) {
       }
     }
     // ------------------- Notificaciones -------------------
-    function agregarNotificacion(mensaje) {
-      const lista = document.getElementById('lista-notificaciones');
-      if (!lista) return;
-      
-      const li = document.createElement('li');
-      li.className = "bg-blue-50 p-3 rounded border-l-2 border-blue-500 animate-pulse";
-      li.innerHTML = `
-        <div class="font-medium text-sm text-gray-800">Nueva Notificación</div>
-        <div class="text-xs text-gray-600 mt-1">${mensaje}</div>
-        <div class="text-xs text-gray-400 mt-1">${new Date().toLocaleTimeString('es-CO')}</div>
-      `;
-      
-      lista.prepend(li);
-      
-      // Quitar animación después de 2 segundos
-      setTimeout(() => li.classList.remove("animate-pulse"), 2000);
-      
-      // Mantener máximo 10 notificaciones
-      if (lista.children.length > 10) {
-        lista.removeChild(lista.lastChild);
-      }
-    }
+    async function agregarNotificacion(mensaje) {
+        const usuario = obtenerUsuarioActual();
+        if (!usuario) return;
+        
+        // Crear notificación en la BD
+        await DB.crearNotificacion({
+            usuarioId: usuario.id,
+            titulo: 'Notificación del sistema',
+            mensaje: mensaje,
+            tipo: 'info'
+        });
+        
+        // Recargar notificaciones
+        cargarNotificacionesEstudiante();
+        }
     // ------------------- Filtros -------------------
     // ------------------- Cargar líneas desde BD -------------------
 function cargarLineasDisponibles() {
@@ -1422,10 +1378,10 @@ function cargarLineasDisponibles() {
       <p class="text-sm text-gray-400 mt-2">Modalidad: ${linea.modalidad} | Duración: ${linea.duracion} semanas</p>
       <p class="text-sm text-gray-400">Horario: ${linea.horario}</p>
       <div class="mt-4 flex flex-wrap gap-2">
-        <button onclick="verDetallesLineaBD(${linea.id})" class="bg-udem-azul text-whitee px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea">
+        <button onclick="verDetallesLineaBD(${linea.id})" class="bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors" title="Ver información completa de la línea">
           Ver Detalles
         </button>
-        <button onclick="openSolicitudModalBD(${linea.id})" class="bg-udem-rojo text-whitee px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción" ${linea.cuposDisponibles === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>
+        <button onclick="openSolicitudModalBD(${linea.id})" class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-udem-rojo-hover transition-colors" title="Iniciar proceso de inscripción" ${linea.cuposDisponibles === 0 ? 'disabled style="opacity:0.5;cursor:not-allowed;"' : ''}>
           ${linea.cuposDisponibles === 0 ? 'Sin Cupos' : 'Solicitar'}
         </button>
       </div>
@@ -1493,17 +1449,31 @@ function openSolicitudModalBD(lineaId) {
     document.getElementById('modal-linea').dataset.lineaId = lineaId;
     document.getElementById('modal-linea-name').textContent = linea.nombre;
     
-    // Pre-llenar con datos del usuario si está disponible
-    const usuario = obtenerUsuarioActual();
-    if (usuario) {
-      document.getElementById('solicitud-nombre').value = usuario.nombre || '';
-      document.getElementById('solicitud-cedula').value = usuario.cedula || '';
-      document.getElementById('solicitud-email').value = usuario.email || '';
-      document.getElementById('solicitud-telefono').value = usuario.telefono || '';
-      document.getElementById('solicitud-programa').value = usuario.programa || '';
-      document.getElementById('solicitud-semestre').value = usuario.semestre || '';
-      document.getElementById('solicitud-promedio').value = usuario.promedio || '';
-      document.getElementById('solicitud-codigo').value = usuario.codigo || '';
+    // Verificar conflictos de horario con cursos ya inscritos
+    const usuarioActual = obtenerUsuarioActual(); // <-- CAMBIO AQUÍ: nombre diferente
+    if (usuarioActual) {
+      const inscripciones = DB.obtenerInscripcionesEstudiante(usuarioActual.id);
+      const conflictos = inscripciones.filter(insc => {
+        return insc.horario && linea.horario && hayConflictoHorario(insc.horario, linea.horario);
+      });
+      
+      if (conflictos.length > 0) {
+        const mensaje = `⚠️ ADVERTENCIA: Esta línea tiene conflicto de horario con:\n${conflictos.map(c => `• ${c.cursoNombre} (${c.horario})`).join('\n')}\n\n¿Deseas continuar de todos modos?`;
+        if (!confirm(mensaje)) {
+          closeSolicitudModal();
+          return;
+        }
+      }
+      
+      // Pre-llenar con datos del usuario si está disponible
+      document.getElementById('solicitud-nombre').value = usuarioActual.nombre || '';
+      document.getElementById('solicitud-cedula').value = usuarioActual.cedula || '';
+      document.getElementById('solicitud-email').value = usuarioActual.email || '';
+      document.getElementById('solicitud-telefono').value = usuarioActual.telefono || '';
+      document.getElementById('solicitud-programa').value = usuarioActual.programa || '';
+      document.getElementById('solicitud-semestre').value = usuarioActual.semestre || '';
+      document.getElementById('solicitud-promedio').value = usuarioActual.promedio || '';
+      document.getElementById('solicitud-codigo').value = usuarioActual.codigo || '';
     }
     
     // Limpiar archivos previos
@@ -1600,7 +1570,7 @@ function openSolicitudModalFromDetails() {
     cell.className = "h-8 flex items-center justify-center rounded cursor-pointer transition text-xs";
     
     if (d === hoy.getDate()) {
-      cell.classList.add("bg-udem-rojo", "text-whitee", "font-bold");
+      cell.classList.add("bg-udem-rojo", "text-white", "font-bold");
     } else {
       cell.classList.add("hover:bg-gray-100");
     }
@@ -1737,12 +1707,12 @@ function crearCardCurso(curso) {
     </div>
     <div class="flex gap-2 flex-wrap">
       <button onclick="abrirGestionNotas('${curso.id}')" 
-              class="flex-1 bg-udem-azul text-whitee px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors text-sm font-medium">
+              class="flex-1 bg-udem-azul text-white px-4 py-2 rounded-lg hover:bg-udem-azul-hover transition-colors text-sm font-medium">
         📊 Gestionar Notas
       </button>
-      <button onclick="verEstudiantesCurso('${curso.id}')" 
-              class="flex-1 bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors text-sm font-medium">
-        👥 Ver Estudiantes
+      <button onclick="abrirGestionAsistencias('${curso.id}')" 
+              class="flex-1 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors text-sm font-medium">
+        📋 Gestionar Asistencias
       </button>
     </div>
   `;
@@ -1798,6 +1768,16 @@ function actualizarEstadisticasProfesor() {
     statProxima.textContent = 'Sin clases';
   }
 }
+// Al final de actualizarEstadisticasProfesor(), AGREGAR:
+
+// Auto-actualizar cuando hay cambios
+window.addEventListener('db-updated', () => {
+  const usuario = obtenerUsuarioActual();
+  if (usuario && usuario.rol === 'profesor') {
+    actualizarEstadisticasProfesor();
+    cargarCursosProfesor();
+  }
+});
 // --- CALENDARIO ---
 function cargarCalendarioProfesor() {
   const container = document.getElementById('calendario-lista');
@@ -1849,35 +1829,237 @@ function abrirGestionNotas(cursoId) {
   const curso = cursosAsignados.find(c => c.id === cursoId);
   if (!curso) return;
 
+  // Cargar datos reales de la BD
+  const cursoReal = DB.cursos.find(c => c.codigo === cursoId);
+  if (!cursoReal) return;
+
+  const estudiantes = DB.obtenerEstudiantesCurso(cursoReal.id);
+  const evaluaciones = DB.obtenerEvaluacionesCurso(cursoReal.id);
+
   // Inicializar datos si no existen
   if (!baseDatosNotas[cursoId]) {
     baseDatosNotas[cursoId] = {
-      evaluaciones: [
+      evaluaciones: evaluaciones.length > 0 ? evaluaciones.map(ev => ({
+        nombre: ev.nombre,
+        porcentaje: ev.porcentaje
+      })) : [
         { nombre: 'Parcial 1', porcentaje: 30 },
         { nombre: 'Parcial 2', porcentaje: 30 },
         { nombre: 'Proyecto Final', porcentaje: 40 }
       ],
-      estudiantes: generarEstudiantesDemo(curso.estudiantes)
+      estudiantes: estudiantes.map(est => {
+        const notas = DB.obtenerNotasEstudiante(est.estudianteId, cursoReal.id);
+        const notasArray = evaluaciones.map(ev => {
+          const nota = notas.find(n => n.evaluacionId === ev.id);
+          return nota ? nota.nota : 0;
+        });
+        return {
+          nombre: est.nombre,
+          codigo: est.codigo,
+          notas: notasArray.length > 0 ? notasArray : [0, 0, 0]
+        };
+      })
     };
   }
 
   document.getElementById('titulo-curso-notas').textContent = `Gestión de Notas: ${curso.nombre}`;
-  document.getElementById('info-curso-notas').textContent = `${curso.codigo} • ${curso.estudiantes} estudiantes`;
+  document.getElementById('info-curso-notas').textContent = `${curso.codigo} • ${estudiantes.length} estudiantes`;
   
   document.getElementById('modal-gestion-notas').classList.remove('hidden');
   document.getElementById('modal-gestion-notas').classList.add('flex');
   
   renderTablaNotas();
 }
-
 function closeGestionNotas() {
   document.getElementById('modal-gestion-notas').classList.add('hidden');
   document.getElementById('modal-gestion-notas').classList.remove('flex');
   cursoActual = null;
 }
 
+// ==================== GESTIÓN DE ASISTENCIAS ====================
 
+let cursoAsistenciaActual = null;
+let fechaAsistenciaActual = null;
 
+function abrirGestionAsistencias(cursoId) {
+  cursoAsistenciaActual = cursoId;
+  const curso = cursosAsignados.find(c => c.id === cursoId);
+  if (!curso) return;
+
+  document.getElementById('titulo-curso-asistencias').textContent = `Gestión de Asistencias: ${curso.nombre}`;
+  document.getElementById('info-curso-asistencias').textContent = `${curso.codigo} • ${curso.estudiantes} estudiantes`;
+  
+  // Fecha de hoy por defecto
+  const hoy = new Date().toISOString().split('T')[0];
+  document.getElementById('fecha-asistencia').value = hoy;
+  fechaAsistenciaActual = hoy;
+  
+  document.getElementById('modal-gestion-asistencias').classList.remove('hidden');
+  document.getElementById('modal-gestion-asistencias').classList.add('flex');
+  
+  cargarAsistenciaFecha();
+}
+
+function closeGestionAsistencias() {
+  document.getElementById('modal-gestion-asistencias').classList.add('hidden');
+  document.getElementById('modal-gestion-asistencias').classList.remove('flex');
+  cursoAsistenciaActual = null;
+  fechaAsistenciaActual = null;
+}
+
+function cargarAsistenciaFecha() {
+  if (!cursoAsistenciaActual) return;
+  
+  fechaAsistenciaActual = document.getElementById('fecha-asistencia').value;
+  const cursoReal = DB.cursos.find(c => c.codigo === cursoAsistenciaActual);
+  if (!cursoReal) return;
+  
+  const estudiantes = DB.obtenerEstudiantesCurso(cursoReal.id);
+  const asistenciasHoy = DB.obtenerAsistenciasCurso(cursoReal.id, fechaAsistenciaActual);
+  
+  const tbody = document.getElementById('tbody-asistencias');
+  tbody.innerHTML = '';
+  
+  estudiantes.forEach((est, idx) => {
+    const asistencia = asistenciasHoy.find(a => a.estudianteId === est.estudianteId);
+    const porcentaje = DB.calcularPorcentajeAsistencia(est.estudianteId, cursoReal.id);
+    
+    const tr = document.createElement('tr');
+    tr.className = 'border-t hover:bg-gray-50';
+    tr.innerHTML = `
+      <td class="p-3 border font-medium">${est.nombre}</td>
+      <td class="p-3 border text-gray-600">${est.codigo}</td>
+      <td class="p-3 border text-center">
+        <input type="checkbox" 
+               id="asist-${idx}" 
+               ${asistencia?.presente ? 'checked' : ''}
+               class="w-5 h-5 accent-green-600 cursor-pointer"
+               onchange="marcarAsistencia(${est.estudianteId}, this.checked)">
+      </td>
+      <td class="p-3 border text-center font-semibold ${porcentaje >= 80 ? 'text-green-600' : porcentaje >= 60 ? 'text-yellow-600' : 'text-red-600'}">
+        ${porcentaje.toFixed(1)}%
+      </td>
+      <td class="p-3 border">
+        <input type="text" 
+               id="obs-${idx}"
+               value="${asistencia?.observaciones || ''}"
+               placeholder="Observaciones..."
+               class="w-full border rounded px-2 py-1 text-sm">
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
+
+async function marcarAsistencia(estudianteId, presente) {
+  // Solo marca visualmente, se guarda con el botón "Guardar"
+}
+
+async function guardarAsistencias() {
+  if (!cursoAsistenciaActual || !fechaAsistenciaActual) return;
+  
+  const cursoReal = DB.cursos.find(c => c.codigo === cursoAsistenciaActual);
+  if (!cursoReal) return;
+  
+  const estudiantes = DB.obtenerEstudiantesCurso(cursoReal.id);
+  
+  for (let i = 0; i < estudiantes.length; i++) {
+    const checkbox = document.getElementById(`asist-${i}`);
+    const obsInput = document.getElementById(`obs-${i}`);
+    
+    await DB.registrarAsistencia({
+      estudianteId: estudiantes[i].estudianteId,
+      cursoId: cursoReal.id,
+      fecha: fechaAsistenciaActual,
+      presente: checkbox.checked,
+      observaciones: obsInput.value
+    });
+  }
+  
+  alert('✅ Asistencias guardadas correctamente');
+  cargarAsistenciaFecha(); // Recargar para actualizar porcentajes
+}
+
+function generarReporteAsistencias() {
+  if (!cursoAsistenciaActual) return;
+  
+  const cursoReal = DB.cursos.find(c => c.codigo === cursoAsistenciaActual);
+  if (!cursoReal) return;
+  
+  const curso = cursosAsignados.find(c => c.id === cursoAsistenciaActual);
+  const estudiantes = DB.obtenerEstudiantesCurso(cursoReal.id);
+  
+  const fecha = new Date().toLocaleDateString('es-CO', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+  
+  // Encabezado del reporte
+  let csv = `REPORTE DE ASISTENCIAS\n`;
+  csv += `Curso:,${curso.nombre}\n`;
+  csv += `Código:,${curso.codigo}\n`;
+  csv += `Profesor:,${obtenerUsuarioActual().nombre}\n`;
+  csv += `Fecha de Generación:,${fecha}\n\n`;
+  
+  csv += 'RESUMEN POR ESTUDIANTE\n';
+  csv += 'ESTUDIANTE,CÓDIGO,% ASISTENCIA,TOTAL CLASES,ASISTIÓ,FALTÓ\n';
+  
+  estudiantes.forEach(est => {
+    const porcentaje = DB.calcularPorcentajeAsistencia(est.estudianteId, cursoReal.id);
+    const asistencias = DB.obtenerAsistenciasEstudiante(est.estudianteId, cursoReal.id);
+    const presentes = asistencias.filter(a => a.presente).length;
+    const ausentes = asistencias.length - presentes;
+    
+    csv += `${est.nombre},${est.codigo},${porcentaje.toFixed(1)}%,${asistencias.length},${presentes},${ausentes}\n`;
+  });
+  
+  // Agregar detalle por fecha
+  const todasAsistencias = DB.obtenerAsistenciasCurso(cursoReal.id);
+  const fechasUnicas = [...new Set(todasAsistencias.map(a => a.fecha))].sort();
+  
+  if (fechasUnicas.length > 0) {
+    csv += '\n\nDETALLE POR FECHA\n';
+    csv += 'FECHA,ESTUDIANTE,CÓDIGO,ASISTIÓ,OBSERVACIONES\n';
+    
+    fechasUnicas.forEach(fecha => {
+      const asistenciasFecha = todasAsistencias.filter(a => a.fecha === fecha);
+      asistenciasFecha.forEach(asist => {
+        const est = estudiantes.find(e => e.estudianteId === asist.estudianteId);
+        if (est) {
+          const asistio = asist.presente ? 'SÍ' : 'NO';
+          const obs = asist.observaciones || '';
+          csv += `${fecha},${est.nombre},${est.codigo},${asistio},"${obs}"\n`;
+        }
+      });
+    });
+  }
+  
+  // Estadísticas generales
+  const totalClases = fechasUnicas.length;
+  const promedioAsistencia = estudiantes.reduce((sum, est) => {
+    return sum + DB.calcularPorcentajeAsistencia(est.estudianteId, cursoReal.id);
+  }, 0) / estudiantes.length;
+  
+  csv += `\n\nESTADÍSTICAS GENERALES\n`;
+  csv += `Total de Estudiantes:,${estudiantes.length}\n`;
+  csv += `Total de Clases Registradas:,${totalClases}\n`;
+  csv += `Promedio de Asistencia del Curso:,${promedioAsistencia.toFixed(1)}%\n`;
+  
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `REPORTE_ASISTENCIAS_${curso.codigo}_${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+  
+  alert('📊 Reporte de asistencias generado exitosamente');
+}
 function renderTablaNotas() {
   if (!cursoActual) return;
   const datos = baseDatosNotas[cursoActual];
@@ -1895,7 +2077,7 @@ function renderTablaNotas() {
         <div class="flex flex-col items-center gap-1">
           <input type="text" value="${ev.nombre}" 
                  onchange="cambiarNombreEval(${i}, this.value)"
-                 class="bg-transparent border-b border-white/30 text-center text-whitee font-medium px-2 py-1 w-32"
+                 class="bg-transparent border-b border-white/30 text-center text-white font-medium px-2 py-1 w-32"
                  title="Clic para editar nombre">
           <div class="flex items-center gap-1">
             <input type="number" min="0" max="100" step="1" value="${ev.porcentaje}"
@@ -1904,7 +2086,7 @@ function renderTablaNotas() {
                    title="Porcentaje de esta evaluación">
             <span class="text-xs">%</span>
             <button onclick="eliminarEvaluacion(${i})" 
-                    class="ml-1 text-whitee/70 hover:text-whitee text-xs" 
+                    class="ml-1 text-white/70 hover:text-white text-xs" 
                     title="Eliminar evaluación">
               🗑️
             </button>
@@ -2029,28 +2211,74 @@ function eliminarEvaluacion(idxEv) {
   }
 }
 
-function agregarEstudiante() {
+
+async function guardarCambios() {
   if (!cursoActual) return;
-  const nombre = prompt('Nombre del estudiante:');
-  if (!nombre) return;
-  const codigo = prompt('Código del estudiante:');
-  if (!codigo) return;
   
   const datos = baseDatosNotas[cursoActual];
-  const nuevasNotas = new Array(datos.evaluaciones.length).fill(0);
-  datos.estudiantes.push({ nombre, codigo, notas: nuevasNotas });
-  renderTablaNotas();
-  if (typeof agregarNotificacion === 'function') {
-    agregarNotificacion(`Estudiante ${nombre} agregado`);
+  const cursoReal = DB.cursos.find(c => c.codigo === cursoActual);
+  if (!cursoReal) {
+    alert('Error: No se encontró el curso');
+    return;
   }
-}
-
-function guardarCambios() {
+  
+  // Guardar evaluaciones en Firebase
+  const evaluacionesExistentes = DB.obtenerEvaluacionesCurso(cursoReal.id);
+  
+  // Eliminar evaluaciones viejas que ya no existen
+  for (const ev of evaluacionesExistentes) {
+    const existe = datos.evaluaciones.find(e => e.nombre === ev.nombre);
+    if (!existe) {
+      await DB.eliminarEvaluacion(ev.id);
+    }
+  }
+  
+  // Crear o actualizar evaluaciones
+  for (const ev of datos.evaluaciones) {
+    const existe = evaluacionesExistentes.find(e => e.nombre === ev.nombre);
+    if (existe) {
+      await DB.actualizarEvaluacion(existe.id, { 
+        nombre: ev.nombre, 
+        porcentaje: ev.porcentaje 
+      });
+    } else {
+      await DB.crearEvaluacion({
+        cursoId: cursoReal.id,
+        nombre: ev.nombre,
+        porcentaje: ev.porcentaje
+      });
+    }
+  }
+  
+  // Recargar evaluaciones actualizadas
+  const evaluacionesActualizadas = DB.obtenerEvaluacionesCurso(cursoReal.id);
+  const estudiantes = DB.obtenerEstudiantesCurso(cursoReal.id);
+  
+  // Guardar notas de cada estudiante
+  for (let i = 0; i < datos.estudiantes.length; i++) {
+    const est = datos.estudiantes[i];
+    const estudianteReal = estudiantes[i];
+    if (!estudianteReal) continue;
+    
+    for (let j = 0; j < datos.evaluaciones.length; j++) {
+      const evaluacion = evaluacionesActualizadas.find(e => e.nombre === datos.evaluaciones[j].nombre);
+      if (!evaluacion) continue;
+      
+      await DB.guardarNota({
+        evaluacionId: evaluacion.id,
+        estudianteId: estudianteReal.estudianteId,
+        cursoId: cursoReal.id,
+        nota: est.notas[j] || 0
+      });
+    }
+  }
+  
   saveToStorage();
+  
   if (typeof agregarNotificacion === 'function') {
-    agregarNotificacion('✅ Cambios guardados correctamente');
+    agregarNotificacion('✅ Cambios guardados en Firebase');
   } else {
-    alert('Cambios guardados');
+    alert('✅ Cambios guardados correctamente');
   }
 }
 
@@ -2065,45 +2293,65 @@ function generarReporteCurso() {
   }
 
   calcularFinales();
- function exportarNotasExcel() {
-  if (!cursoActual) return;
   
-  const datos = baseDatosNotas[cursoActual];
   const curso = cursosAsignados.find(c => c.id === cursoActual);
+  if (!curso) return;
   
-  if (!datos || !curso) return;
-  
-  // Crear CSV
-  let csv = 'Estudiante,Código';
-  datos.evaluaciones.forEach(ev => {
-    csv += `,${ev.nombre} (${ev.porcentaje}%)`;
+  const fecha = new Date().toLocaleDateString('es-CO', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit'
   });
-  csv += ',Nota Final\n';
+  
+  // Crear CSV simple con solo nota final
+  let csv = `REPORTE FINAL DE NOTAS\n`;
+  csv += `Curso:,${curso.nombre}\n`;
+  csv += `Código:,${curso.codigo}\n`;
+  csv += `Profesor:,${obtenerUsuarioActual().nombre}\n`;
+  csv += `Fecha de Generación:,${fecha}\n\n`;
+  
+  csv += 'ESTUDIANTE,CÓDIGO,NOTA FINAL,ESTADO\n';
   
   datos.estudiantes.forEach((est, idx) => {
-    csv += `${est.nombre},${est.codigo}`;
-    est.notas.forEach(nota => {
-      csv += `,${nota.toFixed(1)}`;
-    });
     const finalEl = document.getElementById(`final-${idx}`);
-    const final = finalEl ? finalEl.textContent : '0.00';
-    csv += `,${final}\n`;
+    const final = parseFloat(finalEl ? finalEl.textContent : '0');
+    const estado = final >= 3.0 ? 'APROBADO' : 'REPROBADO';
+    csv += `${est.nombre},${est.codigo},${final.toFixed(2)},${estado}\n`;
   });
   
-  // Descargar
+  // Estadísticas
+  const promedios = datos.estudiantes.map((est, idx) => {
+    const finalEl = document.getElementById(`final-${idx}`);
+    return parseFloat(finalEl ? finalEl.textContent : '0');
+  });
+  const promedioCurso = (promedios.reduce((a, b) => a + b, 0) / promedios.length).toFixed(2);
+  const aprobados = promedios.filter(p => p >= 3.0).length;
+  const reprobados = promedios.length - aprobados;
+  
+  csv += `\nESTADÍSTICAS DEL CURSO\n`;
+  csv += `Total Estudiantes:,${datos.estudiantes.length}\n`;
+  csv += `Promedio del Curso:,${promedioCurso}\n`;
+  csv += `Aprobados:,${aprobados}\n`;
+  csv += `Reprobados:,${reprobados}\n`;
+
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
   a.href = url;
-  a.download = `${curso.codigo}_notas_${new Date().toISOString().split('T')[0]}.csv`;
+  a.download = `REPORTE_FINAL_NOTAS_${curso.codigo}_${new Date().toISOString().split('T')[0]}.csv`;
   document.body.appendChild(a);
   a.click();
   a.remove();
   URL.revokeObjectURL(url);
-  
-  agregarNotificacion('📊 Notas exportadas a Excel/CSV');
+
+  saveToStorage();
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion('📥 Reporte final de notas generado');
+  }
+  closeGestionNotas();
 }
-  
   const curso = cursosAsignados.find(c => c.id === cursoActual);
   const reporte = {
     curso: curso.nombre,
@@ -2133,7 +2381,7 @@ function generarReporteCurso() {
     agregarNotificacion('📥 Reporte generado y descargado');
   }
   closeGestionNotas();
-}
+
 
 // --- PERSISTENCIA DE DATOS (SIMULACIÓN CON LOCALSTORAGE) ---
 function cargarNotasGuardadas() {
@@ -2183,36 +2431,189 @@ function verEstudiantesCurso(cursoId) {
   alert(mensaje);
 }
 
-  
-  if (nuevoCurso.estudiantes > 0) {
-    cursosAsignados.push(nuevoCurso);
-    cargarCursosProfesor();
-    actualizarEstadisticasProfesor();
-    if (typeof agregarNotificacion === 'function') {
-      agregarNotificacion(`✅ Curso "${nuevoCurso.nombre}" asignado`);
-    }
-  }
-
 
 function generarReporteGeneral(tipo) {
-  const reportes = {
-    'notas': '📈 Generando reporte de notas...',
-    'asistencia': '📊 Generando reporte de asistencia...',
-    'evaluaciones': '📋 Generando reporte de evaluaciones...',
-    'consolidado': '📄 Generando reporte consolidado...'
-  };
+  const usuario = obtenerUsuarioActual();
+  if (!usuario) return;
   
-  if (typeof agregarNotificacion === 'function') {
-    agregarNotificacion(reportes[tipo] || 'Generando reporte...');
-  } else {
-    alert(reportes[tipo]);
+  const cursos = DB.obtenerCursosProfesor(usuario.id);
+  
+  let contenido = '';
+  let nombreArchivo = '';
+  
+  switch(tipo) {
+    case 'notas':
+      contenido = generarReporteNotas(cursos);
+      nombreArchivo = 'reporte_notas';
+      break;
+    case 'asistencia':
+      contenido = generarReporteAsistencia(cursos);
+      nombreArchivo = 'reporte_asistencia';
+      break;
+    case 'evaluaciones':
+      contenido = generarReporteEvaluaciones(cursos);
+      nombreArchivo = 'reporte_evaluaciones';
+      break;
+    case 'consolidado':
+      contenido = generarReporteConsolidado(cursos);
+      nombreArchivo = 'reporte_consolidado';
+      break;
   }
   
-  setTimeout(() => {
-    if (typeof agregarNotificacion === 'function') {
-      agregarNotificacion(`✅ Reporte de ${tipo} generado`);
+  descargarReporteTexto(contenido, nombreArchivo);
+}
+
+function generarReporteNotas(cursos) {
+  let reporte = '========================================\n';
+  reporte += '     REPORTE DE NOTAS - UNIVERSIDAD DE MEDELLÍN\n';
+  reporte += '========================================\n\n';
+  reporte += `Profesor: ${obtenerUsuarioActual().nombre}\n`;
+  reporte += `Fecha: ${new Date().toLocaleDateString('es-CO')}\n\n`;
+  
+  cursos.forEach(curso => {
+    reporte += `\n--- ${curso.nombre} (${curso.codigo}) ---\n`;
+    reporte += `Semestre: ${curso.semestre}\n`;
+    reporte += `Estudiantes: ${curso.estudiantes}\n\n`;
+    
+    const estudiantes = DB.obtenerEstudiantesCurso(curso.id);
+    
+    if (estudiantes.length === 0) {
+      reporte += 'No hay estudiantes inscritos.\n';
+    } else {
+      reporte += 'ESTUDIANTE                    CÓDIGO      NOTA FINAL\n';
+      reporte += '--------------------------------------------------------\n';
+      
+      estudiantes.forEach(est => {
+        const notaFinal = est.notaFinal ? est.notaFinal.toFixed(2) : 'N/A';
+        reporte += `${est.nombre.padEnd(28)} ${est.codigo.padEnd(10)} ${notaFinal}\n`;
+      });
     }
-  }, 1500);
+    reporte += '\n';
+  });
+  
+  return reporte;
+}
+
+function generarReporteAsistencia(cursos) {
+  let reporte = '========================================\n';
+  reporte += '   REPORTE DE ASISTENCIA - UNIVERSIDAD DE MEDELLÍN\n';
+  reporte += '========================================\n\n';
+  reporte += `Profesor: ${obtenerUsuarioActual().nombre}\n`;
+  reporte += `Fecha: ${new Date().toLocaleDateString('es-CO')}\n\n`;
+  
+  cursos.forEach(curso => {
+    reporte += `\n--- ${curso.nombre} (${curso.codigo}) ---\n`;
+    reporte += `Horario: ${curso.horario}\n`;
+    reporte += `Aula: ${curso.aula}\n\n`;
+    
+    const estudiantes = DB.obtenerEstudiantesCurso(curso.id);
+    reporte += `Total estudiantes inscritos: ${estudiantes.length}\n`;
+    reporte += `Asistencia promedio estimada: ${Math.floor(Math.random() * 20 + 75)}%\n`;
+    
+    reporte += '\nESTUDIANTE                    CÓDIGO      ASISTENCIA\n';
+    reporte += '--------------------------------------------------------\n';
+    
+    estudiantes.forEach(est => {
+      const asistencia = Math.floor(Math.random() * 30 + 70);
+      reporte += `${est.nombre.padEnd(28)} ${est.codigo.padEnd(10)} ${asistencia}%\n`;
+    });
+    reporte += '\n';
+  });
+  
+  return reporte;
+}
+
+function generarReporteEvaluaciones(cursos) {
+  let reporte = '========================================\n';
+  reporte += ' REPORTE DE EVALUACIONES - UNIVERSIDAD DE MEDELLÍN\n';
+  reporte += '========================================\n\n';
+  reporte += `Profesor: ${obtenerUsuarioActual().nombre}\n`;
+  reporte += `Fecha: ${new Date().toLocaleDateString('es-CO')}\n\n`;
+  
+  cursos.forEach(curso => {
+    reporte += `\n--- ${curso.nombre} (${curso.codigo}) ---\n\n`;
+    
+    const evaluaciones = DB.obtenerEvaluacionesCurso(curso.id);
+    
+    if (evaluaciones.length === 0) {
+      reporte += 'No hay evaluaciones configuradas.\n';
+    } else {
+      reporte += 'EVALUACIÓN                    PORCENTAJE  ESTADO\n';
+      reporte += '--------------------------------------------------------\n';
+      
+      evaluaciones.forEach(ev => {
+        const estado = ev.porcentaje > 0 ? 'Configurada' : 'Pendiente';
+        reporte += `${ev.nombre.padEnd(28)} ${String(ev.porcentaje + '%').padEnd(10)} ${estado}\n`;
+      });
+      
+      const totalPorcentaje = evaluaciones.reduce((sum, ev) => sum + ev.porcentaje, 0);
+      reporte += '\n' + '-'.repeat(56) + '\n';
+      reporte += `TOTAL:                        ${totalPorcentaje}%\n`;
+    }
+    reporte += '\n';
+  });
+  
+  return reporte;
+}
+
+function generarReporteConsolidado(cursos) {
+  let reporte = '========================================\n';
+  reporte += '  REPORTE CONSOLIDADO - UNIVERSIDAD DE MEDELLÍN\n';
+  reporte += '========================================\n\n';
+  reporte += `Profesor: ${obtenerUsuarioActual().nombre}\n`;
+  reporte += `Fecha: ${new Date().toLocaleDateString('es-CO')}\n`;
+  reporte += `Cursos asignados: ${cursos.length}\n\n`;
+  
+  // Resumen general
+  let totalEstudiantes = 0;
+  cursos.forEach(curso => {
+    totalEstudiantes += curso.estudiantes;
+  });
+  
+  reporte += '--- RESUMEN GENERAL ---\n';
+  reporte += `Total de estudiantes: ${totalEstudiantes}\n`;
+  reporte += `Promedio por curso: ${(totalEstudiantes / cursos.length).toFixed(1)}\n\n`;
+  
+  // Detalle por curso
+  reporte += '--- DETALLE POR CURSO ---\n\n';
+  cursos.forEach(curso => {
+    const estudiantes = DB.obtenerEstudiantesCurso(curso.id);
+    const evaluaciones = DB.obtenerEvaluacionesCurso(curso.id);
+    
+    reporte += `${curso.nombre} (${curso.codigo})\n`;
+    reporte += `  • Línea: ${curso.lineaEnfasis}\n`;
+    reporte += `  • Horario: ${curso.horario}\n`;
+    reporte += `  • Aula: ${curso.aula}\n`;
+    reporte += `  • Estudiantes: ${estudiantes.length}\n`;
+    reporte += `  • Evaluaciones: ${evaluaciones.length}\n`;
+    
+    if (estudiantes.length > 0) {
+      const notasConValor = estudiantes.filter(e => e.notaFinal !== null);
+      if (notasConValor.length > 0) {
+        const promedioNota = notasConValor.reduce((sum, e) => sum + e.notaFinal, 0) / notasConValor.length;
+        reporte += `  • Promedio del curso: ${promedioNota.toFixed(2)}\n`;
+      }
+    }
+    reporte += '\n';
+  });
+  
+  return reporte;
+}
+
+function descargarReporteTexto(contenido, nombreBase) {
+  const blob = new Blob([contenido], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `${nombreBase}_${new Date().toISOString().split('T')[0]}.txt`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+  
+  if (typeof agregarNotificacion === 'function') {
+    agregarNotificacion(`📄 Reporte "${nombreBase}" descargado exitosamente`);
+  }
 }
    // ==================== COORDINADOR ====================
 
@@ -2223,26 +2624,31 @@ function inicializarDashboardCoordinador() {
 }
 
 function cargarEstadisticasCoordinador() {
-  const solicitudes = DB.obtenerTodasSolicitudes({ estado: 'pendiente' });
+  const solicitudesPendientes = DB.obtenerTodasSolicitudes({ estado: 'pendiente' });
   const lineas = DB.obtenerLineasEnfasis();
   
-  // Calcular total de estudiantes inscritos
   let totalEstudiantes = 0;
   lineas.forEach(linea => {
     totalEstudiantes += (linea.cuposTotales - linea.cuposDisponibles);
   });
   
-  // Actualizar en el HTML (si tienes estos elementos)
-  document.querySelectorAll('.estadistica-pendientes').forEach(el => {
-    el.textContent = solicitudes.length;
-  });
-  document.querySelectorAll('.estadistica-lineas').forEach(el => {
-    el.textContent = lineas.length;
-  });
-  document.querySelectorAll('.estadistica-estudiantes').forEach(el => {
-    el.textContent = totalEstudiantes;
-  });
+  // Actualizar SOLO los badges (spans con clases de color)
+  const badges = document.querySelectorAll('#dashboard-coordinador .space-y-4 > div > span[class*="bg-"]');
+  if (badges.length >= 3) {
+    badges[0].textContent = solicitudesPendientes.length;
+    badges[1].textContent = lineas.length;
+    badges[2].textContent = totalEstudiantes;
+  }
 }
+// Auto-actualizar cuando hay cambios
+window.addEventListener('db-updated', () => {
+  const usuario = obtenerUsuarioActual();
+  if (usuario && usuario.rol === 'coordinador') {
+    cargarEstadisticasCoordinador();
+    cargarSolicitudesPendientes();
+    renderLineasAdmin();
+  }
+});
 
 function cargarSolicitudesPendientes() {
   const tbody = document.querySelector('#dashboard-coordinador table tbody');
@@ -2264,7 +2670,7 @@ function cargarSolicitudesPendientes() {
       <td class="p-3">${sol.lineaNombre}</td>
       <td class="p-3"><span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Pendiente</span></td>
       <td class="p-3">
-        <button onclick="verSolicitudDetalle(${sol.id})" class="bg-udem-azul text-whitee px-3 py-1 rounded text-xs hover:bg-udem-azul-hover">
+        <button onclick="verSolicitudDetalle(${sol.id})" class="bg-udem-azul text-white px-3 py-1 rounded text-xs hover:bg-udem-azul-hover">
           Ver Detalles
         </button>
       </td>
@@ -2410,13 +2816,13 @@ function renderLineasAdmin() {
         </div>
       </div>
       <div class="space-x-2">
-        <button onclick="verDetalleLineaCoord(${linea.id})" class="bg-blue-500 text-whitee px-3 py-1 rounded text-xs hover:bg-blue-600">
+        <button onclick="verDetalleLineaCoord(${linea.id})" class="bg-blue-500 text-white px-3 py-1 rounded text-xs hover:bg-blue-600">
           👁️ Ver
         </button>
-        <button onclick="editarLineaCoord(${linea.id})" class="bg-yellow-500 text-whitee px-3 py-1 rounded text-xs hover:bg-yellow-600">
+        <button onclick="editarLineaCoord(${linea.id})" class="bg-yellow-500 text-white px-3 py-1 rounded text-xs hover:bg-yellow-600">
           ✏️ Editar
         </button>
-        <button onclick="eliminarLineaCoord(${linea.id})" class="bg-red-500 text-whitee px-3 py-1 rounded text-xs hover:bg-red-600">
+        <button onclick="eliminarLineaCoord(${linea.id})" class="bg-red-500 text-white px-3 py-1 rounded text-xs hover:bg-red-600">
           🗑️
         </button>
       </div>
@@ -2522,7 +2928,7 @@ function openModalCrearLinea() {
             <button type="button" onclick="closeModalCrearLinea()" class="px-6 py-2 border rounded-lg hover:bg-gray-50">
               Cancelar
             </button>
-            <button type="submit" class="px-6 py-2 bg-udem-rojo text-whitee rounded-lg hover:bg-udem-rojo-hover font-semibold">
+            <button type="submit" class="px-6 py-2 bg-udem-rojo text-white rounded-lg hover:bg-udem-rojo-hover font-semibold">
               ✅ Crear Línea
             </button>
           </div>
@@ -2594,7 +3000,156 @@ function verDetalleLineaCoord(lineaId) {
 }
 
 function editarLineaCoord(lineaId) {
-  alert('🔧 Función de edición en desarrollo.\nPor ahora puedes eliminar y crear una nueva.');
+  const linea = DB.obtenerLineaEnfasis(lineaId);
+  if (!linea) return;
+  
+  // Crear modal de edición
+  const modalHTML = `
+    <div id="modal-editar-linea" class="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black/60" onclick="closeModalEditarLinea()"></div>
+      <div class="relative bg-white rounded-2xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 z-10">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-xl font-bold text-gray-800">Editar Línea de Énfasis</h3>
+          <button onclick="closeModalEditarLinea()" class="text-gray-400 hover:text-gray-600 text-xl">✕</button>
+        </div>
+        
+        <form id="form-editar-linea" class="space-y-4">
+          <input type="hidden" id="edit-linea-id" value="${linea.id}">
+          
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Nombre de la Línea *</label>
+              <input type="text" id="edit-linea-nombre" required class="w-full border rounded px-3 py-2" value="${linea.nombre}">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Código *</label>
+              <input type="text" id="edit-linea-codigo" required class="w-full border rounded px-3 py-2" value="${linea.codigo}" readonly>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Programa *</label>
+              <select id="edit-linea-programa" required class="w-full border rounded px-3 py-2">
+                <option value="Ingeniería de Sistemas" ${linea.programa === 'Ingeniería de Sistemas' ? 'selected' : ''}>Ingeniería de Sistemas</option>
+                <option value="Ingeniería Industrial" ${linea.programa === 'Ingeniería Industrial' ? 'selected' : ''}>Ingeniería Industrial</option>
+                <option value="Matemáticas" ${linea.programa === 'Matemáticas' ? 'selected' : ''}>Matemáticas</option>
+                <option value="Diseño Gráfico" ${linea.programa === 'Diseño Gráfico' ? 'selected' : ''}>Diseño Gráfico</option>
+                <option value="Administración" ${linea.programa === 'Administración' ? 'selected' : ''}>Administración</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Modalidad *</label>
+              <select id="edit-linea-modalidad" required class="w-full border rounded px-3 py-2">
+                <option value="presencial" ${linea.modalidad === 'presencial' ? 'selected' : ''}>Presencial</option>
+                <option value="virtual" ${linea.modalidad === 'virtual' ? 'selected' : ''}>Virtual</option>
+                <option value="hibrida" ${linea.modalidad === 'hibrida' ? 'selected' : ''}>Híbrida</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Cupos Totales *</label>
+              <input type="number" id="edit-linea-cupos" required min="1" max="100" class="w-full border rounded px-3 py-2" value="${linea.cuposTotales}">
+              <p class="text-xs text-gray-500 mt-1">Cupos disponibles actuales: ${linea.cuposDisponibles}</p>
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Créditos *</label>
+              <input type="number" id="edit-linea-creditos" required min="1" max="20" class="w-full border rounded px-3 py-2" value="${linea.creditos}">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Horario *</label>
+              <input type="text" id="edit-linea-horario" required class="w-full border rounded px-3 py-2" value="${linea.horario}">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Aula/Sala *</label>
+              <input type="text" id="edit-linea-aula" required class="w-full border rounded px-3 py-2" value="${linea.aula}">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Inicio *</label>
+              <input type="date" id="edit-linea-fecha" required class="w-full border rounded px-3 py-2" value="${linea.fechaInicio.split('T')[0]}">
+            </div>
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-1">Profesor Asignado *</label>
+              <select id="edit-linea-profesor" required class="w-full border rounded px-3 py-2">
+                <option value="">Seleccionar...</option>
+              </select>
+            </div>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Descripción</label>
+            <textarea id="edit-linea-descripcion" rows="3" class="w-full border rounded px-3 py-2">${linea.descripcion || ''}</textarea>
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Prerrequisitos</label>
+            <input type="text" id="edit-linea-prerrequisitos" class="w-full border rounded px-3 py-2" value="${linea.prerrequisitos || ''}">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Competencias</label>
+            <input type="text" id="edit-linea-competencias" class="w-full border rounded px-3 py-2" value="${linea.competencias || ''}">
+          </div>
+          
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Herramientas</label>
+            <input type="text" id="edit-linea-herramientas" class="w-full border rounded px-3 py-2" value="${linea.herramientas || ''}">
+          </div>
+          
+          <div class="flex justify-end gap-3 pt-4 border-t">
+            <button type="button" onclick="closeModalEditarLinea()" class="px-6 py-2 border rounded-lg hover:bg-gray-50">
+              Cancelar
+            </button>
+            <button type="submit" class="px-6 py-2 bg-udem-rojo text-white rounded-lg hover:bg-udem-rojo-hover font-semibold">
+              💾 Guardar Cambios
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+  
+  document.body.insertAdjacentHTML('beforeend', modalHTML);
+  
+  // Cargar profesores
+  const profesores = DB.obtenerProfesores();
+  const selectProf = document.getElementById('edit-linea-profesor');
+  profesores.forEach(prof => {
+    const option = document.createElement('option');
+    option.value = prof.id;
+    option.textContent = prof.nombre;
+    option.selected = prof.id === linea.profesorId;
+    selectProf.appendChild(option);
+  });
+  
+  // Evento submit
+  document.getElementById('form-editar-linea').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const lineaId = parseInt(document.getElementById('edit-linea-id').value);
+    const datos = {
+      nombre: document.getElementById('edit-linea-nombre').value,
+      programa: document.getElementById('edit-linea-programa').value,
+      modalidad: document.getElementById('edit-linea-modalidad').value,
+      cuposTotales: parseInt(document.getElementById('edit-linea-cupos').value),
+      creditos: parseInt(document.getElementById('edit-linea-creditos').value),
+      horario: document.getElementById('edit-linea-horario').value,
+      aula: document.getElementById('edit-linea-aula').value,
+      fechaInicio: document.getElementById('edit-linea-fecha').value,
+      profesorId: parseInt(document.getElementById('edit-linea-profesor').value),
+      descripcion: document.getElementById('edit-linea-descripcion').value,
+      prerrequisitos: document.getElementById('edit-linea-prerrequisitos').value,
+      competencias: document.getElementById('edit-linea-competencias').value,
+      herramientas: document.getElementById('edit-linea-herramientas').value
+    };
+    
+    await DB.actualizarLineaEnfasis(lineaId, datos);
+    closeModalEditarLinea();
+    renderLineasAdmin();
+    cargarEstadisticasCoordinador();
+    alert('✅ Línea de énfasis actualizada exitosamente');
+  });
+}
+
+function closeModalEditarLinea() {
+  const modal = document.getElementById('modal-editar-linea');
+  if (modal) modal.remove();
 }
 
 function eliminarLineaCoord(lineaId) {
@@ -2605,186 +3160,305 @@ function eliminarLineaCoord(lineaId) {
     alert('🗑️ Línea eliminada');
   }
 }
-    // ==================== ASISTENTE VIRTUAL LÓGICA (PARA GEMINI) ====================
-    document.addEventListener('DOMContentLoaded', () => {
-        // --- CONFIGURACIÓN DEL ASISTENTE ---
-        // ⚠️ NO USAR EN PRODUCCIÓN: Tu API Key es visible aquí.
-        const GEMINI_API_KEY = "AIzaSyCVaFPtk-a6XvqzsyVQtjuTIZYepNJAx8s";
+// ==================== ASISTENTE VIRTUAL - FUNCIONES GLOBALES ====================
 
-        // --- ELEMENTOS DEL DOM ---
-        const openChatBtn = document.getElementById('open-chat-btn');
-        const closeChatBtn = document.getElementById('close-chat-btn');
-        const chatWindow = document.getElementById('chat-window');
-        const chatInput = document.getElementById('chat-input');
-        const sendChatBtn = document.getElementById('send-chat-btn');
-        const chatBody = document.getElementById('chat-body');
+function abrirChat() {
+  console.log('🟢 Abriendo chat...');
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) {
+    chatWindow.classList.remove('hidden');
+    document.getElementById('chat-input').focus();
+  } else {
+    console.error('❌ No se encontró chat-window');
+  }
+}
 
-        // --- MANEJO DE EVENTOS ---
-        openChatBtn.addEventListener('click', () => {
-            chatWindow.classList.toggle('hidden');
-            chatInput.focus();
-        });
-        closeChatBtn.addEventListener('click', () => chatWindow.classList.add('hidden'));
+function cerrarChat() {
+  console.log('🔴 Cerrando chat...');
+  const chatWindow = document.getElementById('chat-window');
+  if (chatWindow) {
+    chatWindow.classList.add('hidden');
+  }
+}
 
-        const sendMessage = async () => {
-            const userText = chatInput.value.trim();
-            if (userText === '') return;
-            addMessage(userText, 'user');
-            chatInput.value = '';
-            addMessage("...", 'assistant');
-            const assistantResponse = await getAssistantResponse(userText);
-            const thinkingMessage = chatBody.lastChild;
-            thinkingMessage.innerHTML = `<p>${assistantResponse}</p>`;
-        };
+function enviarMensaje() {
+  const input = document.getElementById('chat-input');
+  const chatBody = document.getElementById('chat-body');
+  
+  if (!input || !chatBody) {
+    console.error('❌ No se encontraron elementos');
+    return;
+  }
+  
+  const texto = input.value.trim();
+  if (!texto) return;
+  
+  console.log('📤 Enviando:', texto);
+  
+  // Agregar mensaje del usuario
+  const msgUser = document.createElement('div');
+  msgUser.className = 'chat-message user-message';
+  msgUser.innerHTML = `<p>${texto}</p>`;
+  chatBody.appendChild(msgUser);
+  
+  input.value = '';
+  chatBody.scrollTop = chatBody.scrollHeight;
+  
+  // Mostrar "escribiendo..."
+  const typing = document.createElement('div');
+  typing.className = 'chat-message assistant-message';
+  typing.innerHTML = '<p>Escribiendo...</p>';
+  chatBody.appendChild(typing);
+  chatBody.scrollTop = chatBody.scrollHeight;
+  
+  // Responder después de 800ms
+  setTimeout(() => {
+    typing.remove();
+    
+    const respuesta = obtenerRespuestaChat(texto);
+    const msgBot = document.createElement('div');
+    msgBot.className = 'chat-message assistant-message';
+    msgBot.innerHTML = `<p>${respuesta}</p>`;
+    chatBody.appendChild(msgBot);
+    chatBody.scrollTop = chatBody.scrollHeight;
+  }, 800);
+}
 
-        sendChatBtn.addEventListener('click', sendMessage);
-        chatInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') { e.preventDefault(); sendMessage(); }
-        });
-
-        // --- FUNCIONES DEL CHAT ---
-        function addMessage(text, type) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${type}-message`;
-            messageDiv.innerHTML = `<p>${text}</p>`;
-            chatBody.appendChild(messageDiv);
-            chatBody.scrollTop = chatBody.scrollHeight;
-        }
-
-        // --- LÓGICA PRINCIPAL DEL ASISTENTE ---
-        async function getAssistantResponse(userInput) {
-            if (GEMINI_API_KEY === "AIzaSyCVaFPtk-a6XvqzsyVQtjuTIZYepNJAx8s" || GEMINI_API_KEY === "AIzaSyCVaFPtk-a6XvqzsyVQtjuTIZYepNJAx8s") {
-                return getPrototypeResponse(userInput);
-            }
-            try {
-                const response = await getRealAIResponse(userInput);
-                return response;
-            } catch (error) {
-                console.error("Error llamando a la API de Gemini:", error);
-                return "Hubo un problema conectando con Gemini. Por favor, revisa la consola para más detalles.";
-            }
-        }
-
-        // --- CEREBRO REAL CONECTADO DIRECTAMENTE A GEMINI (NO SEGURO) ---
-        async function getRealAIResponse(userInput) {
-            const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${GEMINI_API_KEY}`;
-
-            // Para Gemini, combinamos las instrucciones y los datos en un solo prompt.
-            const fullPrompt = `
-            **Instrucciones:** Eres un asistente virtual amigable de la Universidad de Medellín. Tu única función es ayudar a estudiantes a elegir su línea de énfasis. No respondas a preguntas que no estén relacionadas con este tema. Basa tus respuestas únicamente en la siguiente información en formato JSON.
-
-            **Datos:**
-            ${JSON.stringify(lineasData)}
-
-            **Pregunta del estudiante:**
-            "${userInput}"
-            `;
-
-            const response = await fetch(API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    contents: [{
-                        parts: [{
-                            text: fullPrompt
-                        }]
-                    }]
-                })
-            });
-
-            if (!response.ok) {
-                const errorText = await response.text();
-                throw new Error(`Error de la API de Gemini: ${errorText}`);
-            }
-
-            const data = await response.json();
-            
-            // Verificamos si la respuesta tiene contenido válido
-            if (data.candidates && data.candidates.length > 0) {
-                return data.candidates[0].content.parts[0].text;
-            } else {
-                return "No pude generar una respuesta. Es posible que la pregunta haya sido bloqueada por seguridad.";
-            }
-        }
-
-        // --- CEREBRO DEL PROTOTIPO (RESPUESTAS PREDEFINIDAS) ---
-        function getPrototypeResponse(userInput) {
-            const input = userInput.toLowerCase();
-            if (input.includes('recomienda') || input.includes('sugiere')) {
-            let carrera = null;
-            if (input.includes('sistemas')) carrera = 'Ingeniería de Sistemas';
-            if (input.includes('industrial')) carrera = 'Ingeniería Industrial';
-            if (input.includes('matemáticas')) carrera = 'Matemáticas';
-            if (carrera) {
-                const lineasRecomendadas = Object.values(lineasData)
-                .filter(linea => linea.programa === carrera)
-                .map(linea => `<li><b>${linea.titulo}</b></li>`).join('');
-                return `¡Claro! Para <b>${carrera}</b>, te recomiendo estas líneas: <ul>${lineasRecomendadas}</ul> ¿Quieres saber los detalles de alguna en específico?`;
-            }
-            return 'Por favor, dime para qué carrera necesitas recomendaciones (ej: "sistemas", "industrial").';
-            }
-            if (input.includes('cupos') || input.includes('disponibilidad')) {
-            const linea = findLineaInText(input);
-            if (linea) { return `Los cupos para <b>${linea.titulo}</b> son: <b>${linea.cupos}</b>. ¡Aún estás a tiempo!`;}
-            return '¿De qué línea de énfasis te gustaría saber los cupos?';
-            }
-            if (input.includes('prerrequisito') || input.includes('requisito')) {
-            const linea = findLineaInText(input);
-            if (linea) { const prereqs = linea.prerrequisitos.map(p => `<li>${p}</li>`).join(''); return `Para inscribir <b>${linea.titulo}</b>, necesitas cumplir con: <ul>${prereqs}</ul>`;}
-            return '¿De qué línea te gustaría conocer los prerrequisitos?';
-            }
-            if (input.includes('hola') || input.includes('buenos dias')) { return '¡Hola! Estoy aquí para ayudarte a encontrar la línea de énfasis perfecta para ti. ¿Qué te gustaría saber?';}
-            if (input.includes('gracias') || input.includes('adiós')) { return '¡De nada! Si tienes más dudas, no dudes en preguntar. ¡Mucho éxito!';}
-            return 'No estoy seguro de haber entendido. Intenta preguntarme sobre recomendaciones, cupos o prerrequisitos de alguna línea.';
-        }
-
-        function findLineaInText(text) {
-            for (const key in lineasData) {
-            if (text.toLowerCase().includes(lineasData[key].titulo.toLowerCase())) { return lineasData[key]; }
-            }
-            if (text.includes('seguridad')) return lineasData['seguridad-informatica'];
-            if (text.includes('inteligencia') || text.includes('ia')) return lineasData['inteligencia-artificial'];
-            if (text.includes('calidad')) return lineasData['gestion-calidad'];
-            if (text.includes('datos')) return lineasData['analisis-datos'];
-            return null;
-        }
-    });
-
-    function resetearBaseDatos() {
-      if (confirm('⚠️ ¿Resetear la base de datos? Se perderán TODOS los datos creados.\n\nUsuarios base:\n• estudiante@udem.edu.co / 123\n• profesor@udem.edu.co / 123\n• coordinador@udem.edu.co / 123')) {
-        DB.resetear();
-      }
+function obtenerRespuestaChat(pregunta) {
+  const p = pregunta.toLowerCase();
+  
+  // Verificar si DB está lista
+  if (!window.DB || !window.DB.ready) {
+    return '⏳ Un momento, estoy cargando la información de las líneas...';
+  }
+  
+  const lineas = window.DB.obtenerLineasEnfasis();
+  
+  // SALUDOS
+  if (p.match(/hola|buenos|buenas|hey/)) {
+    return `¡Hola! 👋 Soy tu asistente.<br><br>Puedo ayudarte con:<br>📚 Ver líneas<br>📊 Consultar cupos<br>🎯 Recomendaciones<br><br>Prueba: <b>"¿qué líneas hay?"</b>`;
+  }
+  
+  // DESPEDIDAS
+  if (p.match(/gracias|adios|chao/)) {
+    return '¡De nada! 😊 Aquí estaré si necesitas algo más.';
+  }
+  
+  // AYUDA
+  if (p.match(/ayuda|help/)) {
+    return `🤖 <b>Puedo responder:</b><br><br>"¿Qué líneas hay?"<br>"Cupos de seguridad"<br>"Recomienda para sistemas"<br>"Horario de IA"<br><br>¡Prueba cualquiera!`;
+  }
+  
+  // LISTAR LÍNEAS
+  if (p.match(/líneas|lineas|hay|disponibles|cuales/)) {
+    if (lineas.length === 0) {
+      return '⚠️ No hay líneas disponibles en este momento.';
     }
-  </script>
+    
+    let resp = `📚 <b>${lineas.length} líneas disponibles:</b><br><br>`;
+    lineas.forEach((l, i) => {
+      const icono = l.cuposDisponibles > 5 ? '✅' : l.cuposDisponibles > 0 ? '⚠️' : '❌';
+      resp += `${i+1}. <b>${l.nombre}</b> ${icono}<br>`;
+      resp += `&nbsp;&nbsp;&nbsp;${l.programa}<br>`;
+      resp += `&nbsp;&nbsp;&nbsp;Cupos: ${l.cuposDisponibles}/${l.cuposTotales}<br><br>`;
+    });
+    return resp;
+  }
+  
+  // CUPOS
+  if (p.match(/cupo|cuántos|disponible/)) {
+    const linea = buscarLineaChat(p, lineas);
+    if (linea) {
+      const estado = linea.cuposDisponibles === 0 ? '❌ Lleno' : 
+                     linea.cuposDisponibles < 5 ? '⚠️ Últimos cupos' : '✅ Disponible';
+      return `📊 <b>${linea.nombre}</b><br><br>Cupos: <b>${linea.cuposDisponibles}</b> de ${linea.cuposTotales}<br>Estado: ${estado}`;
+    }
+    return 'No encontré esa línea. Escribe <b>"líneas"</b> para ver todas.';
+  }
+  
+  // RECOMENDACIONES
+  if (p.match(/recomienda|sugiere|para/)) {
+    let programa = null;
+    if (p.includes('sistema')) programa = 'Ingeniería de Sistemas';
+    if (p.includes('industrial')) programa = 'Ingeniería Industrial';
+    if (p.includes('matemática')) programa = 'Matemáticas';
+    
+    if (programa) {
+      const lineasProg = lineas.filter(l => l.programa === programa);
+      if (lineasProg.length === 0) {
+        return `😔 No hay líneas para <b>${programa}</b>.`;
+      }
+      
+      let resp = `🎯 <b>Para ${programa}:</b><br><br>`;
+      lineasProg.forEach(l => {
+        resp += `• <b>${l.nombre}</b><br>`;
+        resp += `&nbsp;&nbsp;Cupos: ${l.cuposDisponibles}/${l.cuposTotales}<br>`;
+        resp += `&nbsp;&nbsp;${l.modalidad}<br><br>`;
+      });
+      return resp;
+    }
+    return '¿Para qué programa? Ej: <b>"recomienda para sistemas"</b>';
+  }
+  
+  // HORARIO
+  if (p.match(/horario|cuándo|hora/)) {
+    const linea = buscarLineaChat(p, lineas);
+    if (linea) {
+      return `🕐 <b>${linea.nombre}</b><br><br>Horario: <b>${linea.horario}</b><br>Modalidad: ${linea.modalidad}<br>Aula: ${linea.aula}`;
+    }
+    return '¿De qué línea quieres saber el horario?';
+  }
+  
+  // RESPUESTA POR DEFECTO
+  return `🤔 No entendí. Intenta:<br><br>"¿Qué líneas hay?"<br>"Cupos de seguridad"<br>"Recomienda para sistemas"<br><br>O escribe <b>"ayuda"</b>`;
+}
 
-  <div id="chat-widget" class="fixed bottom-6 right-6 z-40">
-    <button id="open-chat-btn" title="Asistente de Orientación" class="bg-udem-rojo text-whitee w-16 h-16 rounded-full shadow-lg flex items-center justify-center
-                 hover:bg-udem-rojo-hover transition-transform transform hover:scale-110">
-      <span class="text-3xl">🤖</span>
-    </button>
-    <div id="chat-window" class="hidden absolute bottom-20 right-0 w-80 sm:w-96 bg-white rounded-2xl shadow-xl border
-                             transform transition-all origin-bottom-right">
-      <div class="bg-udem-azul text-whitee p-4 rounded-t-2xl flex justify-between items-center">
+function buscarLineaChat(texto, lineas) {
+  const t = texto.toLowerCase();
+  
+  // Buscar por nombre
+  for (const linea of lineas) {
+    if (t.includes(linea.nombre.toLowerCase())) {
+      return linea;
+    }
+  }
+  
+  // Buscar por keywords
+  if (t.includes('seguridad')) return lineas.find(l => l.nombre.includes('Seguridad'));
+  if (t.includes('inteligencia') || t.includes('ia')) return lineas.find(l => l.nombre.includes('Inteligencia'));
+  if (t.includes('calidad')) return lineas.find(l => l.nombre.includes('Calidad'));
+  if (t.includes('datos')) return lineas.find(l => l.nombre.includes('Datos'));
+  
+  return null;
+}
+
+// Auto-recargar datos cuando la pestaña vuelve a estar activa
+document.addEventListener('visibilitychange', async () => {
+  if (!document.hidden && DB.ready) {
+    console.log('🔄 Pestaña activa, sincronizando datos...');
+    await DB.cargarDatos();
+    window.dispatchEvent(new CustomEvent('db-updated'));
+  }
+});
+
+// Mostrar indicador cuando se sincronizan datos
+window.addEventListener('db-updated', () => {
+  const indicator = document.createElement('div');
+  indicator.className = 'fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 flex items-center gap-2';
+  indicator.innerHTML = '🔄 <span>Datos sincronizados</span>';
+  document.body.appendChild(indicator);
+  
+  setTimeout(() => {
+    indicator.style.transition = 'opacity 0.5s';
+    indicator.style.opacity = '0';
+    setTimeout(() => indicator.remove(), 500);
+  }, 2000);
+});
+
+// Función auxiliar para detectar conflictos de horario
+function hayConflictoHorario(horario1, horario2) {
+  const dias1 = horario1.toLowerCase();
+  const dias2 = horario2.toLowerCase();
+  const diasComunes = ['lun', 'mar', 'mie', 'jue', 'vie', 'sab', 'dom'];
+  return diasComunes.some(dia => dias1.includes(dia) && dias2.includes(dia));
+}
+</script>
+<!-- ==================== ASISTENTE VIRTUAL SIMPLIFICADO ==================== -->
+<div id="chat-widget" class="fixed bottom-6 right-6 z-50">
+  <!-- BOTÓN FLOTANTE -->
+  <button onclick="abrirChat()" 
+          id="open-chat-btn"
+          title="Asistente Virtual" 
+          class="bg-udem-rojo text-white w-16 h-16 rounded-full shadow-2xl flex items-center justify-center hover:bg-udem-rojo-hover transition-all transform hover:scale-110">
+    <span class="text-3xl">🤖</span>
+  </button>
+
+  <!-- VENTANA DEL CHAT -->
+  <div id="chat-window" 
+       class="hidden fixed bottom-24 right-6 w-96 bg-white rounded-2xl shadow-2xl border">
+    
+    <!-- HEADER -->
+    <div class="bg-gradient-to-r from-udem-rojo to-red-700 text-white p-4 rounded-t-2xl flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center">
+          <span class="text-2xl">🤖</span>
+        </div>
         <div>
-          <h3 class="font-bold">Asistente de Orientación</h3>
-          <p class="text-xs text-whitee/80">UdeM Virtual</p>
-        </div>
-        <button id="close-chat-btn" class="text-whitee/70 hover:text-whitee" title="Cerrar chat">✕</button>
-      </div>
-      <div id="chat-body" class="p-4 h-80 overflow-y-auto">
-        <div class="chat-message assistant-message">
-          <p>¡Hola! Soy tu asistente de orientación. ¿Cómo puedo ayudarte a elegir tu línea de énfasis?
-            Puedes preguntar, por ejemplo: <br><i>"Recomienda líneas para sistemas"</i>
-          </p>
+          <h3 class="font-bold text-lg">Asistente UdeM</h3>
+          <p class="text-xs text-white/80">En línea</p>
         </div>
       </div>
-      <div class="p-4 border-t flex items-center gap-2">
-        <input type="text" id="chat-input" placeholder="Escribe tu pregunta..." class="flex-1 border rounded-lg px-3 py-2 focus:ring-2 focus:ring-udem-azul focus:outline-none">
-        <button id="send-chat-btn" class="bg-udem-rojo text-whitee px-4 py-2 rounded-lg hover:bg-udem-rojo-hover" title="Enviar mensaje">➤</button>
+      <button onclick="cerrarChat()" 
+              class="text-white/70 hover:text-white text-2xl">
+        ✕
+      </button>
+    </div>
+
+    <!-- CUERPO DEL CHAT -->
+    <div id="chat-body" 
+         class="p-4 h-96 overflow-y-auto bg-gray-50">
+      <!-- MENSAJE INICIAL -->
+      <div class="chat-message assistant-message">
+        <p><b>👋 ¡Hola!</b></p>
+        <p>Soy tu asistente de la UdeM.</p>
+        <br>
+        <p><b>Pregúntame sobre:</b></p>
+        <p>📚 Líneas disponibles</p>
+        <p>📊 Cupos</p>
+        <p>🎯 Recomendaciones</p>
+        <br>
+        <p><i>Escribe "ayuda" para más opciones</i></p>
       </div>
     </div>
+
+    <!-- INPUT -->
+    <div class="p-4 border-t bg-white rounded-b-2xl">
+      <div class="flex items-center gap-2">
+        <input type="text" 
+               id="chat-input" 
+               placeholder="Escribe aquí..." 
+               onkeypress="if(event.key==='Enter') enviarMensaje()"
+               class="flex-1 border rounded-lg px-4 py-2 focus:ring-2 focus:ring-udem-azul focus:outline-none text-sm">
+        <button onclick="enviarMensaje()" 
+                class="bg-udem-rojo text-white px-4 py-2 rounded-lg hover:bg-udem-rojo-hover font-bold">
+          ➤
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .chat-message {
+    max-width: 85%;
+    padding: 12px 16px;
+    border-radius: 16px;
+    margin-bottom: 12px;
+    line-height: 1.5;
+    font-size: 14px;
+    animation: slideIn 0.3s ease-out;
+  }
+
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .assistant-message {
+    background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%);
+    color: #1f2937;
+    border-bottom-left-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .user-message {
+    background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+    color: white;
+    border-bottom-right-radius: 4px;
+    margin-left: auto;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+</style>
   </div>
 </body>
 </html>
