@@ -1,9 +1,11 @@
 // ============================================
-// BASE DE DATOS SIMULADA - Sistema UdeM
+// BASE DE DATOS FIREBASE - Sistema UdeM
+// Sincronización en tiempo real
 // ============================================
 
 class Database {
   constructor() {
+    this.db = null;
     this.usuarios = [];
     this.lineasEnfasis = [];
     this.cursos = [];
@@ -13,14 +15,45 @@ class Database {
     this.notas = [];
     this.notificaciones = [];
     
-    this.cargarDatos();
+    this.ready = false;
+    this.esperarFirebase();
   }
 
-  // Cargar desde localStorage o inicializar con datos por defecto
-  cargarDatos() {
-    const saved = localStorage.getItem('udem_database');
-    if (saved) {
-      const data = JSON.parse(saved);
+  // Esperar a que Firebase esté listo
+  esperarFirebase() {
+    const checkFirebase = setInterval(() => {
+      if (window.firebaseDB) {
+        clearInterval(checkFirebase);
+        this.db = window.firebaseDB;
+        this.inicializar();
+      }
+    }, 100);
+  }
+
+  async inicializar() {
+    console.log('🔄 Inicializando base de datos...');
+    
+    // Cargar datos iniciales
+    await this.cargarDatos();
+    
+    // Escuchar cambios en tiempo real
+    this.escucharCambios();
+    
+    // Si no hay usuarios, crear datos base
+    if (this.usuarios.length === 0) {
+      await this.inicializarDatosBase();
+    }
+    
+    this.ready = true;
+    window.dispatchEvent(new CustomEvent('db-ready'));
+    console.log('✅ Base de datos lista');
+  }
+
+  async cargarDatos() {
+    try {
+      const snapshot = await this.db.ref('/').once('value');
+      const data = snapshot.val() || {};
+      
       this.usuarios = data.usuarios || [];
       this.lineasEnfasis = data.lineasEnfasis || [];
       this.cursos = data.cursos || [];
@@ -29,28 +62,52 @@ class Database {
       this.evaluaciones = data.evaluaciones || [];
       this.notas = data.notas || [];
       this.notificaciones = data.notificaciones || [];
-    } else {
-      this.inicializarDatosBase();
+      
+      console.log('📥 Datos cargados desde Firebase');
+    } catch (error) {
+      console.error('❌ Error cargando datos:', error);
     }
   }
 
-  // Guardar en localStorage
-  guardar() {
-    const data = {
-      usuarios: this.usuarios,
-      lineasEnfasis: this.lineasEnfasis,
-      cursos: this.cursos,
-      solicitudes: this.solicitudes,
-      inscripciones: this.inscripciones,
-      evaluaciones: this.evaluaciones,
-      notas: this.notas,
-      notificaciones: this.notificaciones
-    };
-    localStorage.setItem('udem_database', JSON.stringify(data));
+  escucharCambios() {
+    // Sincronización en tiempo real
+    this.db.ref('/').on('value', (snapshot) => {
+      const data = snapshot.val() || {};
+      
+      this.usuarios = data.usuarios || [];
+      this.lineasEnfasis = data.lineasEnfasis || [];
+      this.cursos = data.cursos || [];
+      this.solicitudes = data.solicitudes || [];
+      this.inscripciones = data.inscripciones || [];
+      this.evaluaciones = data.evaluaciones || [];
+      this.notas = data.notas || [];
+      this.notificaciones = data.notificaciones || [];
+      
+      // Notificar a la interfaz que hay cambios
+      window.dispatchEvent(new CustomEvent('db-updated'));
+      console.log('🔄 Datos sincronizados automáticamente');
+    });
   }
 
-  // Inicializar con 3 usuarios base
-  inicializarDatosBase() {
+  async guardar() {
+    try {
+      await this.db.ref('/').set({
+        usuarios: this.usuarios,
+        lineasEnfasis: this.lineasEnfasis,
+        cursos: this.cursos,
+        solicitudes: this.solicitudes,
+        inscripciones: this.inscripciones,
+        evaluaciones: this.evaluaciones,
+        notas: this.notas,
+        notificaciones: this.notificaciones
+      });
+      console.log('💾 Datos guardados en Firebase');
+    } catch (error) {
+      console.error('❌ Error guardando datos:', error);
+    }
+  }
+
+  async inicializarDatosBase() {
     this.usuarios = [
       {
         id: 1,
@@ -87,7 +144,7 @@ class Database {
         estado: 'activo'
       }
     ];
-    this.guardar();
+    await this.guardar();
   }
 
   // ========== MÉTODOS DE USUARIOS ==========
@@ -108,7 +165,7 @@ class Database {
   }
 
   // ========== MÉTODOS DE LÍNEAS DE ÉNFASIS ==========
-  crearLineaEnfasis(datos) {
+  async crearLineaEnfasis(datos) {
     const id = this.lineasEnfasis.length > 0 
       ? Math.max(...this.lineasEnfasis.map(l => l.id)) + 1 
       : 1;
@@ -137,8 +194,7 @@ class Database {
     
     this.lineasEnfasis.push(linea);
     
-    // Crear el curso asociado automáticamente
-    this.crearCurso({
+    await this.crearCurso({
       codigo: datos.codigo,
       nombre: datos.nombre,
       lineaEnfasisId: id,
@@ -150,7 +206,7 @@ class Database {
       modalidad: datos.modalidad
     });
     
-    this.guardar();
+    await this.guardar();
     return linea;
   }
 
@@ -174,28 +230,28 @@ class Database {
     return this.lineasEnfasis.find(l => l.id === id);
   }
 
-  actualizarLineaEnfasis(id, datos) {
+  async actualizarLineaEnfasis(id, datos) {
     const index = this.lineasEnfasis.findIndex(l => l.id === id);
     if (index !== -1) {
       this.lineasEnfasis[index] = { ...this.lineasEnfasis[index], ...datos };
-      this.guardar();
+      await this.guardar();
       return this.lineasEnfasis[index];
     }
     return null;
   }
 
-  eliminarLineaEnfasis(id) {
+  async eliminarLineaEnfasis(id) {
     const index = this.lineasEnfasis.findIndex(l => l.id === id);
     if (index !== -1) {
       this.lineasEnfasis[index].estado = 'inactiva';
-      this.guardar();
+      await this.guardar();
       return true;
     }
     return false;
   }
 
   // ========== MÉTODOS DE CURSOS ==========
-  crearCurso(datos) {
+  async crearCurso(datos) {
     const id = this.cursos.length > 0 
       ? Math.max(...this.cursos.map(c => c.id)) + 1 
       : 1;
@@ -217,7 +273,7 @@ class Database {
     };
     
     this.cursos.push(curso);
-    this.guardar();
+    await this.guardar();
     return curso;
   }
 
@@ -241,7 +297,7 @@ class Database {
   }
 
   // ========== MÉTODOS DE SOLICITUDES ==========
-  crearSolicitud(datos) {
+  async crearSolicitud(datos) {
     const id = this.solicitudes.length > 0 
       ? Math.max(...this.solicitudes.map(s => s.id)) + 1 
       : 1;
@@ -266,15 +322,14 @@ class Database {
     
     this.solicitudes.push(solicitud);
     
-    // Crear notificación para coordinadores
-    this.crearNotificacion({
-      usuarioId: 3, // Coordinador
+    await this.crearNotificacion({
+      usuarioId: 3,
       titulo: 'Nueva solicitud de inscripción',
       mensaje: `${datos.nombre} ha solicitado inscripción a una línea de énfasis`,
       tipo: 'info'
     });
     
-    this.guardar();
+    await this.guardar();
     return solicitud;
   }
 
@@ -309,7 +364,7 @@ class Database {
     });
   }
 
-  aprobarSolicitud(solicitudId, coordinadorId) {
+  async aprobarSolicitud(solicitudId, coordinadorId) {
     const solicitud = this.solicitudes.find(s => s.id === solicitudId);
     if (!solicitud) return false;
     
@@ -317,17 +372,14 @@ class Database {
     solicitud.coordinadorId = coordinadorId;
     solicitud.fechaRespuesta = new Date().toISOString();
     
-    // Buscar el curso asociado a la línea
     const curso = this.cursos.find(c => c.lineaEnfasisId === solicitud.lineaEnfasisId && c.estado === 'activo');
     
     if (curso) {
-      // Inscribir al estudiante en el curso
-      this.inscribirEstudiante({
+      await this.inscribirEstudiante({
         estudianteId: solicitud.estudianteId,
         cursoId: curso.id
       });
       
-      // Reducir cupos
       curso.cuposDisponibles--;
       const linea = this.obtenerLineaEnfasis(solicitud.lineaEnfasisId);
       if (linea) {
@@ -335,19 +387,18 @@ class Database {
       }
     }
     
-    // Notificar al estudiante
-    this.crearNotificacion({
+    await this.crearNotificacion({
       usuarioId: solicitud.estudianteId,
       titulo: '¡Solicitud Aprobada!',
       mensaje: `Tu solicitud ha sido aprobada. Ya puedes ver el curso en tu panel.`,
       tipo: 'exito'
     });
     
-    this.guardar();
+    await this.guardar();
     return true;
   }
 
-  rechazarSolicitud(solicitudId, coordinadorId, motivo = '') {
+  async rechazarSolicitud(solicitudId, coordinadorId, motivo = '') {
     const solicitud = this.solicitudes.find(s => s.id === solicitudId);
     if (!solicitud) return false;
     
@@ -356,29 +407,28 @@ class Database {
     solicitud.observaciones = motivo;
     solicitud.fechaRespuesta = new Date().toISOString();
     
-    // Notificar al estudiante
-    this.crearNotificacion({
+    await this.crearNotificacion({
       usuarioId: solicitud.estudianteId,
       titulo: 'Solicitud Rechazada',
       mensaje: `Tu solicitud ha sido rechazada. ${motivo}`,
       tipo: 'error'
     });
     
-    this.guardar();
+    await this.guardar();
     return true;
   }
 
-  cancelarSolicitud(solicitudId) {
+  async cancelarSolicitud(solicitudId) {
     const solicitud = this.solicitudes.find(s => s.id === solicitudId);
     if (!solicitud || solicitud.estado !== 'pendiente') return false;
     
     solicitud.estado = 'cancelada';
-    this.guardar();
+    await this.guardar();
     return true;
   }
 
   // ========== MÉTODOS DE INSCRIPCIONES ==========
-  inscribirEstudiante(datos) {
+  async inscribirEstudiante(datos) {
     const id = this.inscripciones.length > 0 
       ? Math.max(...this.inscripciones.map(i => i.id)) + 1 
       : 1;
@@ -393,7 +443,7 @@ class Database {
     };
     
     this.inscripciones.push(inscripcion);
-    this.guardar();
+    await this.guardar();
     return inscripcion;
   }
 
@@ -435,7 +485,7 @@ class Database {
   }
 
   // ========== MÉTODOS DE EVALUACIONES ==========
-  crearEvaluacion(datos) {
+  async crearEvaluacion(datos) {
     const id = this.evaluaciones.length > 0 
       ? Math.max(...this.evaluaciones.map(e => e.id)) + 1 
       : 1;
@@ -448,7 +498,7 @@ class Database {
     };
     
     this.evaluaciones.push(evaluacion);
-    this.guardar();
+    await this.guardar();
     return evaluacion;
   }
 
@@ -456,30 +506,29 @@ class Database {
     return this.evaluaciones.filter(e => e.cursoId === cursoId);
   }
 
-  actualizarEvaluacion(id, datos) {
+  async actualizarEvaluacion(id, datos) {
     const index = this.evaluaciones.findIndex(e => e.id === id);
     if (index !== -1) {
       this.evaluaciones[index] = { ...this.evaluaciones[index], ...datos };
-      this.guardar();
+      await this.guardar();
       return this.evaluaciones[index];
     }
     return null;
   }
 
-  eliminarEvaluacion(id) {
+  async eliminarEvaluacion(id) {
     const index = this.evaluaciones.findIndex(e => e.id === id);
     if (index !== -1) {
-      // Eliminar también las notas asociadas
       this.notas = this.notas.filter(n => n.evaluacionId !== id);
       this.evaluaciones.splice(index, 1);
-      this.guardar();
+      await this.guardar();
       return true;
     }
     return false;
   }
 
   // ========== MÉTODOS DE NOTAS ==========
-  guardarNota(datos) {
+  async guardarNota(datos) {
     const existente = this.notas.find(n => 
       n.evaluacionId === datos.evaluacionId && 
       n.estudianteId === datos.estudianteId
@@ -503,10 +552,8 @@ class Database {
       });
     }
     
-    // Calcular nota final
     this.calcularNotaFinal(datos.estudianteId, datos.cursoId);
-    
-    this.guardar();
+    await this.guardar();
   }
 
   calcularNotaFinal(estudianteId, cursoId) {
@@ -521,7 +568,6 @@ class Database {
       }
     });
     
-    // Actualizar en inscripción
     const inscripcion = this.inscripciones.find(i => 
       i.estudianteId === estudianteId && 
       i.cursoId === cursoId
@@ -542,7 +588,7 @@ class Database {
   }
 
   // ========== MÉTODOS DE NOTIFICACIONES ==========
-  crearNotificacion(datos) {
+  async crearNotificacion(datos) {
     const id = this.notificaciones.length > 0 
       ? Math.max(...this.notificaciones.map(n => n.id)) + 1 
       : 1;
@@ -558,7 +604,7 @@ class Database {
     };
     
     this.notificaciones.push(notificacion);
-    this.guardar();
+    await this.guardar();
     return notificacion;
   }
 
@@ -568,23 +614,33 @@ class Database {
       .sort((a, b) => new Date(b.fechaCreacion) - new Date(a.fechaCreacion));
   }
 
-  marcarNotificacionLeida(id) {
+  async marcarNotificacionLeida(id) {
     const notif = this.notificaciones.find(n => n.id === id);
     if (notif) {
       notif.leida = true;
-      this.guardar();
+      await this.guardar();
     }
   }
 
   // ========== RESET BASE DE DATOS ==========
-  resetear() {
-    localStorage.removeItem('udem_database');
-    this.inicializarDatosBase();
+  async resetear() {
+    await this.db.ref('/').remove();
+    await this.inicializarDatosBase();
     location.reload();
   }
 }
 
-// Crear instancia global
+// Crear instancia global y esperar a que esté lista
 const DB = new Database();
-// Exponer DB globalmente para que el HTML lo use
 window.DB = DB;
+
+// Función helper para esperar que DB esté lista
+window.esperarDB = () => {
+  return new Promise((resolve) => {
+    if (DB.ready) {
+      resolve();
+    } else {
+      window.addEventListener('db-ready', resolve, { once: true });
+    }
+  });
+};
